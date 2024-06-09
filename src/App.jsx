@@ -1,12 +1,15 @@
 // import SignIn from "../src/Pages/SignIn"
-import OTP from "./Pages/Otp.jsx"
+// import OTP from "./Pages/Otp.jsx"
+import UserData from "./Pages/UserData.jsx"
+
 function App() {
   
 
   return (
     <>
       {/* <SignIn></SignIn> */}
-      <OTP></OTP>
+      {/* <OTP></OTP> */}
+      <UserData></UserData>
     </>
   )
 }
