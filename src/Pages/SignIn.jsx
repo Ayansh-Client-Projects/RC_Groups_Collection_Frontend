@@ -37,7 +37,8 @@ function SignIn() {
       >
         <TextField
           id="outlined-basic"
-          label="Username"
+          label="User"
+          placeholder="Enter your mobile number"
           variant="outlined"
           style= {{ width: Mq.sm ? "70vw" :"30vw" }}
         />
@@ -46,6 +47,7 @@ function SignIn() {
           hintText="Password"
           floatingLabelText="Password"
           type="password"
+          placeholder="Enter your password"
           label="Password"
           style= {{ width: Mq.sm ? "70vw" :"30vw" }}
         ></TextField>

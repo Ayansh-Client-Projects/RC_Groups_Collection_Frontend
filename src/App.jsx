@@ -1,11 +1,12 @@
-import SignIn from "../src/Pages/SignIn"
-
+// import SignIn from "../src/Pages/SignIn"
+import OTP from "./Pages/Otp.jsx"
 function App() {
   
 
   return (
     <>
-      <SignIn></SignIn>
+      {/* <SignIn></SignIn> */}
+      <OTP></OTP>
     </>
   )
 }
