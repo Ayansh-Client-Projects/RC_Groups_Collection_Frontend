@@ -1,16 +1,22 @@
-// import SignIn from "../src/Pages/SignIn"
-// import OTP from "./Pages/Otp.jsx"
-import UserData from "./Pages/UserData.jsx"
-
+import SignIn from "../src/Pages/SignIn";
+import OTP from "./Pages/Otp.jsx";
+import UserData from "./Pages/UserData.jsx";
+import Error404 from "./Pages/Error404.jsx";
+import { Route, Routes } from "react-router-dom";
+import "./index.css";
 function App() {
-  
-
+let isLoggedIn = false ;
   return (
     <>
-      {/* <SignIn></SignIn> */}
-      {/* <OTP></OTP> */}
-      <UserData></UserData>
+     <Routes>
+      <Route  path= "/" element={isLoggedIn== true ? <UserData/>:<SignIn/>}></Route>
+      <Route  path= "/signin" element={<SignIn/>}></Route>
+      <Route path="/otp" element={ <OTP/> }></Route>
+      <Route path= "/form" element={<UserData/>}></Route>
+      <Route path="/*" element={<Error404 />} />
+    </Routes>
     </>
+    
   )
 }
 
