@@ -39,7 +39,7 @@ function SignIn() {
           id="outlined-basic"
           label="Username"
           variant="outlined"
-          style= {{ width: Mq.sm ? "70vw" :"23vw" }}
+          style= {{ width: Mq.sm ? "70vw" :"30vw" }}
         />
         <TextField
           id="password"
@@ -47,10 +47,10 @@ function SignIn() {
           floatingLabelText="Password"
           type="password"
           label="Password"
-          style= {{ width: Mq.sm ? "70vw" :"23vw" }}
+          style= {{ width: Mq.sm ? "70vw" :"30vw" }}
         ></TextField>
 
-        <Button variant="contained"  style= {{ width: Mq.sm ? "70vw" :"23vw" }}>
+        <Button variant="contained"  style= {{ width: Mq.sm ? "70vw" :"30vw" }}>
           Sign in
         </Button>
       </div>
