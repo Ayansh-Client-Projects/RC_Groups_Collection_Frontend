@@ -45,13 +45,10 @@ function UserData() {
     if (result.valid == false) {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
-    }
-    else {
+    } else {
       navigate("/otp");
       // navigate("/form");
-
     }
-
   }
 
   return (
@@ -135,7 +132,7 @@ function UserData() {
             >
               <MenuItem value={"CASH"}>CASH</MenuItem>
               <MenuItem value={"UPI"}>UPI</MenuItem>
-              <MenuItem value={"NIFT"}>NIFT</MenuItem>
+              <MenuItem value={"NEFT"}>NEFT</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -162,8 +159,8 @@ function UserData() {
       </div>
       <Snackbar
         anchorOrigin={{
-          vertical: Mq.sm? "top": "bottom",
-          horizontal: Mq.sm? "center": "right",
+          vertical: Mq.sm ? "top" : "bottom",
+          horizontal: Mq.sm ? "center" : "right",
         }}
         autoHideDuration={2000}
         onClose={() => {
