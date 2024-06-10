@@ -13,6 +13,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { BsCalendar2Date } from "react-icons/bs";
+import Validation from "../Services/Validation";
+import { useState } from "react";
+import Snackbar from "@mui/material/Snackbar";
 function UserData() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
@@ -25,10 +28,24 @@ function UserData() {
     setRetailer(event.target.value);
   };
   const [payment, setPayment] = React.useState("");
-
   const paymentMode = (event) => {
     setPayment(event.target.value);
   };
+
+  const [invoiceNumber, setinvoiceNumber] = useState("");
+  const [amount, setamount] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+
+  function userDataValidation() {
+    let result = Validation.validateForm(invoiceNumber, amount);
+    if (result.valid == false) {
+      setErrorMsg(result.message);
+      setOpenSnackbar(true);
+    }
+  }
+
   return (
     <div
       style={{
@@ -79,13 +96,16 @@ function UserData() {
           placeholder="Enter Invoice"
           variant="outlined"
           style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          onChange={(e) => {
+            setinvoiceNumber(e.target.value);
+          }}
         />
         <div className="Calender" style={{ marginTop: "-5vh" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={["DatePicker"]}>
               <DemoItem label="Responsive variant">
                 <DatePicker
-                // openPickerIcon = {<BsCalendar2Date style={{color:"black",height:"10px",width:"10px"}}/>}
+                  // openPickerIcon = {<BsCalendar2Date style={{color:"black",height:"10px",width:"10px"}}/>}
                   defaultValue={dayjs("2022-04-17")}
                   sx={{ width: Mq.sm ? "70vw" : "30vw" }}
                   components={{ openPickerIcon: BsCalendar2Date }}
@@ -118,11 +138,32 @@ function UserData() {
           placeholder="Enter Total Amount"
           variant="outlined"
           style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          onChange={(e) => {
+            setamount(e.target.value);
+          }}
         />
-        <Button variant="contained" style={{ width: Mq.sm ? "70vw" : "30vw" }}>
+        <Button
+          variant="contained"
+          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          onClick={() => {
+            userDataValidation();
+          }}
+        >
           Send Messege
         </Button>
       </div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        autoHideDuration={2000}
+        onClose={() => {
+          setOpenSnackbar(false);
+        }}
+        open={openSnackbar}
+        message={errorMsg}
+      />
     </div>
   );
 }
