@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import Error from "../assets/Error.svg"
 function Error404() {
   const navigate = useNavigate();
   function navigateToSignIn() {
@@ -20,10 +20,10 @@ function Error404() {
       }}
     >
       <img
-        src="src/assets/Error.svg"
+        src={Error}
         style={{ height: "50vh", width: "50vw" }}
       />
-      <p style={{ color: "black" }}>
+      <p style={{ color: "black" , marginTop:"5vh"}}>
         {" "}
         OOPS!! Go to{" "}
         <span

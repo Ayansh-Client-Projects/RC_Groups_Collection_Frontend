@@ -51,7 +51,7 @@ function SignUp() {
         className="Container"
         style={{
           // background:"black",
-          height: "50vh",
+          height: Mq.sm ? "60vh":"50vh",
           width: "50vw",
           display: "flex",
           alignItems: "center",
@@ -111,14 +111,14 @@ function SignUp() {
             width: Mq.sm ? "60vw" : "",
           }}
         >
-          Already a user ?{" "}
+          Already a user ?
           <span
             style={{ color: "blue", fontWeight: "600" }}
             onClick={() => {
               navigateToSignIn();
             }}
           >
-            Signin
+           {" "}Signin
           </span>
         </p>
       </div>
