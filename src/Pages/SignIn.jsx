@@ -30,6 +30,7 @@ function SignIn() {
     } else {
       navigate("/otp");
     }
+    e.preventDefault();
   }
   return (
     <div
@@ -43,12 +44,12 @@ function SignIn() {
         flexDirection: Mq.sm ? "column" : "row",
       }}
     >
-      <img src={SigninLogo} style={{ height: "50%", width: "50%" }} />
+      <img src={SigninLogo} style={{height: "50%", width:Mq.sm? "70%": "50%"}} />
       <div
         className="Container"
         style={{
           // background:"black",
-          height: "30vh",
+          height: "40vh",
           width: "50vw",
           display: "flex",
           alignItems: "center",
@@ -78,17 +79,7 @@ function SignIn() {
             setPassword(e.target.value);
           }}
         ></TextField>
-        <div>
-          <p style={{ color: "black" }}>Don't You have an account ?</p>
-          <p
-            style={{ color: "blue" }}
-            onClick={() => {
-              navigateToSignUp();
-            }}
-          >
-            Signup
-          </p>
-        </div>
+
         <Button
           variant="contained"
           style={{ width: Mq.sm ? "70vw" : "30vw" }}
@@ -98,7 +89,28 @@ function SignIn() {
         >
           Sign in
         </Button>
+        <div
+          style={{
+            display: "flex",
+            width: Mq.sm ? "80vw" : "",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ color: "black" }}>
+            Don't have an account ?{" "}
+            <span
+              style={{ color: "blue",fontWeight:"600" }}
+              onClick={() => {
+                navigateToSignUp();
+              }}
+            >
+              Signup
+            </span>
+          </p>
+        </div>
       </div>
+
       <Snackbar
         anchorOrigin={{
           vertical: "top",

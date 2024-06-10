@@ -5,7 +5,7 @@ import SigninLogo from "../assets/Signinlogo.svg";
 import { useMediaQuery } from "@mui/material";
 import Validation from "../Services/Validation";
 import { useNavigate } from "react-router-dom";
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar from "@mui/material/Snackbar";
 
 function SignUp() {
   const Mq = {
@@ -19,13 +19,14 @@ function SignUp() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
-
+  function navigateToSignIn() {
+    navigate("/signin");
+  }
   function signUpUser() {
     let result = Validation.signUpValidation(username, phoneNum, password);
     if (result.valid == false) {
-      setErrorMsg (result.message) ;
-      setOpenSnackbar(true)
-
+      setErrorMsg(result.message);
+      setOpenSnackbar(true);
     } else {
       navigate("/otp");
     }
@@ -42,7 +43,10 @@ function SignUp() {
         flexDirection: Mq.sm ? "column" : "row",
       }}
     >
-      <img src={SigninLogo} style={{ height: "50%", width: "50%" }} />
+      <img
+        src={SigninLogo}
+        style={{ height: "55%", width: Mq.sm ? "70%" : "50%" }}
+      />
       <div
         className="Container"
         style={{
@@ -98,20 +102,37 @@ function SignUp() {
         >
           Sign Up
         </Button>
+        <p
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "black",
+            width: Mq.sm ? "60vw" : "",
+          }}
+        >
+          Already a user ?{" "}
+          <span
+            style={{ color: "blue", fontWeight: "600" }}
+            onClick={() => {
+              navigateToSignIn();
+            }}
+          >
+            Signin
+          </span>
+        </p>
       </div>
       <Snackbar
-      anchorOrigin= {
-        {
-          "vertical":"top",
-          "horizontal":"center"
-        }
-      }
-      autoHideDuration = {2000}
-      onClose={()=>{
-        setOpenSnackbar(false)
-      }}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        autoHideDuration={2000}
+        onClose={() => {
+          setOpenSnackbar(false);
+        }}
         open={openSnackbar}
-        message= {errorMsg}
+        message={errorMsg}
       />
     </div>
   );
