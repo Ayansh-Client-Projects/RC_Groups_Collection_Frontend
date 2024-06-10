@@ -16,6 +16,8 @@ import { BsCalendar2Date } from "react-icons/bs";
 import Validation from "../Services/Validation";
 import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
+import { useNavigate } from "react-router-dom";
+
 function UserData() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
@@ -37,13 +39,19 @@ function UserData() {
   const [errorMsg, setErrorMsg] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
-
+  const navigate = useNavigate();
   function userDataValidation() {
     let result = Validation.validateForm(invoiceNumber, amount);
     if (result.valid == false) {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     }
+    else {
+      navigate("/otp");
+      // navigate("/form");
+
+    }
+
   }
 
   return (
@@ -149,13 +157,13 @@ function UserData() {
             userDataValidation();
           }}
         >
-          Send Messege
+          Send OTP
         </Button>
       </div>
       <Snackbar
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: Mq.sm? "top": "bottom",
+          horizontal: Mq.sm? "center": "right",
         }}
         autoHideDuration={2000}
         onClose={() => {

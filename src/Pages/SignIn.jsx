@@ -28,7 +28,9 @@ function SignIn() {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     } else {
-      navigate("/otp");
+      // navigate("/otp");
+      navigate("/form");
+
     }
     e.preventDefault();
   }
@@ -113,8 +115,8 @@ function SignIn() {
 
       <Snackbar
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: Mq.sm? "top": "bottom",
+          horizontal: Mq.sm? "center": "right",
         }}
         autoHideDuration={2000}
         onClose={() => {

@@ -11,6 +11,7 @@ function Otp() {
   // const [phoneNum, setphoneNum] = useState();
   const [errorMsg, setErrorMsg] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  // const [successMsg, setSuccessMsg] = useState("");
 
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
@@ -24,7 +25,9 @@ function Otp() {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     } else {
-      navigate("/form");
+      setErrorMsg(result.message)
+      setOpenSnackbar(true);
+      // navigate("/form");
     }
   }
 
@@ -59,7 +62,7 @@ function Otp() {
             color: "black",
             display: "flex",
             width: Mq.sm ? "72vw" : "",
-            alignItems: Mq.sm ? "start" : "center",
+            alignItems:  "center",
             justifyContent: "center",
             flexDirection: "column",
           }}
@@ -82,7 +85,7 @@ function Otp() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: Mq.sm ? "80vw" : "50vw",
+              width: "60vw",
               flexDirection: "column",
             }}
           >
@@ -143,8 +146,8 @@ function Otp() {
       </div>
       <Snackbar
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: Mq.sm? "top": "bottom",
+          horizontal: Mq.sm? "center": "right",
         }}
         autoHideDuration={2000}
         onClose={() => {

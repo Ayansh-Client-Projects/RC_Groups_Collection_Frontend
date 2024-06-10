@@ -124,8 +124,8 @@ function SignUp() {
       </div>
       <Snackbar
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: Mq.sm? "top": "bottom",
+          horizontal: Mq.sm? "center": "right",
         }}
         autoHideDuration={2000}
         onClose={() => {
