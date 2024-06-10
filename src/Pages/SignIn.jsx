@@ -3,11 +3,16 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SigninLogo from "../assets/Signinlogo.svg";
 import { useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 function SignIn() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
     lg: useMediaQuery("(min-width:1001px)"),
   };
+  const navigate = useNavigate();
+  function navigateToSignUp(){
+    navigate("/signup");
+  }
 
   return (
     <div 
@@ -51,7 +56,10 @@ function SignIn() {
           label="Password"
           style= {{ width: Mq.sm ? "70vw" :"30vw" }}
         ></TextField>
-
+     <div>
+     <p style={{color : "black"}}>Don't You have an account ?</p>
+       <p style={{color : "blue"}} onClick={()=>{navigateToSignUp()}}> Signup</p>
+      </div> 
         <Button variant="contained"  style= {{ width: Mq.sm ? "70vw" :"30vw" }}>
           Sign in
         </Button>
