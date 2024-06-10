@@ -100,6 +100,16 @@ function SignUp() {
         </Button>
       </div>
       <Snackbar
+      anchorOrigin= {
+        {
+          "vertical":"top",
+          "horizontal":"center"
+        }
+      }
+      autoHideDuration = {2000}
+      onClose={()=>{
+        setOpenSnackbar(false)
+      }}
         open={openSnackbar}
         message= {errorMsg}
       />
