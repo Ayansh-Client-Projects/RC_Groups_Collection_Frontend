@@ -112,7 +112,7 @@ class Validation {
       return result1;
     }
     let result2 = this.validateAmount(amount);
-    if (result2 == false) {
+    if (result2.valid == false) {
       return result2;
     } else {
       return {
@@ -120,6 +120,27 @@ class Validation {
         message: "Valid Information",
       };
     }
+  }
+
+  static validateOTP(otp) {
+    const otpRegex = /^\d{4}$/;
+    if (otpRegex.test(otp)) {
+      return {
+        valid: true,
+        message: "OTP is valid.",
+      };
+    } else {
+      return {
+        valid: false,
+        message: "OTP must be exactly 4 digits.",
+      };
+    }
+  }
+
+  static verifyOtp(otp) {
+    let result = this.validateOTP(otp);
+
+    return result;
   }
 }
 export default Validation;
