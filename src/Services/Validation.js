@@ -75,10 +75,20 @@ let result1 = this.validateUserName(user)
 }
 
 
-// static validateUserName () {
-    
-//     }
-
+static signInValidation (mobile,password) {
+    let result1 = this.validatePhnNum(mobile)
+    if (result1.valid == false){
+        return result1 
+    }
+    let result2 = this.validatePassword(password)
+   if (result2.valid == false)
+    {
+        return result2
+    }
+    return { valid : true,
+        message :" Valid User"
+    }
+}
 
 }
 export default Validation;
