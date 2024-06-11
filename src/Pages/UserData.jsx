@@ -44,13 +44,15 @@ function UserData() {
   };
 
   const navigate = useNavigate();
+
+  
   function userDataValidation() {
     let result = Validation.validateForm(invoiceNumber, amount);
     if (result.valid == false) {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     } else {
-      navigate("/otp");
+      // navigate("/otp");
       // navigate("/form");
     }
   }
@@ -261,9 +263,19 @@ function UserData() {
                         width: Mq.sm ? "80vw" : "40vw",
                         marginTop: Mq.sm ? "0vh" : "0",
                       }}
-                      format="DD-MM-YYYY"
+                      format="DD/MM/YYYY"
                       onChange={(e) => {
-                        console.log(e);
+                        console.log(e.format());
+                        console.log(e.date());
+                        console.log(e.get());
+                        console.log(e.locale());
+                        console.log(e.toDate());
+                        console.log(e.toISOString());
+                        console.log(e.utcOffset());
+                        console.log(e.valueOf());
+                        console.log(e.toString());
+                       
+
                       }}
                       components={{ openPickerIcon: BsCalendar2Date }}
                     />

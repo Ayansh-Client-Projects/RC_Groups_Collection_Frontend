@@ -104,23 +104,7 @@ class Validation {
       };
     }
   }
-
-  static validateForm(invoiceNumber, amount) {
-    let result1 = this.validateInvoiceNumber(invoiceNumber);
-    if (result1.valid == false) {
-      return result1;
-    }
-    let result2 = this.validateAmount(amount);
-    if (result2.valid == false) {
-      return result2;
-    } else {
-      return {
-        valid: true,
-        message: "Valid Information",
-      };
-    }
-  }
-
+  
   static validateOTP(otp) {
     const otpRegex = /^\d{4}$/;
     if (otpRegex.test(otp)) {
@@ -229,5 +213,28 @@ class Validation {
       };
     }
   }
+
+  static validateForm(invoiceNumber, amount) {
+    let result1 = this.validateInvoiceNumber(invoiceNumber);
+    if (result1.valid == false) {
+      return result1;
+    }
+    let result2 = this.validateAmount(amount);
+    if (result2.valid == false) {
+      return result2;
+    } else {
+      return {
+        valid: true,
+        message: "Valid Information",
+      };
+    }
+
+
+  }
+
+
+
+
+
 }
 export default Validation;
