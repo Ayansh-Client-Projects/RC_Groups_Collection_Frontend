@@ -104,7 +104,7 @@ class Validation {
       };
     }
   }
-  
+
   static validateOTP(otp) {
     const otpRegex = /^\d{4}$/;
     if (otpRegex.test(otp)) {
@@ -214,13 +214,17 @@ class Validation {
     }
   }
 
-  static validateForm(invoiceNumber, amount) {
-    let result1 = this.validateInvoiceNumber(invoiceNumber);
+  static validateCheque(ChequeNumber, BankName, Date) {
+    let result1 = this.validateChequeNumber(ChequeNumber);
     if (result1.valid == false) {
       return result1;
     }
-    let result2 = this.validateAmount(amount);
+    let result2 = this.validateBankName(BankName);
     if (result2.valid == false) {
+      return result2;
+    }
+    let result3 = this.validateDate(Date);
+    if (result3.valid == false) {
       return result2;
     } else {
       return {
@@ -228,13 +232,69 @@ class Validation {
         message: "Valid Information",
       };
     }
-
-
   }
 
+  static validateDealerId(dealerId) {
+    const dealerIdRegex = /^[a-fA-F0-9]{24}$/;
+    if (dealerIdRegex.test(dealerId)) {
+      return {
+        valid: true,
+        message: "Dealer ID is valid.",
+      };
+    } else {
+      return {
+        valid: false,
+        message: "Invalid Dealer ID.",
+      };
+    }
+  }
 
+  static validateForm(
+    invoiceNumber,
+    amount,
+    payment,
+    invdate,
+    cheqdate,
+    bankname,
+    chequenum,
+    upiid,
+    retailer
+  ) {
+    let result1 = this.validateInvoiceNumber(invoiceNumber);
+    if (result1.valid == false) {
+      return result1;
+    }
+    let result2 = this.validateAmount(amount);
+    if (result2.valid == false) {
+      return result2;
+    }
 
+    let result3 = this.validateDate(invdate);
+    if (result3.valid == false) {
+      return result3;
+    }
 
+    if (payment.toLowerCase() == "upi") {
+      let result1 = this.validateUpiId(upiid);
+      if (result1.valid == false) {
+        return result1;
+      }
+    }
+    if (payment.toLowerCase() == "cheque") {
+      let result1 = this.validateCheque(chequenum, bankname, cheqdate);
+      if (result1.valid == false) {
+        return result1;
+      }
+    }
+    let result4 = this.validateDealerId(retailer);
+    if (result4.valid == false) {
+      return result4;
+    }
 
+    return {
+      valid: true,
+      message: "Valid Information",
+    };
+  }
 }
 export default Validation;

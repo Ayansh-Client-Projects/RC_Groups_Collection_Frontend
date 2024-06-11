@@ -33,12 +33,11 @@ function SignIn() {
       // navigate("/otp");
       signInUserApiCall();
     }
-    e.preventDefault();
   }
 
   function signInUserApiCall() {
     axios
-      .post(`${ApiServices.BASE_URL}/rc-group/salesman/login`, {
+      .post( ApiServices.LOGIN_URL,{
         mobileNumber: phoneNum,
         password: password,
       })

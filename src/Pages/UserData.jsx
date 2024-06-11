@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import dayjs from "dayjs";
+import axios from "axios";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -17,19 +17,26 @@ import Validation from "../Services/Validation";
 import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import { useNavigate } from "react-router-dom";
-
+import LocalStorage from "../Services/LocalStorage.js";
+import ApiServices from "../Services/Api.js";
 function UserData() {
   const [retailer, setRetailer] = React.useState("");
+  const [retailers, setRetailers] = React.useState([]);
   const [payment, setPayment] = React.useState("");
   const [invoiceNumber, setinvoiceNumber] = useState("");
   const [amount, setamount] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [upiId, setUpiId] = useState("");
-  const [cheqno, setcheqno] = useState("");
-  const [bank, setBank] = useState("");
-  const [cheqDate, setCheqDate] = useState("");
-  const [invDate, setInvDate] = useState("");
+  const [upiid, setUpiId] = useState("");
+  const [chequenum, setcheqno] = useState("");
+  const [bankname, setBank] = useState("");
+  const [cheqdate, setCheqDate] = useState("");
+  const [invdate, setInvDate] = useState("");
+
+  useEffect(() => {
+    let data = LocalStorage.getDealers();
+    setRetailers(data);
+  }, []);
 
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
@@ -45,16 +52,76 @@ function UserData() {
 
   const navigate = useNavigate();
 
-  
   function userDataValidation() {
-    let result = Validation.validateForm(invoiceNumber, amount);
+    let result = Validation.validateForm(
+      invoiceNumber,
+      amount,
+      payment,
+      invdate,
+      cheqdate,
+      bankname,
+      chequenum,
+      upiid,
+      retailer
+    );
     if (result.valid == false) {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     } else {
+      sendMessageApiCall();
       // navigate("/otp");
       // navigate("/form");
     }
+  }
+  function getFinalUserData() {
+    let data = {
+      invoice: invoiceNumber,
+      invoiceDate: invdate,
+      mode: payment,
+      amount: amount,
+      dealerId: retailer,
+      additionalPaymentDetails: null,
+    };
+
+    if (payment.toLowerCase() == "cheque") {
+      data.additionalPaymentDetails = {
+        chequeNumber: chequenum,
+        chequeDate: cheqdate,
+        bankName: bankname,
+      };
+    }
+    if (payment.toLowerCase() == "upi") {
+      data.additionalPaymentDetails = {
+        UpiAddress: upiid,
+      };
+    }
+    return data;
+  }
+  function sendMessageApiCall() {
+    let data = getFinalUserData();
+    let token = LocalStorage.getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
+      },
+    };
+    axios
+      .post(ApiServices.SEND_MSG, data, config)
+      .then((response) => {
+        if (response.status == 200) {
+        } else {
+          setErrorMsg("Something Went Wrong");
+          setOpenSnackbar(true);
+        }
+      })
+
+      .catch((error) => {
+        setErrorMsg("Something Went Wrong");
+        setOpenSnackbar(true);
+      });
   }
 
   return (
@@ -108,9 +175,9 @@ function UserData() {
                 label="Name"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>XYZ</MenuItem>
-                <MenuItem value={20}>PQR</MenuItem>
-                <MenuItem value={30}>ABC</MenuItem>
+                {retailers.map((value) => (
+                  <MenuItem value={value.dealerId}>{value.dealerName}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
@@ -120,10 +187,11 @@ function UserData() {
               <DemoContainer components={["DatePicker"]}>
                 <DemoItem label="Responsive variant">
                   <DatePicker
-                    // openPickerIcon = {<BsCalendar2Date style={{color:"black",height:"10px",width:"10px"}}/>}
-                    defaultValue={dayjs("2022-04-17")}
                     sx={{ width: Mq.sm ? "80vw" : "40vw" }}
                     components={{ openPickerIcon: BsCalendar2Date }}
+                    onChange={(e) => {
+                      setInvDate(e.format("DD-MM-YYYY"));
+                    }}
                   />
                 </DemoItem>
               </DemoContainer>
@@ -257,25 +325,13 @@ function UserData() {
                 <DemoContainer components={["DatePicker"]}>
                   <DemoItem label="Responsive variant">
                     <DatePicker
-                      // openPickerIcon = {<BsCalendar2Date style={{color:"black",height:"10px",width:"10px"}}/>}
-                      defaultValue={dayjs("2022-04-17")}
                       sx={{
                         width: Mq.sm ? "80vw" : "40vw",
                         marginTop: Mq.sm ? "0vh" : "0",
                       }}
-                      format="DD/MM/YYYY"
+                      format="DD-MM-YYYY"
                       onChange={(e) => {
-                        console.log(e.format());
-                        console.log(e.date());
-                        console.log(e.get());
-                        console.log(e.locale());
-                        console.log(e.toDate());
-                        console.log(e.toISOString());
-                        console.log(e.utcOffset());
-                        console.log(e.valueOf());
-                        console.log(e.toString());
-                       
-
+                        setCheqDate(e.format("DD-MM-YYYY"));
                       }}
                       components={{ openPickerIcon: BsCalendar2Date }}
                     />
