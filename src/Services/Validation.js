@@ -32,7 +32,7 @@ class Validation {
   }
 
   static validatePassword(password) {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+    const passwordRegex = /^.{3,}$/;
     if (passwordRegex.test(password)) {
       return {
         valid: true,
@@ -41,11 +41,11 @@ class Validation {
     } else {
       return {
         valid: false,
-        message:
-          "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one special character.",
+        message: "Password must be at least 3 characters long.",
       };
     }
   }
+  
 
   static signUpValidation(user, mobile, password) {
     let result1 = this.validateUserName(user);

@@ -8,6 +8,7 @@ import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import axios from "axios";
 import ApiServices from "../Services/Api.js";
+import StoreApi from "../Services/LocalStorage.js";
 function SignIn() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
@@ -30,31 +31,33 @@ function SignIn() {
       setOpenSnackbar(true);
     } else {
       // navigate("/otp");
-      navigate("/form");
+      signInUserApiCall();
     }
     e.preventDefault();
   }
 
-  
+  function signInUserApiCall() {
+    axios
+      .post(`${ApiServices.BASE_URL}/rc-group/salesman/login`, {
+        mobileNumber: phoneNum,
+        password: password,
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          let data = response.data["PayLoad"];
+          StoreApi.setUserData(data);
+          navigate("/form");
+        } else {
+          setErrorMsg("Something Went Wrong");
+          setOpenSnackbar(true);
+        }
+      })
 
-function signInUserApiCall(){
-axios
-    .post(`${ApiServices.BASE_URL}/rc-group/salesman/login`, {
-      // Number: { phoneNum },
-      // Password: { password },
-      mobileNumber: "6291924402" ,
-      password: "abhishek@123" ,
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
-}
-
-
+      .catch((error) => {
+        setErrorMsg("Something Went Wrong");
+        setOpenSnackbar(true);
+      });
+  }
 
   return (
     <div
@@ -111,7 +114,7 @@ axios
           variant="contained"
           style={{ width: Mq.sm ? "70vw" : "30vw" }}
           onClick={() => {
-            signInUserApiCall();
+            signInUser();
           }}
         >
           Sign in
