@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Validation from "../Services/Validation";
 import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
-
+import axios from "axios";
+import ApiServices from "../Services/Api.js";
 function SignIn() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
@@ -30,10 +31,31 @@ function SignIn() {
     } else {
       // navigate("/otp");
       navigate("/form");
-
     }
     e.preventDefault();
   }
+
+  
+
+function signInUserApiCall(){
+axios
+    .post(`${ApiServices.BASE_URL}/rc-group/salesman/login`, {
+      // Number: { phoneNum },
+      // Password: { password },
+      mobileNumber: "6291924402" ,
+      password: "abhishek@123" ,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+}
+
+
+
   return (
     <div
       style={{
@@ -46,7 +68,10 @@ function SignIn() {
         flexDirection: Mq.sm ? "column" : "row",
       }}
     >
-      <img src={SigninLogo} style={{height: "50%", width:Mq.sm? "70%": "50%"}} />
+      <img
+        src={SigninLogo}
+        style={{ height: "50%", width: Mq.sm ? "70%" : "50%" }}
+      />
       <div
         className="Container"
         style={{
@@ -86,7 +111,7 @@ function SignIn() {
           variant="contained"
           style={{ width: Mq.sm ? "70vw" : "30vw" }}
           onClick={() => {
-            signInUser();
+            signInUserApiCall();
           }}
         >
           Sign in
@@ -102,7 +127,7 @@ function SignIn() {
           <p style={{ color: "black" }}>
             Don't have an account ?{" "}
             <span
-              style={{ color: "blue",fontWeight:"600" }}
+              style={{ color: "blue", fontWeight: "600" }}
               onClick={() => {
                 navigateToSignUp();
               }}
@@ -115,8 +140,8 @@ function SignIn() {
 
       <Snackbar
         anchorOrigin={{
-          vertical: Mq.sm? "top": "bottom",
-          horizontal: Mq.sm? "center": "right",
+          vertical: Mq.sm ? "top" : "bottom",
+          horizontal: Mq.sm ? "center" : "right",
         }}
         autoHideDuration={2000}
         onClose={() => {

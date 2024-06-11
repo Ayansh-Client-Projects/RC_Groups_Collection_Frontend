@@ -1,0 +1,10 @@
+axios.post('https://api.example.com/data', {
+  name: 'John Doe',
+  email: 'john.doe@example.com'
+})
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
