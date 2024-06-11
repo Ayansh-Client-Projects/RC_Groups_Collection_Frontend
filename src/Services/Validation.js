@@ -45,7 +45,6 @@ class Validation {
       };
     }
   }
-  
 
   static signUpValidation(user, mobile, password) {
     let result1 = this.validateUserName(user);
@@ -141,6 +140,94 @@ class Validation {
     let result = this.validateOTP(otp);
 
     return result;
+  }
+
+  static validateDate(date) {
+    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4})$/;
+
+    if (!dateRegex.test(date)) {
+      return {
+        valid: false,
+        message: "Date must be in DD-MM-YYYY format.",
+      };
+    }
+
+    const [day, month, year] = date.split("-").map(Number);
+
+    const isValidDay = (day, month, year) => {
+      if (month === 2) {
+        const isLeapYear =
+          (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+        if (isLeapYear) {
+          return day <= 29;
+        } else {
+          return day <= 28;
+        }
+      }
+
+      const monthsWith30Days = [4, 6, 9, 11];
+      if (monthsWith30Days.includes(month)) {
+        return day <= 30;
+      }
+
+      return day <= 31;
+    };
+
+    if (!isValidDay(day, month, year)) {
+      return {
+        valid: false,
+        message: "Invalid day for the given month and year.",
+      };
+    }
+
+    return {
+      valid: true,
+      message: "Date is valid.",
+    };
+  }
+
+  static validateUpiId(UpiId) {
+    const UpiIdRegex = /^[a-zA-Z0-9-_]{5,50}$/;
+    if (UpiIdRegex.test(UpiId)) {
+      return {
+        valid: true,
+        message: "UpiId is valid.",
+      };
+    } else {
+      return {
+        valid: false,
+        message: "Invalid Upi id  ",
+      };
+    }
+  }
+  static validateChequeNumber(ChequeNumber) {
+    const ChequeNumberRegex = /^[a-zA-Z0-9-_]{5,15}$/;
+    if (ChequeNumberRegex.test(ChequeNumber)) {
+      return {
+        valid: true,
+        message: "Cheque number is valid.",
+      };
+    } else {
+      return {
+        valid: false,
+        message:
+          "Cheque number must be 5-15 characters long and can only contain letters, numbers, dashes, and underscores.",
+      };
+    }
+  }
+  static validateBankName(BankName) {
+    const BankNameRegex = /^[a-zA-Z0-9-_]{3,15}$/;
+    if (BankNameRegex.test(BankName)) {
+      return {
+        valid: true,
+        message: "BankName is valid",
+      };
+    } else {
+      return {
+        valid: false,
+        message: " Invalid BankName",
+      };
+    }
   }
 }
 export default Validation;

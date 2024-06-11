@@ -15,9 +15,9 @@ function SignIn() {
     lg: useMediaQuery("(min-width:1001px)"),
   };
   const navigate = useNavigate();
-  function navigateToSignUp() {
-    navigate("/signup");
-  }
+  // function navigateToSignUp() {
+  //   navigate("/signup");
+  // }
 
   const [phoneNum, setPhoneNum] = useState("");
   const [password, setPassword] = useState("");
@@ -127,7 +127,7 @@ function SignIn() {
             alignItems: "center",
           }}
         >
-          <p style={{ color: "black" }}>
+          {/* <p style={{ color: "black" }}>
             Don't have an account ?{" "}
             <span
               style={{ color: "blue", fontWeight: "600" }}
@@ -137,7 +137,7 @@ function SignIn() {
             >
               Signup
             </span>
-          </p>
+          </p> */}
         </div>
       </div>
 

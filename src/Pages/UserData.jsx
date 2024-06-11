@@ -19,25 +19,29 @@ import Snackbar from "@mui/material/Snackbar";
 import { useNavigate } from "react-router-dom";
 
 function UserData() {
+  const [retailer, setRetailer] = React.useState("");
+  const [payment, setPayment] = React.useState("");
+  const [invoiceNumber, setinvoiceNumber] = useState("");
+  const [amount, setamount] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [upiId, setUpiId] = useState("");
+  const [cheqno, setcheqno] = useState("");
+  const [bank, setBank] = useState("");
+  const [cheqDate, setCheqDate] = useState("");
+  const [invDate, setInvDate] = useState("");
+
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
     lg: useMediaQuery("(min-width:770px)"),
   };
 
-  const [retailer, setRetailer] = React.useState("");
-
   const handleChange = (event) => {
     setRetailer(event.target.value);
   };
-  const [payment, setPayment] = React.useState("");
   const paymentMode = (event) => {
     setPayment(event.target.value);
   };
-
-  const [invoiceNumber, setinvoiceNumber] = useState("");
-  const [amount, setamount] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const navigate = useNavigate();
   function userDataValidation() {
@@ -109,7 +113,7 @@ function UserData() {
             </FormControl>
           </Box>
 
-          <div className="Calender" style={{ marginTop: Mq.sm ? "0" : "-5vh" }}>
+          <div className="InvDate" style={{ marginTop: Mq.sm ? "0" : "-5vh" }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DemoItem label="Responsive variant">
@@ -137,7 +141,7 @@ function UserData() {
           <TextField
             id="outlined-basic"
             label="Invoice"
-            placeholder="Enter Invoice"
+            placeholder="ex:INV-1234"
             variant="outlined"
             style={{ width: Mq.sm ? "70vw" : "40vw", marginRight: "5vw" }}
             onChange={(e) => {
@@ -190,15 +194,15 @@ function UserData() {
           {payment.toLowerCase() == "upi" ? (
             <TextField
               id="outlined-basic"
-              label="UPI Id"
-              placeholder="Enter Upi Id"
+              label="UPI ID"
+              placeholder="ex:T240531*********5536"
               variant="outlined"
               style={{
                 width: Mq.sm ? "80vw" : "40vw",
                 marginTop: Mq.sm ? "5vh" : "0",
               }}
               onChange={(e) => {
-                setamount(e.target.value);
+                setUpiId(e.target.value);
               }}
             />
           ) : payment.toLowerCase() == "cheque" ? (
@@ -212,7 +216,7 @@ function UserData() {
                 marginTop: Mq.sm ? "5vh" : "0",
               }}
               onChange={(e) => {
-                setamount(e.target.value);
+                setcheqno(e.target.value);
               }}
             />
           ) : (
@@ -233,8 +237,8 @@ function UserData() {
           >
             <TextField
               id="outlined-basic"
-              label="Bank Details"
-              placeholder="Enter Bank Details"
+              label="Bank"
+              placeholder="Enter Bank Name"
               variant="outlined"
               style={{
                 width: Mq.sm ? "80vw" : "40vw",
@@ -242,11 +246,11 @@ function UserData() {
                 marginRight: Mq.sm ? "0" : "5vw",
               }}
               onChange={(e) => {
-                setinvoiceNumber(e.target.value);
+                setBank(e.target.value);
               }}
             />
 
-            <div className="Calender" style={{ marginTop: "-5vh" }}>
+            <div className="CheqDate" style={{ marginTop: "-5vh" }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker"]}>
                   <DemoItem label="Responsive variant">
@@ -256,6 +260,10 @@ function UserData() {
                       sx={{
                         width: Mq.sm ? "80vw" : "40vw",
                         marginTop: Mq.sm ? "0vh" : "0",
+                      }}
+                      format="DD-MM-YYYY"
+                      onChange={(e) => {
+                        console.log(e);
                       }}
                       components={{ openPickerIcon: BsCalendar2Date }}
                     />
