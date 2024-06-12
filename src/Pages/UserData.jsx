@@ -38,7 +38,7 @@ function UserData() {
   //   let data = LocalStorage.getDealers();
   //   setRetailers(data);
   // }, []);
-  const delay = ms => new Promise(res => setTimeout(res, ms));
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
     lg: useMediaQuery("(min-width:770px)"),
@@ -109,21 +109,19 @@ function UserData() {
     };
     axios
       .post(ApiServices.SEND_MSG, data, config)
-      .then(async(response) => {
+      .then(async (response) => {
         if (response.status == 200) {
           let transactionId = response.data.PayLoad.transactionId;
           navigate(`/otp?transactionId=${transactionId}`);
-        } 
-        else if (response.status == 500){
-          let errdata = response.data.Errors[0].Code
-          if (errdata==403){
+        } else if (response.status == 500) {
+          let errdata = response.data.Errors[0].Code;
+          if (errdata == 403) {
             setErrorMsg("Token Expired Navigating to Login Page");
             setOpenSnackbar(true);
-            await delay (2000)
-            navigate("/")
+            await delay(2000);
+            navigate("/");
           }
-        }
-        else {
+        } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
         }

@@ -6,20 +6,22 @@ import Error404 from "./Pages/Error404.jsx";
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 function App() {
-let isLoggedIn = false ;
+  let isLoggedIn = false;
   return (
     <>
-     <Routes>
-      <Route  path= "/" element={isLoggedIn== true ? <UserData/>:<SignIn/>}></Route>
-      <Route  path= "/signin" element={<SignIn/>}></Route>
-      <Route  path= "/signup" element={<SignUp/>}></Route>
-      <Route path="/otp" element={ <OTP/> }></Route>
-      <Route path= "/form" element={<UserData/>}></Route>
-      <Route path="/*" element={<Error404 />} />
-    </Routes>
+      <Routes>
+        <Route
+          path="/"
+          element={isLoggedIn == true ? <UserData /> : <SignIn />}
+        ></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/otp" element={<OTP />}></Route>
+        <Route path="/form" element={<UserData />}></Route>
+        <Route path="/*" element={<Error404 />} />
+      </Routes>
     </>
-    
-  )
+  );
 }
 
-export default App
+export default App;
