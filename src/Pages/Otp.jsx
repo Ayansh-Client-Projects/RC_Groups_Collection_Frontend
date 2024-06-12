@@ -31,9 +31,9 @@ function Otp() {
     if (result.valid == false) {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
-      } else {
-        otpApiCall()
-      }
+    } else {
+      otpApiCall();
+    }
   }
 
   function otpApiCall() {
@@ -52,7 +52,7 @@ function Otp() {
       },
     };
     axios
-      .post(ApiServices.VRF_OTP,data,config)
+      .post(ApiServices.VRF_OTP, data, config)
       .then((response) => {
         if (response.status == 200) {
           let data = response.data.PayLoad["message"];

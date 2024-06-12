@@ -6,6 +6,7 @@ class StoreApi {
       "mobileNumber":data.mobileNumber
     } 
     localStorage.setItem(this.USER_DATA_KEY, JSON.stringify(finalData));
+    
   }
 
   static getUserData() {
@@ -26,6 +27,11 @@ class StoreApi {
     let data = this.getUserData()
     return data.mobileNumber
   }
+
+static removeToken(){
+  localStorage.removeItem(this.USER_DATA_KEY)
+}
+
 }
 
 export default StoreApi;

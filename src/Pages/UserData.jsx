@@ -34,11 +34,11 @@ function UserData() {
   const [cheqdate, setCheqDate] = useState("");
   const [invdate, setInvDate] = useState("");
 
-  useEffect(() => {
-    let data = LocalStorage.getDealers();
-    setRetailers(data);
-  }, []);
-
+  // useEffect(() => {
+  //   let data = LocalStorage.getDealers();
+  //   setRetailers(data);
+  // }, []);
+  const delay = ms => new Promise(res => setTimeout(res, ms));
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
     lg: useMediaQuery("(min-width:770px)"),
@@ -70,7 +70,6 @@ function UserData() {
       setOpenSnackbar(true);
     } else {
       sendMessageApiCall();
-     
     }
   }
   function getFinalUserData() {
@@ -110,11 +109,21 @@ function UserData() {
     };
     axios
       .post(ApiServices.SEND_MSG, data, config)
-      .then((response) => {
+      .then(async(response) => {
         if (response.status == 200) {
           let transactionId = response.data.PayLoad.transactionId;
           navigate(`/otp?transactionId=${transactionId}`);
-        } else {
+        } 
+        else if (response.status == 500){
+          let errdata = response.data.Errors[0].Code
+          if (errdata==403){
+            setErrorMsg("Token Expired Navigating to Login Page");
+            setOpenSnackbar(true);
+            await delay (2000)
+            navigate("/")
+          }
+        }
+        else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
         }
@@ -126,6 +135,11 @@ function UserData() {
       });
   }
 
+  function logOut() {
+    navigate("/");
+    LocalStorage.removeToken();
+  }
+
   return (
     <div
       style={{
@@ -135,8 +149,30 @@ function UserData() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        flexDirection: "column",
       }}
     >
+      <div
+        className="navBar"
+        style={{
+          width: "100vw",
+          height: "8vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button
+          variant="outlined"
+          color="error"
+          sx={{ marginTop: "1vh", marginRight: "3vw" }}
+          onClick={(e) => {
+            logOut(e.target.value);
+          }}
+        >
+          Logout
+        </Button>
+      </div>
       <div
         className="Container"
         style={{
@@ -257,16 +293,16 @@ function UserData() {
                 label="Name"
                 onChange={paymentMode}
               >
-                <MenuItem value={"CASH"}>CASH</MenuItem>
-                <MenuItem value={"UPI"}>UPI</MenuItem>
-                <MenuItem value={"CHEQUE"}>CHEQUE</MenuItem>
+                <MenuItem value={"cash"}>CASH</MenuItem>
+                <MenuItem value={"upi"}>ONLINE</MenuItem>
+                <MenuItem value={"cheque"}>CHEQUE</MenuItem>
               </Select>
             </FormControl>
           </Box>
           {payment.toLowerCase() == "upi" ? (
             <TextField
               id="outlined-basic"
-              label="UPI ID"
+              label="UPI Address"
               placeholder="ex:T240531*********5536"
               variant="outlined"
               style={{
