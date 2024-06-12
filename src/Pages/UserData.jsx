@@ -34,10 +34,22 @@ function UserData() {
   const [cheqdate, setCheqDate] = useState("");
   const [invdate, setInvDate] = useState("");
 
-  // useEffect(() => {
-  //   let data = LocalStorage.getDealers();
-  //   setRetailers(data);
-  // }, []);
+  useEffect(() => {
+    let token = LocalStorage.getToken()
+    axios.get( ApiServices.ADD_DEALER_TO_SALESAMN, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      let allDealers = response.data.PayLoad.dealers 
+      setRetailers(allDealers)
+    })
+    .catch(error => {
+      console.error('There was an error!', error);
+    });
+  }, []);
+
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
@@ -104,11 +116,11 @@ function UserData() {
         Authorization: `Bearer ${token}`,
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
-        "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
+       
       },
     };
     axios
-      .post(ApiServices.SEND_MSG, data, config)
+      .post(ApiServices.SEND_MSG, data, config,)
       .then(async (response) => {
         if (response.status == 200) {
           let transactionId = response.data.PayLoad.transactionId;
