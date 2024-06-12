@@ -19,6 +19,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { useNavigate } from "react-router-dom";
 import LocalStorage from "../Services/LocalStorage.js";
 import ApiServices from "../Services/Api.js";
+
 function UserData() {
   const [retailer, setRetailer] = React.useState("");
   const [retailers, setRetailers] = React.useState([]);
@@ -69,8 +70,7 @@ function UserData() {
       setOpenSnackbar(true);
     } else {
       sendMessageApiCall();
-      // navigate("/otp");
-      // navigate("/form");
+     
     }
   }
   function getFinalUserData() {
@@ -112,6 +112,8 @@ function UserData() {
       .post(ApiServices.SEND_MSG, data, config)
       .then((response) => {
         if (response.status == 200) {
+          let transactionId = response.data.PayLoad.transactionId;
+          navigate(`/otp?transactionId=${transactionId}`);
         } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);

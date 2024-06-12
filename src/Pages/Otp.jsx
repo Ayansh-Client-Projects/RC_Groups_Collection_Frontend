@@ -1,34 +1,73 @@
 import { useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OtpInput from "react-otp-input";
 import Validation from "../Services/Validation";
 import Snackbar from "@mui/material/Snackbar";
 import { useNavigate } from "react-router-dom";
-
+import { useSearchParams } from "react-router-dom";
+import LocalStorage from "../Services/LocalStorage.js";
+import axios from "axios";
+import ApiServices from "../Services/Api.js";
 function Otp() {
   const [otp, setOtp] = useState("");
-  // const [phoneNum, setphoneNum] = useState();
+  const [phoneNum, setphoneNum] = useState();
   const [errorMsg, setErrorMsg] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
   // const [successMsg, setSuccessMsg] = useState("");
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
     lg: useMediaQuery("(min-width:1001px)"),
   };
   const navigate = useNavigate();
 
+  useEffect(() => {
+    let data = LocalStorage.getMobileNumber();
+    setphoneNum(data);
+  }, []);
   function verification() {
     let result = Validation.verifyOtp(otp);
     if (result.valid == false) {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
-    } else {
-      setErrorMsg(result.message)
-      setOpenSnackbar(true);
-      // navigate("/form");
-    }
+      } else {
+        otpApiCall()
+      }
+  }
+
+  function otpApiCall() {
+    const transactionId = searchParams.get("transactionId");
+    let data = {
+      otp: otp,
+      transactionId: transactionId,
+    };
+    let token = LocalStorage.getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
+      },
+    };
+    axios
+      .post(ApiServices.VRF_OTP,data,config)
+      .then((response) => {
+        if (response.status == 200) {
+          let data = response.data.PayLoad["message"];
+          setErrorMsg(data);
+          setOpenSnackbar(true);
+        } else {
+          setErrorMsg("Something Went Wrong");
+          setOpenSnackbar(true);
+        }
+      })
+
+      .catch((error) => {
+        setErrorMsg("Something Went Wrong");
+        setOpenSnackbar(true);
+      });
   }
 
   return (
@@ -62,7 +101,7 @@ function Otp() {
             color: "black",
             display: "flex",
             width: Mq.sm ? "72vw" : "",
-            alignItems:  "center",
+            alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
           }}
@@ -91,7 +130,7 @@ function Otp() {
           >
             <p>
               Enter the code we just sent on your Mobile{" "}
-              <span style={{ color: "red" }}>+91-8260905856</span>
+              <span style={{ color: "red" }}>+91{phoneNum}</span>
             </p>{" "}
           </p>
         </div>
@@ -146,8 +185,8 @@ function Otp() {
       </div>
       <Snackbar
         anchorOrigin={{
-          vertical: Mq.sm? "top": "bottom",
-          horizontal: Mq.sm? "center": "right",
+          vertical: Mq.sm ? "top" : "bottom",
+          horizontal: Mq.sm ? "center" : "right",
         }}
         autoHideDuration={2000}
         onClose={() => {
