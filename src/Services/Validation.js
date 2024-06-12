@@ -127,37 +127,41 @@ class Validation {
   }
 
   static validateDate(date) {
-    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4})$/;
+    // Regular expression to match YYYY-MM-DD format
+    const dateRegex = /^(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
 
     if (!dateRegex.test(date)) {
       return {
         valid: false,
-        message: "Date must be in DD-MM-YYYY format.",
+        message: "Date must be in YYYY-MM-DD format.",
       };
     }
 
-    const [day, month, year] = date.split("-").map(Number);
+    const [year, month, day] = date.split("-").map(Number);
 
-    const isValidDay = (day, month, year) => {
-      if (month === 2) {
-        const isLeapYear =
-          (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-        if (isLeapYear) {
-          return day <= 29;
-        } else {
-          return day <= 28;
-        }
-      }
+    const isValidDay = (year, month, day) => {
+      const isLeapYear =
+        (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 
-      const monthsWith30Days = [4, 6, 9, 11];
-      if (monthsWith30Days.includes(month)) {
-        return day <= 30;
-      }
+      const daysInMonth = [
+        31,
+        isLeapYear ? 29 : 28,
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31,
+      ];
 
-      return day <= 31;
+      return day <= daysInMonth[month - 1];
     };
 
-    if (!isValidDay(day, month, year)) {
+    if (!isValidDay(year, month, day)) {
       return {
         valid: false,
         message: "Invalid day for the given month and year.",

@@ -35,19 +35,20 @@ function UserData() {
   const [invdate, setInvDate] = useState("");
 
   useEffect(() => {
-    let token = LocalStorage.getToken()
-    axios.get( ApiServices.ADD_DEALER_TO_SALESAMN, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    .then(response => {
-      let allDealers = response.data.PayLoad.dealers 
-      setRetailers(allDealers)
-    })
-    .catch(error => {
-      console.error('There was an error!', error);
-    });
+    let token = LocalStorage.getToken();
+    axios
+      .get(ApiServices.ADD_DEALER_TO_SALESAMN, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        let allDealers = response.data.PayLoad.dealers;
+        setRetailers(allDealers);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   }, []);
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -116,11 +117,10 @@ function UserData() {
         Authorization: `Bearer ${token}`,
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
-       
       },
     };
     axios
-      .post(ApiServices.SEND_MSG, data, config,)
+      .post(ApiServices.SEND_MSG, data, config)
       .then(async (response) => {
         if (response.status == 200) {
           let transactionId = response.data.PayLoad.transactionId;
@@ -238,7 +238,7 @@ function UserData() {
                     sx={{ width: Mq.sm ? "80vw" : "40vw" }}
                     components={{ openPickerIcon: BsCalendar2Date }}
                     onChange={(e) => {
-                      setInvDate(e.format("DD-MM-YYYY"));
+                      setInvDate(e.format("YYYY-MM-DD"));
                     }}
                   />
                 </DemoItem>
@@ -379,7 +379,7 @@ function UserData() {
                       }}
                       format="DD-MM-YYYY"
                       onChange={(e) => {
-                        setCheqDate(e.format("DD-MM-YYYY"));
+                        setCheqDate(e.format("YYYY-MM-DD"));
                       }}
                       components={{ openPickerIcon: BsCalendar2Date }}
                     />
