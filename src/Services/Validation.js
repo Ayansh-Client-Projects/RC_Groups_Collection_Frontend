@@ -278,7 +278,7 @@ class Validation {
       return result3;
     }
 
-    if (payment.toLowerCase() == "upi") {
+    if (payment.toLowerCase() == "online") {
       let result1 = this.validateUpiId(upiid);
       if (result1.valid == false) {
         return result1;

@@ -47,7 +47,7 @@ function UserData() {
         setRetailers(allDealers);
       })
       .catch((error) => {
-        console.error("There was an error!", error);
+        handleApiError(error.response);
       });
   }, []);
 
@@ -102,7 +102,7 @@ function UserData() {
         bankName: bankname,
       };
     }
-    if (payment.toLowerCase() == "upi") {
+    if (payment.toLowerCase() == "online") {
       data.additionalPaymentDetails = {
         UpiAddress: upiid,
       };
@@ -111,6 +111,7 @@ function UserData() {
   }
   function sendMessageApiCall() {
     let data = getFinalUserData();
+    console.log(data);
     let token = LocalStorage.getToken();
     const config = {
       headers: {
@@ -125,14 +126,6 @@ function UserData() {
         if (response.status == 200) {
           let transactionId = response.data.PayLoad.transactionId;
           navigate(`/otp?transactionId=${transactionId}`);
-        } else if (response.status == 500) {
-          let errdata = response.data.Errors[0].Code;
-          if (errdata == 403) {
-            setErrorMsg("Token Expired Navigating to Login Page");
-            setOpenSnackbar(true);
-            await delay(2000);
-            navigate("/");
-          }
         } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
@@ -140,14 +133,31 @@ function UserData() {
       })
 
       .catch((error) => {
-        setErrorMsg("Something Went Wrong");
-        setOpenSnackbar(true);
+        handleApiError(error.response);
       });
   }
 
   function logOut() {
     navigate("/");
     LocalStorage.removeToken();
+  }
+
+  async function handleApiError(response) {
+    if (response.status == 500) {
+      let errdata = response.data.Errors[0].Code;
+      if (errdata == 403) {
+        setErrorMsg("Token Expired Navigating to Login Page");
+        setOpenSnackbar(true);
+        await delay(2000);
+        navigate("/");
+      } else {
+        setErrorMsg("Something Went Wrong");
+        setOpenSnackbar(true);
+      }
+    } else {
+      setErrorMsg("Something Went Wrong");
+      setOpenSnackbar(true);
+    }
   }
 
   return (
@@ -176,8 +186,8 @@ function UserData() {
       >
         <Button
           variant="contained"
-          color="info"
-          sx={{ marginTop: "0vh", marginRight: "3vw" }}
+          color="inherit"
+          sx={{ marginTop: "0vh", marginRight: "3vw",color:"black" }}
           onClick={(e) => {
             logOut(e.target.value);
           }}
@@ -306,12 +316,12 @@ function UserData() {
                 onChange={paymentMode}
               >
                 <MenuItem value={"cash"}>CASH</MenuItem>
-                <MenuItem value={"upi"}>ONLINE</MenuItem>
+                <MenuItem value={"online"}>ONLINE</MenuItem>
                 <MenuItem value={"cheque"}>CHEQUE</MenuItem>
               </Select>
             </FormControl>
           </Box>
-          {payment.toLowerCase() == "upi" ? (
+          {payment.toLowerCase() == "online" ? (
             <TextField
               id="outlined-basic"
               label="UPI Address"

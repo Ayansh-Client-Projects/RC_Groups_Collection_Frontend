@@ -58,21 +58,14 @@ function Otp() {
           let data = response.data.PayLoad["message"];
           setErrorMsg(data);
           setOpenSnackbar(true);
-        }
-        //   else if(response.status == 500){
-        //     let data = response.data.Errors["Code"];
-        //     setErrorMsg("Wrong OTP");
-        //     setOpenSnackbar(true);
-        // }
-        else {
+        } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
         }
       })
 
       .catch((error) => {
-        setErrorMsg("Something Went Wrong");
-        setOpenSnackbar(true);
+        handleApiError(error.response);
       });
   }
 
@@ -80,6 +73,28 @@ function Otp() {
     navigate("/");
     LocalStorage.removeToken();
   }
+
+  async function handleApiError(response) {
+    if (response.status == 500) {
+      let errdata = response.data.Errors[0].Code;
+      if (errdata == 403) {
+        setErrorMsg("Token Expired Navigating to Login Page");
+        setOpenSnackbar(true);
+        await delay(2000);
+        navigate("/");
+      } else if (errdata == 417) {
+        setErrorMsg("Invalid OTP");
+        setOpenSnackbar(true);
+      } else {
+        setErrorMsg("Something Went Wrong");
+        setOpenSnackbar(true);
+      }
+    } else {
+      setErrorMsg("Something Went Wrong");
+      setOpenSnackbar(true);
+    }
+  }
+
   return (
     <div
       style={{
@@ -89,7 +104,7 @@ function Otp() {
         display: "flex",
         alignItems: "center",
         // justifyContent: "center",
-        flexDirection:"column"
+        flexDirection: "column",
       }}
     >
       <div
@@ -106,8 +121,8 @@ function Otp() {
       >
         <Button
           variant="contained"
-          color="info"
-          sx={{ marginTop: "0vh", marginRight: "3vw" }}
+          color="inherit"
+          sx={{ marginTop: "0vh", marginRight: "3vw",color:"black" }}
           onClick={(e) => {
             logOut(e.target.value);
           }}
@@ -171,7 +186,7 @@ function Otp() {
             </p>{" "}
           </p>
         </div>
-        <div className="OTPBox" style={{margin:"0vh"}}>
+        <div className="OTPBox" style={{ margin: "0vh" }}>
           <OtpInput
             inputStyle={{
               height: "30px",
