@@ -27,12 +27,13 @@ class StoreApi {
   }
 
   static getMobileNumber() {
-    let data = this.getUserData();
-    return data.mobileNumber;
+    let phnnum = localStorage.getItem("userPhoneNum");
+    return phnnum;
   }
 
   static removeToken() {
     localStorage.removeItem(this.USER_DATA_KEY);
+    localStorage.removeItem("userPhoneNum");
   }
 }
 

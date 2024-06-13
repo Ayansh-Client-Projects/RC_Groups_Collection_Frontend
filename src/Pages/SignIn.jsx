@@ -45,6 +45,7 @@ function SignIn() {
         if (response.status == 200) {
           let data = response.data["PayLoad"];
           StoreApi.setUserData(data);
+          localStorage.setItem("userPhoneNum", phoneNum);
           navigate("/form");
         } else {
           setErrorMsg("Something Went Wrong");

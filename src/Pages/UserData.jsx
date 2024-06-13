@@ -158,7 +158,7 @@ function UserData() {
         background: "white",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
         flexDirection: "column",
       }}
     >
@@ -167,15 +167,17 @@ function UserData() {
         style={{
           width: "100vw",
           height: "8vh",
+
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
+          backgroundColor: "#1976D2",
         }}
       >
         <Button
-          variant="outlined"
-          color="error"
-          sx={{ marginTop: "1vh", marginRight: "3vw" }}
+          variant="contained"
+          color="info"
+          sx={{ marginTop: "0vh", marginRight: "3vw" }}
           onClick={(e) => {
             logOut(e.target.value);
           }}

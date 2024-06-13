@@ -5,6 +5,7 @@ import UserData from "./Pages/UserData.jsx";
 import Error404 from "./Pages/Error404.jsx";
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
+import "./App.css";
 function App() {
   let isLoggedIn = false;
   return (

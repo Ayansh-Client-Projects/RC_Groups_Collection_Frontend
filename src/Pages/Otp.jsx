@@ -58,7 +58,13 @@ function Otp() {
           let data = response.data.PayLoad["message"];
           setErrorMsg(data);
           setOpenSnackbar(true);
-        } else {
+        }
+        //   else if(response.status == 500){
+        //     let data = response.data.Errors["Code"];
+        //     setErrorMsg("Wrong OTP");
+        //     setOpenSnackbar(true);
+        // }
+        else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
         }
@@ -70,6 +76,10 @@ function Otp() {
       });
   }
 
+  function logOut() {
+    navigate("/");
+    LocalStorage.removeToken();
+  }
   return (
     <div
       style={{
@@ -78,21 +88,46 @@ function Otp() {
         background: "white",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
+        flexDirection:"column"
       }}
     >
+      <div
+        className="navBar"
+        style={{
+          width: "100vw",
+          height: "8vh",
+
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          backgroundColor: "#1976D2",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="info"
+          sx={{ marginTop: "0vh", marginRight: "3vw" }}
+          onClick={(e) => {
+            logOut(e.target.value);
+          }}
+        >
+          Logout
+        </Button>
+      </div>
+
       <div
         className="Container"
         style={{
           // background:"black",
-          border: Mq.sm ? "0px" : "2px solid #D8D8D8",
+          // border: Mq.sm ? "0px" : "2px solid #D8D8D8",
           borderRadius: "20px",
-          height: "50vh",
+          height: "70vh",
           width: Mq.sm ? "80vw" : "50vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "space-around",
         }}
       >
         <div
@@ -106,16 +141,18 @@ function Otp() {
             flexDirection: "column",
           }}
         >
-          <h3
+          <h2
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: Mq.sm ? "80vw" : "50vw",
+              width: Mq.sm ? "100vw" : "50vw",
+              color: "red",
             }}
           >
             Mobile Phone Verification
-          </h3>
+          </h2>
+          <br />
           <p
             style={{
               fontWeight: "500",
@@ -134,15 +171,15 @@ function Otp() {
             </p>{" "}
           </p>
         </div>
-        <div className="OTPBox">
+        <div className="OTPBox" style={{margin:"0vh"}}>
           <OtpInput
             inputStyle={{
-              height: "40px",
+              height: "30px",
               width: "40px",
               background: "gray",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "space-around",
             }}
             value={otp}
             onChange={setOtp}
@@ -158,10 +195,11 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            paddingBottom: "30px",
+            // paddingBottom: "30px",
           }}
         >
           <h4 style={{ color: "black" }}>Don't receive the code ?</h4>
+          <br />
           <div
             style={{
               display: "flex",
@@ -171,7 +209,7 @@ function Otp() {
             }}
           >
             <Button
-              style={{ marginRight: "10px" }}
+              style={{ marginRight: "30px" }}
               variant="contained"
               onClick={() => {
                 verification();
