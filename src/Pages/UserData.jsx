@@ -148,7 +148,7 @@ function UserData() {
       if (errdata == 403) {
         setErrorMsg("Token Expired Navigating to Login Page");
         setOpenSnackbar(true);
-        await delay(2000);
+        await delay(3000);
         navigate("/");
       } else {
         setErrorMsg("Something Went Wrong");
@@ -165,12 +165,13 @@ function UserData() {
       style={{
         height: "100vh",
         width: "100vw",
-        background: "white",
         display: "flex",
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
-        backgroundColor: "#1976D2",
+        // backgroundColor: "#1976D2",
+        // backgroundColor: "#1976D2",
+        backgroundColor: "#5763FF",
       }}
     >
       <div
@@ -210,7 +211,8 @@ function UserData() {
           alignItems: "center",
           flexDirection: "column",
           justifyContent: "space-around",
-          marginBottom:"3vh"
+          marginBottom:"3vh",
+          // opacity:"90%"
         }}
       >
         <div
