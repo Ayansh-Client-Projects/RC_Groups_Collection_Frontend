@@ -171,24 +171,31 @@ function UserData() {
         flexDirection: "column",
         // backgroundColor: "#1976D2",
         // backgroundColor: "#1976D2",
-        backgroundColor: "#5763FF",
+        // backgroundColor: "#5763FF",
+        // backgroundColor: "white",
+        backgroundColor: "#8499FE",
       }}
     >
       <div
         className="navBar"
         style={{
           width: "100vw",
-          height: Mq.sm? "3vh":"8vh",
+          height: Mq.sm ? "3vh" : "8vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-         
         }}
       >
         <Button
           variant="contained"
           color="inherit"
-          sx={{ marginTop:Mq.sm? "25px": "0vh", marginRight: "3vw",color:"black",height:Mq.sm ?"5.5vh":"6vh" }}
+          sx={{
+            marginTop: Mq.sm ? "25px" : "0vh",
+            marginRight: "3vw",
+            color: "black",
+            height: Mq.sm ? "5.5vh" : "6vh",
+            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 5px",
+          }}
           onClick={(e) => {
             logOut(e.target.value);
           }}
@@ -199,19 +206,21 @@ function UserData() {
       <div
         className="Container"
         style={{
-            background:"white",
-          border: Mq.sm ? "0px" : "2px solid #D8D8D8",
+          background: "white",
+          border: Mq.sm ? "0px" : "2px solid white",
+          boxShadow: "rgba(0, 0, 0, 2) 0px 0px 10px",
+
           borderRadius: "20px",
           height: Mq.sm ? "90vh" : "70vh",
           paddingTop: "5vh",
-          marginTop:"5vh",
+          marginTop: "5vh",
           paddingBottom: "5vh",
           width: Mq.sm ? "90vw" : "60vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
           justifyContent: "space-around",
-          marginBottom:"3vh",
+          marginBottom: "3vh",
           // opacity:"90%"
         }}
       >
@@ -236,8 +245,7 @@ function UserData() {
                   width: Mq.sm ? "80vw" : "20vw",
                   marginRight: Mq.sm ? "0" : "5vw",
                   marginBottom: Mq.sm ? "2vh" : "",
-                  height:Mq.sm ? "7.5vh":"",
-         
+                  height: Mq.sm ? "7.5vh" : "",
                 }}
                 label="Name"
                 onChange={handleChange}
@@ -254,7 +262,7 @@ function UserData() {
               <DemoContainer components={["DatePicker"]}>
                 <DemoItem label="">
                   <DatePicker
-                    sx={{ width: Mq.sm ? "80vw" : "20vw",}}
+                    sx={{ width: Mq.sm ? "80vw" : "20vw" }}
                     components={{ openPickerIcon: BsCalendar2Date }}
                     onChange={(e) => {
                       setInvDate(e.format("YYYY-MM-DD"));
@@ -318,7 +326,7 @@ function UserData() {
                 style={{
                   width: Mq.sm ? "80vw" : "20vw",
                   marginRight: Mq.sm ? "0" : "5vw",
-                  height:Mq.sm ? "7.5vh":"",
+                  height: Mq.sm ? "7.5vh" : "",
                 }}
                 label="Name"
                 onChange={paymentMode}
@@ -338,7 +346,7 @@ function UserData() {
               style={{
                 width: Mq.sm ? "80vw" : "20vw",
                 marginTop: Mq.sm ? "5vh" : "0",
-                height:Mq.sm ? "7.5vh":"",
+                height: Mq.sm ? "7.5vh" : "",
               }}
               onChange={(e) => {
                 setUpiId(e.target.value);
@@ -353,7 +361,6 @@ function UserData() {
               style={{
                 width: Mq.sm ? "80vw" : "20vw",
                 marginTop: Mq.sm ? "2vh" : "0",
-                
               }}
               onChange={(e) => {
                 setcheqno(e.target.value);
@@ -373,7 +380,6 @@ function UserData() {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: Mq.sm ? "column" : "row",
-           
             }}
           >
             <TextField
@@ -381,7 +387,6 @@ function UserData() {
               label="Bank"
               placeholder="Enter Bank Name"
               variant="outlined"
-             
               style={{
                 width: Mq.sm ? "80vw" : "20vw",
                 marginTop: Mq.sm ? "0vh" : "0",
@@ -417,7 +422,7 @@ function UserData() {
         )}
         <Button
           variant="contained"
-          style={{ width: Mq.sm ? "40vw" : "20vw", }}
+          style={{ width: Mq.sm ? "40vw" : "20vw" }}
           onClick={() => {
             userDataValidation();
           }}
