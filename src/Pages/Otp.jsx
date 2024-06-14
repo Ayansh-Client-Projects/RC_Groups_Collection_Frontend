@@ -103,7 +103,7 @@ function Otp() {
         background: "white",
         display: "flex",
         alignItems: "center",
-        // justifyContent: "space-around",
+        // justifyContent: "center",
         flexDirection: "column",
       }}
     >
@@ -144,15 +144,14 @@ function Otp() {
           border: Mq.sm ? "0px" : "2px solid #D8D8D8",
           boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
           backgroundColor: "#1976D2",
-          marginTop: "5vh",
-
+          marginTop: "10vh",
           borderRadius: "20px",
-          height: "70vh",
-          width: Mq.sm ? "80vw" : "50vw",
+          height: Mq.sm ? "60vh" : "70vh",
+          width: Mq.sm ? "90vw" : "50vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
-          justifyContent: "space-around",
+          // justifyContent: "center",
         }}
       >
         <div
@@ -160,19 +159,27 @@ function Otp() {
           style={{
             color: "black",
             display: "flex",
-            width: Mq.sm ? "72vw" : "",
+            width: Mq.sm ? "90vw" : "50vw",
+            marginTop: "0vh",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
+            background: "white",
+            borderTopLeftRadius: "20px",
+            borderTopRightRadius: "20px",
           }}
         >
           <h2
             style={{
               display: "flex",
-              alignItems: "center",
+              // alignItems: "center",
               justifyContent: "center",
-              width: Mq.sm ? "100vw" : "50vw",
-              color: "white",
+              width: Mq.sm ? "80vw" : "50vw",
+              // color: "black",
+              // color: "white",
+              fontWeight: "700",
+              fontSize: Mq.sm ? "6.5vw" : "2vw",
+              marginTop: "0vh",
             }}
           >
             Mobile Phone Verification
@@ -186,14 +193,14 @@ function Otp() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "60vw",
+              width: Mq.sm ? "70vw" : "60vw",
               flexDirection: "column",
-              color: "white",
+              // color: "white",
             }}
           >
             <p>
               Enter the code we just sent on your Mobile{" "}
-              <span style={{ color: "white"}}>+91{phoneNum}</span>
+              <span style={{ color: "black" }}>+91{phoneNum}</span>
             </p>{" "}
           </p>
         </div>
@@ -204,7 +211,9 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             width: "50vw",
-            // flexDirection: "column",
+            marginTop: "5vh",
+
+            flexDirection: Mq.sm ? "column" : "row",
             // paddingBottom: "30px",
             // background: "black",
           }}
@@ -228,7 +237,9 @@ function Otp() {
           />
           <Button
             style={{
-              marginLeft: "50px",
+              marginTop: Mq.sm ? "5vh" : "0vh",
+              width: "130px",
+              marginLeft: Mq.sm ? "0px" : "50px",
               color: "black",
               boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
             }}
@@ -248,6 +259,8 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
+            marginTop: "5vh",
+
             // paddingBottom: "30px",
             // background: "black",
           }}
@@ -255,18 +268,21 @@ function Otp() {
           <div
             style={{
               display: "flex",
+              flexDirection: Mq.sm ? "column" : "row",
               alignItems: "center",
               justifyContent: "center",
               width: Mq.sm ? "100vw" : "30vw",
             }}
           >
-            <h4 style={{ color: "white", marginRight: "3vw" }}>
+            <h4 style={{ color: "white", marginRight: Mq.sm ? "0vw" : "3vw" }}>
               Don't receive the code ?
             </h4>
             <Button
               variant="contained"
               color="inherit"
               sx={{
+                width: "130px",
+                marginTop: Mq.sm ? "3vh" : "0vh",
                 color: "black",
                 boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
               }}
