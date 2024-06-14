@@ -103,7 +103,7 @@ function Otp() {
         background: "white",
         display: "flex",
         alignItems: "center",
-        // justifyContent: "center",
+        // justifyContent: "space-around",
         flexDirection: "column",
       }}
     >
@@ -112,7 +112,7 @@ function Otp() {
         style={{
           width: "100vw",
           height: "8vh",
-
+          marginTop: "0vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
@@ -122,7 +122,13 @@ function Otp() {
         <Button
           variant="contained"
           color="inherit"
-          sx={{ marginTop: "0vh", marginRight: "3vw",color:"black" }}
+          sx={{
+            marginTop: "0vh",
+            marginRight: "3vw",
+            color: "black",
+            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+            // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
+          }}
           onClick={(e) => {
             logOut(e.target.value);
           }}
@@ -135,7 +141,11 @@ function Otp() {
         className="Container"
         style={{
           // background:"black",
-          // border: Mq.sm ? "0px" : "2px solid #D8D8D8",
+          border: Mq.sm ? "0px" : "2px solid #D8D8D8",
+          boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
+          backgroundColor: "#1976D2",
+          marginTop: "5vh",
+
           borderRadius: "20px",
           height: "70vh",
           width: Mq.sm ? "80vw" : "50vw",
@@ -162,7 +172,7 @@ function Otp() {
               alignItems: "center",
               justifyContent: "center",
               width: Mq.sm ? "100vw" : "50vw",
-              color: "red",
+              color: "white",
             }}
           >
             Mobile Phone Verification
@@ -178,15 +188,27 @@ function Otp() {
               justifyContent: "center",
               width: "60vw",
               flexDirection: "column",
+              color: "white",
             }}
           >
             <p>
               Enter the code we just sent on your Mobile{" "}
-              <span style={{ color: "red" }}>+91{phoneNum}</span>
+              <span style={{ color: "white"}}>+91{phoneNum}</span>
             </p>{" "}
           </p>
         </div>
-        <div className="OTPBox" style={{ margin: "0vh" }}>
+        <div
+          className="OTPBox"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "50vw",
+            // flexDirection: "column",
+            // paddingBottom: "30px",
+            // background: "black",
+          }}
+        >
           <OtpInput
             inputStyle={{
               height: "30px",
@@ -194,6 +216,8 @@ function Otp() {
               background: "gray",
               display: "flex",
               alignItems: "center",
+              backgroundColor: "white",
+              color: "black",
               justifyContent: "space-around",
             }}
             value={otp}
@@ -202,6 +226,20 @@ function Otp() {
             renderSeparator={<span>-</span>}
             renderInput={(props) => <input {...props} />}
           />
+          <Button
+            style={{
+              marginLeft: "50px",
+              color: "black",
+              boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+            }}
+            variant="contained"
+            color="inherit"
+            onClick={() => {
+              verification();
+            }}
+          >
+            Verify OTP
+          </Button>
         </div>
         <div
           className="Resend"
@@ -211,10 +249,9 @@ function Otp() {
             justifyContent: "center",
             flexDirection: "column",
             // paddingBottom: "30px",
+            // background: "black",
           }}
         >
-          <h4 style={{ color: "black" }}>Don't receive the code ?</h4>
-          <br />
           <div
             style={{
               display: "flex",
@@ -223,16 +260,19 @@ function Otp() {
               width: Mq.sm ? "100vw" : "30vw",
             }}
           >
+            <h4 style={{ color: "white", marginRight: "3vw" }}>
+              Don't receive the code ?
+            </h4>
             <Button
-              style={{ marginRight: "30px" }}
               variant="contained"
-              onClick={() => {
-                verification();
+              color="inherit"
+              sx={{
+                color: "black",
+                boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
               }}
             >
-              Verify OTP
+              Resend
             </Button>
-            <Button variant="contained">Resend</Button>
           </div>
         </div>
       </div>

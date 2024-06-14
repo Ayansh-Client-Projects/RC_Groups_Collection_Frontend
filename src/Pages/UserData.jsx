@@ -209,7 +209,7 @@ function UserData() {
           background: "white",
           border: Mq.sm ? "0px" : "2px solid white",
           boxShadow: "rgba(0, 0, 0, 2) 0px 0px 10px",
-
+          // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
           borderRadius: "20px",
           height: Mq.sm ? "90vh" : "70vh",
           paddingTop: "5vh",
