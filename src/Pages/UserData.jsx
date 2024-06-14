@@ -170,24 +170,24 @@ function UserData() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
+        backgroundColor: "#1976D2",
       }}
     >
       <div
         className="navBar"
         style={{
           width: "100vw",
-          height: "8vh",
-
+          height: Mq.sm? "3vh":"8vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-          backgroundColor: "#1976D2",
+         
         }}
       >
         <Button
           variant="contained"
           color="inherit"
-          sx={{ marginTop: "0vh", marginRight: "3vw",color:"black" }}
+          sx={{ marginTop:Mq.sm? "25px": "0vh", marginRight: "3vw",color:"black",height:Mq.sm ?"5.5vh":"6vh" }}
           onClick={(e) => {
             logOut(e.target.value);
           }}
@@ -198,17 +198,19 @@ function UserData() {
       <div
         className="Container"
         style={{
-          //   background:"black",
-          // border: Mq.sm ? "0px" : "2px solid #D8D8D8",
+            background:"white",
+          border: Mq.sm ? "0px" : "2px solid #D8D8D8",
           borderRadius: "20px",
           height: Mq.sm ? "90vh" : "70vh",
           paddingTop: "5vh",
+          marginTop:"5vh",
           paddingBottom: "5vh",
-          width: Mq.sm ? "80vw" : "50vw",
+          width: Mq.sm ? "90vw" : "60vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
           justifyContent: "space-around",
+          marginBottom:"3vh"
         }}
       >
         <div
@@ -229,8 +231,11 @@ function UserData() {
                 id="demo-simple-select"
                 value={retailer}
                 style={{
-                  width: Mq.sm ? "80vw" : "40vw",
+                  width: Mq.sm ? "80vw" : "20vw",
                   marginRight: Mq.sm ? "0" : "5vw",
+                  marginBottom: Mq.sm ? "2vh" : "",
+                  height:Mq.sm ? "7.5vh":"",
+         
                 }}
                 label="Name"
                 onChange={handleChange}
@@ -242,12 +247,12 @@ function UserData() {
             </FormControl>
           </Box>
 
-          <div className="InvDate" style={{ marginTop: Mq.sm ? "0" : "-5vh" }}>
+          <div className="InvDate" style={{ marginTop: Mq.sm ? "0" : "0vh" }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
-                <DemoItem label="Responsive variant">
+                <DemoItem label="">
                   <DatePicker
-                    sx={{ width: Mq.sm ? "80vw" : "40vw" }}
+                    sx={{ width: Mq.sm ? "80vw" : "20vw",}}
                     components={{ openPickerIcon: BsCalendar2Date }}
                     onChange={(e) => {
                       setInvDate(e.format("YYYY-MM-DD"));
@@ -273,7 +278,7 @@ function UserData() {
             label="Invoice"
             placeholder="ex:INV-1234"
             variant="outlined"
-            style={{ width: Mq.sm ? "70vw" : "40vw", marginRight: "5vw" }}
+            style={{ width: Mq.sm ? "70vw" : "20vw", marginRight: "5vw" }}
             onChange={(e) => {
               setinvoiceNumber(e.target.value);
             }}
@@ -284,7 +289,7 @@ function UserData() {
             label="Amount"
             placeholder="Enter Total Amount"
             variant="outlined"
-            style={{ width: Mq.sm ? "70vw" : "40vw" }}
+            style={{ width: Mq.sm ? "70vw" : "20vw" }}
             onChange={(e) => {
               setamount(e.target.value);
             }}
@@ -309,8 +314,9 @@ function UserData() {
                 id="demo-simple-select"
                 value={payment}
                 style={{
-                  width: Mq.sm ? "80vw" : "40vw",
+                  width: Mq.sm ? "80vw" : "20vw",
                   marginRight: Mq.sm ? "0" : "5vw",
+                  height:Mq.sm ? "7.5vh":"",
                 }}
                 label="Name"
                 onChange={paymentMode}
@@ -328,8 +334,9 @@ function UserData() {
               placeholder="ex:T240531*********5536"
               variant="outlined"
               style={{
-                width: Mq.sm ? "80vw" : "40vw",
+                width: Mq.sm ? "80vw" : "20vw",
                 marginTop: Mq.sm ? "5vh" : "0",
+                height:Mq.sm ? "7.5vh":"",
               }}
               onChange={(e) => {
                 setUpiId(e.target.value);
@@ -342,8 +349,9 @@ function UserData() {
               placeholder="Enter Cheque Number"
               variant="outlined"
               style={{
-                width: Mq.sm ? "80vw" : "40vw",
-                marginTop: Mq.sm ? "5vh" : "0",
+                width: Mq.sm ? "80vw" : "20vw",
+                marginTop: Mq.sm ? "2vh" : "0",
+                
               }}
               onChange={(e) => {
                 setcheqno(e.target.value);
@@ -363,6 +371,7 @@ function UserData() {
               justifyContent: "center",
               alignItems: "center",
               flexDirection: Mq.sm ? "column" : "row",
+           
             }}
           >
             <TextField
@@ -370,8 +379,9 @@ function UserData() {
               label="Bank"
               placeholder="Enter Bank Name"
               variant="outlined"
+             
               style={{
-                width: Mq.sm ? "80vw" : "40vw",
+                width: Mq.sm ? "80vw" : "20vw",
                 marginTop: Mq.sm ? "0vh" : "0",
                 marginRight: Mq.sm ? "0" : "5vw",
               }}
@@ -380,13 +390,13 @@ function UserData() {
               }}
             />
 
-            <div className="CheqDate" style={{ marginTop: "-5vh" }}>
+            <div className="CheqDate" style={{ marginTop: "0vh" }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker"]}>
-                  <DemoItem label="Responsive variant">
+                  <DemoItem label="">
                     <DatePicker
                       sx={{
-                        width: Mq.sm ? "80vw" : "40vw",
+                        width: Mq.sm ? "80vw" : "20vw",
                         marginTop: Mq.sm ? "0vh" : "0",
                       }}
                       format="DD-MM-YYYY"
@@ -405,7 +415,7 @@ function UserData() {
         )}
         <Button
           variant="contained"
-          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          style={{ width: Mq.sm ? "40vw" : "20vw", }}
           onClick={() => {
             userDataValidation();
           }}
