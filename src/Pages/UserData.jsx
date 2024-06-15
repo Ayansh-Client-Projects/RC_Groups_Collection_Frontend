@@ -258,7 +258,10 @@ function UserData() {
             </FormControl>
           </Box>
 
-          <div className="InvDate" style={{ marginBottom: Mq.sm ? "2vh" : "0vh",}}>
+          <div
+            className="InvDate"
+            style={{ marginBottom: Mq.sm ? "2vh" : "0vh" }}
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DemoItem label="">
@@ -282,10 +285,10 @@ function UserData() {
             width: Mq.sm ? "80vw" : "60vw",
             justifyContent: "center",
             alignItems: "center",
-            marginTop:"0vh",
+            marginTop: "0vh",
             // backgroundColor:"pink",
-            marginBottom: Mq.sm ? "2vh" : "5vh" ,
-            marginTop: Mq.sm ? "0vh" : "5vh" 
+            marginBottom: Mq.sm ? "2vh" : "5vh",
+            marginTop: Mq.sm ? "0vh" : "5vh",
           }}
         >
           <TextField
@@ -293,9 +296,10 @@ function UserData() {
             label="Invoice"
             placeholder="ex:INV-1234"
             variant="outlined"
-            style={{ width: Mq.sm ? "70vw" : "20vw", marginRight: "5vw" ,
-            marginTop:"0vh",
-
+            style={{
+              width: Mq.sm ? "70vw" : "20vw",
+              marginRight: "5vw",
+              marginTop: "0vh",
             }}
             onChange={(e) => {
               setinvoiceNumber(e.target.value);
@@ -354,7 +358,7 @@ function UserData() {
               style={{
                 width: Mq.sm ? "80vw" : "20vw",
                 marginTop: Mq.sm ? "2vh" : "0",
-                marginBottom:Mq.sm?"2vh":"0vh",
+                marginBottom: Mq.sm ? "2vh" : "0vh",
                 marginLeft: Mq.sm ? "0vw" : "5vw",
                 height: Mq.sm ? "7.5vh" : "",
               }}
@@ -372,7 +376,6 @@ function UserData() {
                 width: Mq.sm ? "80vw" : "20vw",
                 marginTop: Mq.sm ? "2vh" : "0",
                 marginLeft: Mq.sm ? "0vw" : "5vw",
-
               }}
               onChange={(e) => {
                 setcheqno(e.target.value);
@@ -391,9 +394,8 @@ function UserData() {
               width: Mq.sm ? "80vw" : "100vw",
               justifyContent: "center",
               alignItems: "center",
-              
-                marginTop: Mq.sm ? "1.8vh" : "5vh",
-        
+
+              marginTop: Mq.sm ? "1.8vh" : "5vh",
 
               flexDirection: Mq.sm ? "column" : "row",
             }}
@@ -438,7 +440,10 @@ function UserData() {
         )}
         <Button
           variant="contained"
-          style={{ width: Mq.sm ? "40vw" : "20vw",  marginTop: Mq.sm ? "1.8vh" : "5vh" }}
+          style={{
+            width: Mq.sm ? "40vw" : "20vw",
+            marginTop: Mq.sm ? "1.8vh" : "5vh",
+          }}
           onClick={() => {
             userDataValidation();
           }}
