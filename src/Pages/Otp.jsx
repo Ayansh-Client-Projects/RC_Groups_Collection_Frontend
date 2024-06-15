@@ -145,9 +145,9 @@ function Otp() {
           boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
           backgroundColor: "#6E55C5",
           marginTop: "10vh",
-          borderRadius: "20px",
+          borderRadius: "10px",
           height: Mq.sm ? "60vh" : "50vh",
-          width: Mq.sm ? "90vw" : "50vw",
+          width: Mq.sm ? "90vw" : "55vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -159,14 +159,14 @@ function Otp() {
           style={{
             color: "black",
             display: "flex",
-            width: Mq.sm ? "90vw" : "50vw",
-            marginTop: "0vh",
+            width: Mq.sm ? "90vw" : "55vw",
+            // marginTop: "5px",
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            background: "white",
-            borderTopLeftRadius: "20px",
-            borderTopRightRadius: "20px",
+            background: "#E0E0E0",
+            borderTopLeftRadius: "10px",
+            borderTopRightRadius: "10px",
           }}
         >
           <h2
@@ -174,12 +174,14 @@ function Otp() {
               display: "flex",
               // alignItems: "center",
               justifyContent: "center",
-              width: Mq.sm ? "80vw" : "50vw",
-              // color: "black",
+              width: Mq.sm ? "80vw" : "55vw",
+              textAlign:"center",
+              // background:"pink",
+              marginTop:"10px",
               // color: "white",
-              fontWeight: "700",
-              fontSize: Mq.sm ? "6.5vw" : "2vw",
-              marginTop: "0vh",
+              fontWeight: "800",
+              fontSize: "18px",
+            
             }}
           >
             Mobile Phone Verification
@@ -193,14 +195,16 @@ function Otp() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: Mq.sm ? "70vw" : "60vw",
+              width: Mq.sm ? "90vw" : "55vw",
               flexDirection: "column",
-              // color: "white",
+              color: "white",
+            
+              backgroundColor:"#6E55C5"
             }}
           >
-            <p>
+            <p style={{  margin:"15px",}}>
               Enter the code we just sent on your Mobile{" "}
-              <span style={{ color: "black" }}>+91{phoneNum}</span>
+              <span style={{ color: "white" }}>+91{phoneNum}</span>
             </p>{" "}
           </p>
         </div>
@@ -211,8 +215,7 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             width: "50vw",
-            marginTop: "5vh",
-
+            marginTop: "2vh",
             flexDirection: Mq.sm ? "column" : "row",
             // paddingBottom: "30px",
             // background: "black",
@@ -225,7 +228,6 @@ function Otp() {
               background: "gray",
               display: "flex",
               alignItems: "center",
-              
               backgroundColor: "white",
               color: "black",
               justifyContent: "space-around",
@@ -276,7 +278,7 @@ function Otp() {
               // height:Mq.sm? "10vh":"50vh"
             }}
           >
-            <h4 style={{ color: "white", marginRight: Mq.sm ? "0vw" : "6vw" }}>
+            <h4 style={{ color: "white", marginRight: Mq.sm ? "0px" : "40px" }}>
               Don't receive the code ?
             </h4>
             <Button
