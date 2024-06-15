@@ -116,7 +116,7 @@ function Otp() {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-          backgroundColor: "#1976D2",
+          backgroundColor: "#6E55C5",
         }}
       >
         <Button
@@ -143,10 +143,10 @@ function Otp() {
           // background:"black",
           border: Mq.sm ? "0px" : "2px solid #D8D8D8",
           boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
-          backgroundColor: "#1976D2",
+          backgroundColor: "#6E55C5",
           marginTop: "10vh",
           borderRadius: "20px",
-          height: Mq.sm ? "60vh" : "70vh",
+          height: Mq.sm ? "60vh" : "50vh",
           width: Mq.sm ? "90vw" : "50vw",
           display: "flex",
           alignItems: "center",
@@ -225,6 +225,7 @@ function Otp() {
               background: "gray",
               display: "flex",
               alignItems: "center",
+              
               backgroundColor: "white",
               color: "black",
               justifyContent: "space-around",
@@ -271,10 +272,11 @@ function Otp() {
               flexDirection: Mq.sm ? "column" : "row",
               alignItems: "center",
               justifyContent: "center",
-              width: Mq.sm ? "100vw" : "30vw",
+              width: Mq.sm ? "100vw" : "50vw",
+              // height:Mq.sm? "10vh":"50vh"
             }}
           >
-            <h4 style={{ color: "white", marginRight: Mq.sm ? "0vw" : "3vw" }}>
+            <h4 style={{ color: "white", marginRight: Mq.sm ? "0vw" : "6vw" }}>
               Don't receive the code ?
             </h4>
             <Button
