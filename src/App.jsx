@@ -6,6 +6,7 @@ import Error404 from "./Pages/Error404.jsx";
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import "./App.css";
+// import PaymentHistory from "./Pages/PaymentHistory.jsx";
 function App() {
   let isLoggedIn = false;
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/form" element={<UserData />}></Route>
         <Route path="/*" element={<Error404 />} />
       </Routes>
+      {/* <PaymentHistory /> */}
     </>
   );
 }

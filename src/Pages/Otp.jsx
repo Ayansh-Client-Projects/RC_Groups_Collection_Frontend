@@ -198,7 +198,6 @@ function Otp() {
               width: Mq.sm ? "90vw" : "55vw",
               flexDirection: "column",
               color: "white",
-            
               backgroundColor:"#6E55C5"
             }}
           >

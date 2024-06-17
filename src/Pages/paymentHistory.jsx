@@ -86,7 +86,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function paymentHistory() {
+export default function PaymentHistory() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -104,7 +104,7 @@ export default function paymentHistory() {
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
-            color="inherit"
+            color="#6E55C5"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
