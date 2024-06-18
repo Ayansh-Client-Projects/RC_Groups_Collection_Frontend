@@ -172,22 +172,23 @@ function UserData() {
         // backgroundColor: "#1976D2",
         // backgroundColor: "#1976D2",
         // backgroundColor: "#5763FF",
-        // backgroundColor: "white",
+        backgroundColor: "white",
         // backgroundColor: "#8499FE",
-        backgroundColor: "#6E55C5",
+        // backgroundColor: "#6E55C5",
+        // backgroundColor: "#2DA8F2",
       }}
     >
       <div
         className="navBar"
-        style={{
-          width: "100vw",
-          height: Mq.sm ? "3vh" : "8vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-        }}
+        // style={{
+        //   width: "100vw",
+        //   height: Mq.sm ? "3vh" : "8vh",
+        //   display: "flex",
+        //   alignItems: "center",
+        //   justifyContent: "flex-end",
+        // }}
       >
-        <Button
+        {/* <Button
           variant="contained"
           color="inherit"
           sx={{
@@ -202,7 +203,7 @@ function UserData() {
           }}
         >
           Logout
-        </Button>
+        </Button> */}
       </div>
       <div
         className="Container"
