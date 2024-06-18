@@ -7,7 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import { useNavigate } from "react-router-dom";
 import LocalStorage from "../Services/LocalStorage.js";
-
+import Otp from "./Otp.jsx"
 import ListItemText from "@mui/material/ListItemText";
 import UserData from "./UserData";
 import { IoMdMenu } from "react-icons/io";
@@ -26,7 +26,7 @@ function Home() {
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={()=>{newPayment()}}>
             <GiMoneyStack
               style={{ height: "30px", width: "30px", marginRight: "20px" }}
               title="New Payment"
@@ -38,7 +38,7 @@ function Home() {
       <Divider />
       <List>
         <ListItem disablePadding style={{ display: "flex" }}>
-          <ListItemButton>
+          <ListItemButton onClick={()=>{paymentHistory()}}>
             <GiReceiveMoney
               style={{ height: "30px", width: "30px", marginRight: "20px" }}
               title="Payment History"
@@ -71,12 +71,12 @@ function Home() {
     </Box>
   );
 
-  //   function newPayment() {
-  //     setAppIndex(0);
-  //   }
-  //   function paymentHistory() {
-  //     setAppIndex(1);
-  //   }
+    function newPayment() {
+      setAppIndex(0);
+    }
+    function paymentHistory() {
+      setAppIndex(1);
+    }
 
   function logOut() {
     navigate("/");
@@ -94,8 +94,8 @@ function Home() {
           style={{
             height: "35px",
             width: "35px",
-            marginLeft: "40px",
-            marginTop: "7px",
+            marginLeft: "2vw",
+            marginTop: "3px",
           }}
           onClick={toggleDrawer(true)}
         />
@@ -108,7 +108,7 @@ function Home() {
       </div>
 
       <div className="form">
-        {/* <UserData /> */}
+       {appIndex == 0 ?(<UserData/>): appIndex == 1 ? (<Otp/>) : (<UserData/>) }
       </div>
     </div>
   );

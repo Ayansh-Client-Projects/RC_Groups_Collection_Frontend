@@ -116,7 +116,8 @@ function Otp() {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-          backgroundColor: "#6E55C5",
+          // backgroundColor: "#6E55C5",
+          backgroundColor: "#2DA8F2",
         }}
       >
         <Button
@@ -143,7 +144,11 @@ function Otp() {
           // background:"black",
           border: Mq.sm ? "0px" : "2px solid #D8D8D8",
           boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
-          backgroundColor: "#6E55C5",
+          // backgroundColor: "#6E55C5",
+          // background: "#E0E0E0",
+          background: "white",
+
+          // backgroundColor: "#2DA8F2",
           marginTop: "10vh",
           borderRadius: "10px",
           height: Mq.sm ? "60vh" : "50vh",
@@ -175,13 +180,12 @@ function Otp() {
               // alignItems: "center",
               justifyContent: "center",
               width: Mq.sm ? "80vw" : "55vw",
-              textAlign:"center",
+              textAlign: "center",
               // background:"pink",
-              marginTop:"10px",
+              marginTop: "10px",
               // color: "white",
               fontWeight: "800",
               fontSize: "18px",
-            
             }}
           >
             Mobile Phone Verification
@@ -197,13 +201,18 @@ function Otp() {
               justifyContent: "center",
               width: Mq.sm ? "90vw" : "55vw",
               flexDirection: "column",
-              color: "white",
-              backgroundColor:"#6E55C5"
+              // color: "white",
+              color: "black",
+              // backgroundColor:"#6E55C5"
+              // backgroundColor:"#2DA8F2"
+              // backgroundColor: "#E0E0E0",
+              // backgroundColor: "#2DA8F2",
+              backgroundColor: "white",
             }}
           >
-            <p style={{  margin:"15px",}}>
+            <p style={{ margin: "15px" }}>
               Enter the code we just sent on your Mobile{" "}
-              <span style={{ color: "white" }}>+91{phoneNum}</span>
+              <span style={{ color: "black", }}>+91{phoneNum}</span>
             </p>{" "}
           </p>
         </div>
@@ -242,11 +251,11 @@ function Otp() {
               marginTop: Mq.sm ? "5vh" : "0vh",
               width: "130px",
               marginLeft: Mq.sm ? "0px" : "50px",
-              color: "black",
+              color: "white",
               boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
             }}
             variant="contained"
-            color="inherit"
+            color="primary"
             onClick={() => {
               verification();
             }}
@@ -277,16 +286,16 @@ function Otp() {
               // height:Mq.sm? "10vh":"50vh"
             }}
           >
-            <h4 style={{ color: "white", marginRight: Mq.sm ? "0px" : "40px" }}>
+            <h4 style={{ color: "black", marginRight: Mq.sm ? "0px" : "40px" }}>
               Don't receive the code ?
             </h4>
             <Button
               variant="contained"
-              color="inherit"
+              color="primary"
               sx={{
                 width: "130px",
                 marginTop: Mq.sm ? "3vh" : "0vh",
-                color: "black",
+                color: "white",
                 boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
               }}
             >
