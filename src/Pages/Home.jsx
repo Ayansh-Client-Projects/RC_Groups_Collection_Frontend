@@ -7,13 +7,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import { useNavigate } from "react-router-dom";
 import LocalStorage from "../Services/LocalStorage.js";
-import Otp from "./Otp.jsx"
+import Otp from "./Otp.jsx";
 import ListItemText from "@mui/material/ListItemText";
 import UserData from "./UserData";
 import { IoMdMenu } from "react-icons/io";
 import { GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 import { TbLogout2 } from "react-icons/tb";
+import { useMediaQuery } from "@mui/material";
+
 function Home() {
+  const Mq = {
+    sm: useMediaQuery("(max-width:600px)"),
+    lg: useMediaQuery("(min-width:1001px)"),
+  };
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [appIndex, setAppIndex] = React.useState(0);
@@ -26,7 +32,11 @@ function Home() {
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={()=>{newPayment()}}>
+          <ListItemButton
+            onClick={() => {
+              newPayment();
+            }}
+          >
             <GiMoneyStack
               style={{ height: "30px", width: "30px", marginRight: "20px" }}
               title="New Payment"
@@ -38,7 +48,11 @@ function Home() {
       <Divider />
       <List>
         <ListItem disablePadding style={{ display: "flex" }}>
-          <ListItemButton onClick={()=>{paymentHistory()}}>
+          <ListItemButton
+            onClick={() => {
+              paymentHistory();
+            }}
+          >
             <GiReceiveMoney
               style={{ height: "30px", width: "30px", marginRight: "20px" }}
               title="Payment History"
@@ -53,14 +67,17 @@ function Home() {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton   onClick={()=>{logOut()}}>
+          <ListItemButton
+            onClick={() => {
+              logOut();
+            }}
+          >
             <TbLogout2
               style={{
                 height: "25px",
                 width: "25px",
                 marginRight: "20px",
               }}
-             
               title="LogOut"
             />
             <ListItemText primary="LogOut" style={{ marginLeft: "7px" }} />
@@ -71,34 +88,52 @@ function Home() {
     </Box>
   );
 
-    function newPayment() {
-      setAppIndex(0);
-    }
-    function paymentHistory() {
-      setAppIndex(1);
-    }
+  function newPayment() {
+    setAppIndex(0);
+  }
+  function paymentHistory() {
+    setAppIndex(1);
+  }
 
   function logOut() {
     navigate("/");
     LocalStorage.removeToken();
-    console.log ("hi")
+    console.log("hi");
   }
 
   return (
     <div style={{ height: "100vh", width: "100vw", backgroundColor: "white" }}>
       <div
         className="navbar"
-        style={{ height: "7vh", width: "100vw", backgroundColor: "#2DA8F2" }}
+        style={{
+          height: "7.5vh",
+          width: "100vw",
+          backgroundColor: "#2DA8F2",
+          display: "flex",
+          alignItems: "center",
+        }}
       >
         <IoMdMenu
           style={{
             height: "35px",
             width: "35px",
-            marginLeft: "2vw",
-            marginTop: "3px",
+            margin: "2vw",
           }}
           onClick={toggleDrawer(true)}
         />
+        <span
+          style={{
+            fontWeight: "500",
+            fontSize: Mq.sm ? "4vh" : "4vh",
+            width: "90vw",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            // background:"black"
+          }}
+        >
+          RC Group Collection
+        </span>
       </div>
 
       <div className="Drawer">
@@ -108,7 +143,7 @@ function Home() {
       </div>
 
       <div className="form">
-       {appIndex == 0 ?(<UserData/>): appIndex == 1 ? (<Otp/>) : (<UserData/>) }
+        {appIndex == 0 ? <UserData /> : appIndex == 1 ? <Otp /> : <UserData />}
       </div>
     </div>
   );

@@ -105,6 +105,7 @@ function Otp() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
+        background :"#F5F5F5"
       }}
     >
       <div
@@ -127,7 +128,7 @@ function Otp() {
             marginTop: "0vh",
             marginRight: "3vw",
             color: "black",
-            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 2px",
             // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
           }}
           onClick={(e) => {
@@ -253,6 +254,7 @@ function Otp() {
               marginLeft: Mq.sm ? "0px" : "50px",
               color: "white",
               boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+              background :"#2DA8F2"
             }}
             variant="contained"
             color="primary"
@@ -297,6 +299,7 @@ function Otp() {
                 marginTop: Mq.sm ? "3vh" : "0vh",
                 color: "white",
                 boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+                background :"#2DA8F2"
               }}
             >
               Resend

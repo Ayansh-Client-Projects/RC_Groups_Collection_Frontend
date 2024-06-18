@@ -172,10 +172,12 @@ function UserData() {
         // backgroundColor: "#1976D2",
         // backgroundColor: "#1976D2",
         // backgroundColor: "#5763FF",
-        backgroundColor: "white",
+        // backgroundColor: "white",
         // backgroundColor: "#8499FE",
         // backgroundColor: "#6E55C5",
         // backgroundColor: "#2DA8F2",
+        background: "#F5F5F5",
+
       }}
     >
       <div
@@ -209,10 +211,10 @@ function UserData() {
         className="Container"
         style={{
           background: "white",
-          border: Mq.sm ? "0px" : "2px solid white",
-          boxShadow: "rgba(0, 0, 0, 2) 0px 0px 10px",
+          // border: Mq.sm ? "0px" : "2px solid white",
+          boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
           // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
-          borderRadius: "20px",
+          borderRadius: "10px",
           height: Mq.sm ? "85vh" : "70vh",
           paddingTop: "5vh",
           marginTop: Mq.sm ? "3vh":"5vh",
@@ -444,6 +446,7 @@ function UserData() {
           style={{
             width: Mq.sm ? "40vw" : "20vw",
             marginTop: Mq.sm ? "1.8vh" : "5vh",
+            background :"#2DA8F2"
           }}
           onClick={() => {
             userDataValidation();

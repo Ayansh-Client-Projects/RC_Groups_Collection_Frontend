@@ -30,7 +30,7 @@ function SignIn() {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     } else {
-      // navigate("/otp");
+     
       signInUserApiCall();
     }
   }
@@ -46,7 +46,7 @@ function SignIn() {
           let data = response.data["PayLoad"];
           StoreApi.setUserData(data);
           localStorage.setItem("userPhoneNum", phoneNum);
-          navigate("/form");
+          navigate("/home");
         } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
