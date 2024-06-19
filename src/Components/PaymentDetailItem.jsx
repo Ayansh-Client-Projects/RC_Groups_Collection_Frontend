@@ -1,6 +1,6 @@
-import React from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid ,GridToolbar } from "@mui/x-data-grid";
+import React from "react";
 function Table() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -116,6 +116,9 @@ function Table() {
           <DataGrid
             rows={rows}
             columns={columns}
+            slots={{
+              toolbar: GridToolbar,
+            }}
             initialState={{
               pagination: {
                 paginationModel: {
