@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { DataGrid ,GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import React from "react";
 function Table() {
   const columns = [
@@ -112,7 +112,7 @@ function Table() {
         }}
       >
         (
-        <Box sx={{ height: "90vh", width: "90vw", marginLeft: "5vw" }}>
+        <Box sx={{ height: "75vh", width: "90vw", marginLeft: "5vw" }}>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -126,7 +126,7 @@ function Table() {
                 },
               },
             }}
-            pageSizeOptions={[10]}
+            pageSizeOptions={[5]}
             disableRowSelectionOnClick
           />
         </Box>
