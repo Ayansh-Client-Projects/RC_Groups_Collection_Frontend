@@ -1,19 +1,20 @@
-import * as React from "react";
+import { useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import { useNavigate } from "react-router-dom";
-import LocalStorage from "../Services/LocalStorage.js";
-import Otp from "./Otp.jsx";
 import ListItemText from "@mui/material/ListItemText";
-import UserData from "./UserData";
-import { IoMdMenu } from "react-icons/io";
+import * as React from "react";
 import { GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
+import { IoMdMenu } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
-import { useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import PaymentDetailItem from "../Components/PaymentDetailItem.jsx";
+import LocalStorage from "../Services/LocalStorage.js";
+import UserData from "./UserData";
+// import colors from "../Utility/colors.js"
 
 function Home() {
   const Mq = {
@@ -108,7 +109,9 @@ function Home() {
         style={{
           height: "7.5vh",
           width: "100vw",
-          backgroundColor: "#2DA8F2",
+          // backgroundColor: "#2DA8F2",
+          backgroundColor: "#00006A",
+          // backgroundColor: colors.navy,
           display: "flex",
           alignItems: "center",
         }}
@@ -143,7 +146,13 @@ function Home() {
       </div>
 
       <div className="form">
-        {appIndex == 0 ? <UserData /> : appIndex == 1 ? <Otp /> : <UserData />}
+        {appIndex == 0 ? (
+          <UserData />
+        ) : appIndex == 1 ? (
+          <PaymentDetailItem />
+        ) : (
+          <UserData />
+        )}
       </div>
     </div>
   );

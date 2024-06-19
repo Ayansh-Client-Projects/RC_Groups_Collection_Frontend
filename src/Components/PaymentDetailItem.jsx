@@ -1,76 +1,136 @@
-import React from 'react'
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-function PaymentDetailItem() {
-  
-    const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
-        {
-          field: 'firstName',
-          headerName: 'First name',
-          width: 150,
-          editable: true,
-        },
-        {
-          field: 'lastName',
-          headerName: 'Last name',
-          width: 150,
-          editable: true,
-        },
-        {
-          field: 'age',
-          headerName: 'Age',
-          type: 'number',
-          width: 110,
-          editable: true,
-        },
-        {
-          field: 'fullName',
-          headerName: 'Full name',
-          description: 'This column has a value getter and is not sortable.',
-          sortable: false,
-          width: 160,
-          valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-        },
-      ];
+import React from "react";
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
+function Table() {
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    {
+      field: "dealerId",
+      headerName: "Dealer name",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "invoice",
+      headerName: "Invoice Number",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "invDate",
+      headerName: "Receipt Date",
+      width: 150,
 
-      const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
-        { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
-        { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
-        { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-      ];
-      
+      editable: false,
+    },
+
+    {
+      field: "Payemnt",
+      headerName: "Payment Mode",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
+      width: 160,
+      // valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+    },
+
+    {
+      field: "amount",
+      headerName: "Amount",
+      type: "number",
+      width: 150,
+      editable: false,
+    },
+  ];
+
+  const rows = [
+    {
+      id: 1,
+      invoice: "Inv-405",
+      dealerId: "Saha Automobiles",
+      amount: 14,
+      invDate: "13 JUL",
+      Payemnt: "Online",
+    },
+    {
+      id: 2,
+      invoice: "Inv-405",
+      dealerId: "Saha Automobiles",
+      amount: 14,
+      invDate: "13 JUL",
+      Payemnt: "Online",
+    },
+    {
+      id: 3,
+      invoice: "Inv-405",
+      dealerId: "Saha Automobiles",
+      amount: 14,
+      invDate: "13 JUL",
+      Payemnt: "Online",
+    },
+    {
+      id: 4,
+      invoice: "Inv-405",
+      dealerId: "Saha Automobiles",
+      amount: 14,
+      invDate: "13 JUL",
+      Payemnt: "Online",
+    },
+    {
+      id: 5,
+      invoice: "Inv-405",
+      dealerId: "Saha Automobiles",
+      amount: 14,
+      invDate: "13 JUL",
+      Payemnt: "Online",
+    },
+    {
+      id: 6,
+      invoice: "Inv-405",
+      dealerId: "Saha Automobiles",
+      amount: 14,
+      invDate: "13 JUL",
+      Payemnt: "Online",
+    },
+    {
+      id: 7,
+      invoice: "Inv-405",
+      dealerId: "Saha Automobiles",
+      amount: 14,
+      invDate: "13 JUL",
+      Payemnt: "Online",
+    },
+  ];
+
   return (
     <div>
-<div>
-(
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
+      <div
+        style={{
+          width: "100vw",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "90vh",
         }}
-        pageSizeOptions={[9]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
-    </Box>
-  );
-</div>
-
+      >
+        (
+        <Box sx={{ height: "90vh", width: "90vw", marginLeft: "5vw" }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 10,
+                },
+              },
+            }}
+            pageSizeOptions={[10]}
+            disableRowSelectionOnClick
+          />
+        </Box>
+        );
+      </div>
     </div>
-  )
+  );
 }
 
-export default PaymentDetailItem
+export default Table;
