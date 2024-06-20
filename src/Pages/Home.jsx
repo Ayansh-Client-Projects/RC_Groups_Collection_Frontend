@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import PaymentDetailItem from "../Components/PaymentDetailItem.jsx";
 import LocalStorage from "../Services/LocalStorage.js";
 import UserData from "./UserData";
-// import colors from "../Utility/colors.js"
+import colors from "../Utility/colors.js"
 
 function Home() {
   const Mq = {
@@ -109,9 +109,7 @@ function Home() {
         style={{
           height: "7.5vh",
           width: "100vw",
-          // backgroundColor: "#2DA8F2",
-          backgroundColor: "#00006A",
-          // backgroundColor: colors.navy,
+          backgroundColor: colors.navy,
           display: "flex",
           alignItems: "center",
         }}
@@ -121,7 +119,9 @@ function Home() {
             height: "35px",
             width: "35px",
             margin: "2vw",
+            cursor : "pointer",
           }}
+          onMouseMove={toggleDrawer(true)}
           onClick={toggleDrawer(true)}
         />
         <span

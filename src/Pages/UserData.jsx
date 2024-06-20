@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import Validation from "../Services/Validation";
-
+import colors from "../Utility/colors.js";
 function UserData() {
   const [retailer, setRetailer] = React.useState("");
   const [retailers, setRetailers] = React.useState([]);
@@ -174,7 +174,7 @@ function UserData() {
       <div
         className="Container"
         style={{
-          background: "white",
+          // backgroundColor: colors.navy,
           // border: Mq.sm ? "0px" : "2px solid white",
           boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
           // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
@@ -400,12 +400,15 @@ function UserData() {
         ) : (
           <></>
         )}
+
         <Button
           variant="contained"
+          color="info"
           style={{
             width: Mq.sm ? "40vw" : "20vw",
-            marginTop: Mq.sm ? "1.8vh" : "5vh",
-            background: "#2DA8F2",
+            marginTop: Mq.sm ? "2vh" : "5vh",
+            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+            backgroundColor: colors.navy,
           }}
           onClick={() => {
             userDataValidation();

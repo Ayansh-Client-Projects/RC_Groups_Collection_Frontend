@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import LocalStorage from "../Services/LocalStorage.js";
 import axios from "axios";
 import ApiServices from "../Services/Api.js";
+import colors from "../Utility/colors.js";
 function Otp() {
   const [otp, setOtp] = useState("");
   const [phoneNum, setphoneNum] = useState();
@@ -117,8 +118,8 @@ function Otp() {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-          // backgroundColor: "#6E55C5",
-          backgroundColor: "#2DA8F2",
+          backgroundColor: colors.navy,
+         
         }}
       >
         <Button
@@ -170,7 +171,8 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            background: "#E0E0E0",
+            backgroundColor: colors.navy,
+
             borderTopLeftRadius: "10px",
             borderTopRightRadius: "10px",
           }}
@@ -182,9 +184,10 @@ function Otp() {
               justifyContent: "center",
               width: Mq.sm ? "80vw" : "55vw",
               textAlign: "center",
-              // background:"pink",
+              backgroundColor: colors.navy,
+
               marginTop: "10px",
-              // color: "white",
+              color: "white",
               fontWeight: "800",
               fontSize: "18px",
             }}
@@ -253,11 +256,12 @@ function Otp() {
               width: "130px",
               marginLeft: Mq.sm ? "0px" : "50px",
               color: "white",
-              boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
-              background :"#2DA8F2"
+            
+          backgroundColor: colors.navy,
+             
             }}
-            variant="contained"
-            color="primary"
+             variant="contained"
+              color="primary"
             onClick={() => {
               verification();
             }}
@@ -273,6 +277,7 @@ function Otp() {
             justifyContent: "center",
             flexDirection: "column",
             marginTop: "5vh",
+     
 
             // paddingBottom: "30px",
             // background: "black",
@@ -299,7 +304,8 @@ function Otp() {
                 marginTop: Mq.sm ? "3vh" : "0vh",
                 color: "white",
                 boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
-                background :"#2DA8F2"
+                backgroundColor: colors.navy,
+
               }}
             >
               Resend

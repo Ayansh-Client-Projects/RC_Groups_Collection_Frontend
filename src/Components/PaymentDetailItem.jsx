@@ -1,6 +1,12 @@
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import React from "react";
+import { HiFilter } from "react-icons/hi";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { colors } from "@mui/material";
 function Table() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -100,19 +106,48 @@ function Table() {
       Payemnt: "Online",
     },
   ];
-
+  
+    const [filter, setFilter] = React.useState('');
+  
+    const handleChange = (event) => {
+      setAge(event.target.value);
+    };
+  
   return (
     <div>
       <div
         style={{
+          display:"flex",
           width: "100vw",
-          alignItems: "center",
+          // alignItems: "center",
           justifyContent: "center",
           height: "90vh",
+          flexDirection:"column",
+          marginLeft: "5vw"
         }}
       >
-        (
-        <Box sx={{ height: "75vh", width: "90vw", marginLeft: "5vw" }}>
+
+        <div style={{display:"flex",alignItems:"center",width:"80vw"}}>
+        {/* <HiFilter title="Filter" style={{color:"black" ,height:"22px",width:"30px",marginTop:"23px"}} /> */}
+        <FormControl variant="standard" sx={{ m: 1, minWidth: "300px" }}>
+        <InputLabel id="demo-simple-select-standard-label">Filter By Dealer</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={filter}
+          onChange={handleChange}
+          label="Filter By Dealer"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+        </div>
+        <Box sx={{ height: "75vh", width: "90vw" }}>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -130,7 +165,7 @@ function Table() {
             disableRowSelectionOnClick
           />
         </Box>
-        );
+        ;
       </div>
     </div>
   );
