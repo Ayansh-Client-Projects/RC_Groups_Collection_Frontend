@@ -169,6 +169,7 @@ function NewPayment() {
         // justifyContent: "center",
         flexDirection: "column",
         background: colors.background,
+        overflowY:"auto",
       }}
     >
       <div
@@ -181,13 +182,14 @@ function NewPayment() {
           // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
           borderRadius: "10px",
           height: Mq.sm ? "85vh" : "70vh",
-          paddingTop: "5vh",
+          // paddingTop: "5vh",
           marginTop: Mq.sm ? "3vh" : "5vh",
-          paddingBottom: "5vh",
+          // paddingBottom: "5vh",
           width: Mq.sm ? "90vw" : "60vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
+          
           // justifyContent: "center",
         }}
       >
@@ -202,6 +204,15 @@ function NewPayment() {
           }}
         >
           <Box sx={{ minWidth: 120 }}>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "10px",
+              }}
+            >
+              * Retailer Name
+            </p>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Retailer</InputLabel>
               <Select
@@ -213,7 +224,7 @@ function NewPayment() {
                   marginRight: Mq.sm ? "0" : "5vw",
                   marginBottom: Mq.sm ? "2vh" : "",
                 }}
-                label="Name"
+                label="Choose Retailer"
                 onChange={handleChange}
               >
                 {retailers.map((value) => (
@@ -227,6 +238,16 @@ function NewPayment() {
             className="InvDate"
             style={{ marginBottom: Mq.sm ? "2vh" : "0vh" }}
           >
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "5 px",
+              }}
+            >
+              * Invoice Date
+            </p>
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DemoItem label="">
@@ -253,33 +274,63 @@ function NewPayment() {
             marginTop: "0vh",
             marginBottom: Mq.sm ? "2vh" : "5vh",
             marginTop: Mq.sm ? "0vh" : "5vh",
+            flexDirection:Mq.sm?"column":"row"
           }}
         >
-          <TextField
-            id="outlined-basic"
-            label="Invoice"
-            placeholder="ex:INV-1234"
-            variant="outlined"
-            style={{
-              width: Mq.sm ? "70vw" : "20vw",
-              marginRight: "5vw",
-              marginTop: "0vh",
-            }}
-            onChange={(e) => {
-              setinvoiceNumber(e.target.value);
-            }}
-          />
+          <div>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              
+              }}
+            >
+              * Invoice Number
+            </p>
+            <TextField
+              id="outlined-basic"
+              label="Invoice"
+              placeholder="ex:INV-1234"
+              variant="outlined"
+              style={{
+                marginTop: "0vh",
+                marginRight: Mq.sm?"0vw":"5vw",
+                width: Mq.sm ? "80vw" : "20vw" ,
+                
+              }}
+              onChange={(e) => {
+                setinvoiceNumber(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "15px",
+                marginTop: Mq.sm ? "15px":"0px",
+              }}
+            >
+              * Total Amount
+            </p>
 
-          <TextField
-            id="outlined-basic"
-            label="Amount"
-            placeholder="Enter Total Amount"
-            variant="outlined"
-            style={{ width: Mq.sm ? "70vw" : "20vw" }}
-            onChange={(e) => {
-              setamount(e.target.value);
-            }}
-          />
+            <TextField
+              id="outlined-basic"
+              label="Amount"
+              placeholder="Enter Total Amount"
+              variant="outlined"
+              style={{ 
+                // marginRight: Mq.sm?"0vw":"5vw",
+                width: Mq.sm ? "80vw" : "20vw" ,
+              
+              }}
+              onChange={(e) => {
+                setamount(e.target.value);
+              }}
+            />
+          </div>
         </div>
 
         <div
@@ -294,6 +345,16 @@ function NewPayment() {
           }}
         >
           <Box sx={{ minWidth: 120 }}>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              }}
+            >
+              * Payment Mode
+            </p>
+
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Payment</InputLabel>
               <Select
@@ -315,26 +376,57 @@ function NewPayment() {
             </FormControl>
           </Box>
           {payment.toLowerCase() == "online" ? (
-            <TextField
-              id="outlined-basic"
-              label="UPI Address"
-              placeholder="ex:T240531*********5536"
-              variant="outlined"
-              style={{
-                width: Mq.sm ? "80vw" : "20vw",
-                marginTop: Mq.sm ? "2vh" : "0",
-                marginBottom: Mq.sm ? "2vh" : "0vh",
-                marginLeft: Mq.sm ? "0vw" : "5vw",
-                height: Mq.sm ? "7.5vh" : "",
-              }}
-              onChange={(e) => {
-                setUpiId(e.target.value);
-              }}
-            />
+            <div>
+              <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  marginBottom: Mq.sm ? "5px" :"15px",
+                  width: Mq.sm ? "80vw" : "20vw",
+                  marginLeft: Mq.sm ? "0vw" : "5vw",
+                  marginTop: Mq.sm ? "15px":"0px",
+                 
+                }}
+              >
+                * UPI Address
+              </p>
+
+              <TextField
+                id="outlined-basic"
+                label="UPI Address"
+                placeholder="ex:T240531*********5536"
+                variant="outlined"
+                style={{
+                  width: Mq.sm ? "80vw" : "20vw",
+                  marginTop: Mq.sm ? "2vh" : "0",
+                  marginBottom: Mq.sm ? "2vh" : "0vh",
+                  marginLeft: Mq.sm ? "0vw" : "5vw",
+                  height: Mq.sm ? "7.5vh" : "",
+                }}
+                onChange={(e) => {
+                  setUpiId(e.target.value);
+                }}
+              />
+            </div>
           ) : payment.toLowerCase() == "cheque" ? (
+           <div>
+            <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  marginBottom: Mq.sm ? "0px":"15px",
+                  marginTop: Mq.sm ? "15px":"0px",
+                  width: Mq.sm ? "80vw" : "20vw",
+                  marginLeft: Mq.sm ? "0vw" : "5vw",
+                }}
+              >
+                * Cheque Number
+              </p>
+              
+                
             <TextField
               id="outlined-basic"
-              label="Cheque No"
+              label="Cheque Number"
               placeholder="Enter Cheque Number"
               variant="outlined"
               style={{
@@ -346,6 +438,8 @@ function NewPayment() {
                 setcheqno(e.target.value);
               }}
             />
+            
+            </div>
           ) : (
             <></>
           )}
@@ -365,6 +459,19 @@ function NewPayment() {
               flexDirection: Mq.sm ? "column" : "row",
             }}
           >
+            <div>
+            <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  marginBottom:"15px",
+                  // marginTop: Mq.sm ? "15px":"0px",
+                  width: Mq.sm ? "80vw" : "20vw",
+               
+                }}
+              >
+                * Bank Name
+              </p>
             <TextField
               id="outlined-basic"
               label="Bank"
@@ -379,8 +486,20 @@ function NewPayment() {
                 setBank(e.target.value);
               }}
             />
-
+</div>
             <div className="CheqDate" style={{ marginTop: "0vh" }}>
+            <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  // marginBottom: "15px",
+                  marginBottom: Mq.sm ? "5px":"5px",
+                  marginTop: Mq.sm ? "15px":"0px",
+                  // marginLeft: Mq.sm ? "0vw" : "5vw",
+                }}
+              >
+                * Cheque Isuued
+              </p>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker"]}>
                   <DemoItem label="">
@@ -403,9 +522,9 @@ function NewPayment() {
         ) : (
           <></>
         )}
-        <div className="buttonRow" 
-        style={{display: "flex",
-          width: Mq.sm ? "80vw" : "45vw",}}
+        <div
+          className="buttonRow"
+          style={{ display: "flex", width: Mq.sm ? "80vw" : "45vw" ,paddingBottom:"5vh",paddingTop:"3vh"}}
         >
           <Button
             variant="contained"

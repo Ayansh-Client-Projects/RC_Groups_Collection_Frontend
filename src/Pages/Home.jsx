@@ -130,6 +130,7 @@ function Home() {
       style={{
         height: "100vh",
         width: "100vw",
+        overflow:"auto",
         background: colors.secondaryBackground,
       }}
     >
