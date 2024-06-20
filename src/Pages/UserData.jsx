@@ -1,24 +1,23 @@
-import React, { useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import axios from "axios";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { BsCalendar2Date } from "react-icons/bs";
-import Validation from "../Services/Validation";
-import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { BsCalendar2Date } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import LocalStorage from "../Services/LocalStorage.js";
 import ApiServices from "../Services/Api.js";
+import LocalStorage from "../Services/LocalStorage.js";
+import Validation from "../Services/Validation";
 
 function UserData() {
   const [retailer, setRetailer] = React.useState("");
@@ -137,10 +136,10 @@ function UserData() {
       });
   }
 
-  function logOut() {
-    navigate("/");
-    LocalStorage.removeToken();
-  }
+  // function logOut() {
+  //   navigate("/");
+  //   LocalStorage.removeToken();
+  // }
 
   async function handleApiError(response) {
     if (response.status == 500) {
@@ -169,64 +168,26 @@ function UserData() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
-        // backgroundColor: "#1976D2",
-        // backgroundColor: "#1976D2",
-        // backgroundColor: "#5763FF",
-        // backgroundColor: "white",
-        // backgroundColor: "#8499FE",
-        // backgroundColor: "#6E55C5",
-        // backgroundColor: "#2DA8F2",
         background: "#F5F5F5",
-
       }}
     >
-      <div
-        className="navBar"
-        // style={{
-        //   width: "100vw",
-        //   height: Mq.sm ? "3vh" : "8vh",
-        //   display: "flex",
-        //   alignItems: "center",
-        //   justifyContent: "flex-end",
-        // }}
-      >
-        {/* <Button
-          variant="contained"
-          color="inherit"
-          sx={{
-            marginTop: Mq.sm ? "25px" : "0vh",
-            marginRight: "3vw",
-            color: "black",
-            height: Mq.sm ? "5.5vh" : "6vh",
-            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 5px",
-          }}
-          onClick={(e) => {
-            logOut(e.target.value);
-          }}
-        >
-          Logout
-        </Button> */}
-      </div>
       <div
         className="Container"
         style={{
           background: "white",
-          // background: "#00006A",
           // border: Mq.sm ? "0px" : "2px solid white",
           boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
           // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
           borderRadius: "10px",
           height: Mq.sm ? "85vh" : "70vh",
           paddingTop: "5vh",
-          marginTop: Mq.sm ? "3vh":"5vh",
+          marginTop: Mq.sm ? "3vh" : "5vh",
           paddingBottom: "5vh",
           width: Mq.sm ? "90vw" : "60vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
           // justifyContent: "center",
-          // marginBottom: "3vh",
-          // opacity:"90%"
         }}
       >
         <div
@@ -250,7 +211,6 @@ function UserData() {
                   width: Mq.sm ? "80vw" : "20vw",
                   marginRight: Mq.sm ? "0" : "5vw",
                   marginBottom: Mq.sm ? "2vh" : "",
-                  // height: Mq.sm ? "7.5vh" : "",
                 }}
                 label="Name"
                 onChange={handleChange}
@@ -290,7 +250,6 @@ function UserData() {
             justifyContent: "center",
             alignItems: "center",
             marginTop: "0vh",
-            // backgroundColor:"pink",
             marginBottom: Mq.sm ? "2vh" : "5vh",
             marginTop: Mq.sm ? "0vh" : "5vh",
           }}
@@ -342,7 +301,6 @@ function UserData() {
                 style={{
                   width: Mq.sm ? "80vw" : "20vw",
                   marginRight: Mq.sm ? "0" : "0",
-                  // height: Mq.sm ? "7.5vh" : "",
                 }}
                 label="Name"
                 onChange={paymentMode}
@@ -447,7 +405,7 @@ function UserData() {
           style={{
             width: Mq.sm ? "40vw" : "20vw",
             marginTop: Mq.sm ? "1.8vh" : "5vh",
-            background :"#2DA8F2"
+            background: "#2DA8F2",
           }}
           onClick={() => {
             userDataValidation();
