@@ -14,8 +14,8 @@ import { useNavigate } from "react-router-dom";
 import PaymentDetailItem from "../Components/PaymentDetailItem.jsx";
 import LocalStorage from "../Services/LocalStorage.js";
 import colors from "../Utility/colors.js";
-import UserData from "./UserData";
-// import newPayment from "./NewPayment.jsx";
+// import UserData from "./UserData";
+import NewPayment from "./NewPayment.jsx";
 
 function Home() {
   const Mq = {
@@ -35,8 +35,7 @@ function Home() {
       sx={{
         width: 250,
         height: "100vh",
-        // background:colors.secondaryBackground,  
-        background:colors.secondary,  
+        background: colors.background,
       }}
       role="presentation"
       onClick={toggleDrawer(false)}
@@ -53,11 +52,11 @@ function Home() {
                 height: "30px",
                 width: "30px",
                 marginRight: "20px",
-                color: "white",
+                color: "black",
               }}
               title="New Payment"
             />
-            <ListItemText style={{ color: "white" }} primary="New Payment" />
+            <ListItemText style={{ color: "black" }} primary="New Payment" />
           </ListItemButton>
         </ListItem>
       </List>
@@ -74,13 +73,13 @@ function Home() {
                 height: "30px",
                 width: "30px",
                 marginRight: "20px",
-                color: "white",
+                color: "black",
               }}
               title="Payment History"
             />
             <ListItemText
               primary="Payment History"
-              style={{ marginTop: "15px", color: "white" }}
+              style={{ marginTop: "15px", color: "black" }}
             />
           </ListItemButton>
         </ListItem>
@@ -98,18 +97,18 @@ function Home() {
                 height: "25px",
                 width: "25px",
                 marginRight: "20px",
-                color: "white",
+                color: "black",
               }}
               title="LogOut"
             />
             <ListItemText
               primary="LogOut"
-              style={{ marginLeft: "7px", color: "white" }}
+              style={{ marginLeft: "7px", color: "black" }}
             />
           </ListItemButton>
         </ListItem>
       </List>
-      <Divider sx={{ color: "white" }} />
+      <Divider sx={{ color: "black" }} />
     </Box>
   );
 
@@ -127,7 +126,13 @@ function Home() {
   }
 
   return (
-    <div style={{ height: "100vh", width: "100vw",background:colors.secondaryBackground }}>
+    <div
+      style={{
+        height: "100vh",
+        width: "100vw",
+        background: colors.secondaryBackground,
+      }}
+    >
       <div
         className="navbar"
         style={{
@@ -169,16 +174,15 @@ function Home() {
         </Drawer>
       </div>
 
-      <div className="form">
+      <div className="payment">
         {appIndex == 0 ? (
-          <UserData />
-          // <newPayment />
-         
+          // <UserData />
+          <NewPayment />
         ) : appIndex == 1 ? (
           <PaymentDetailItem />
         ) : (
-          <UserData />
-          // <newPayment />
+          // <UserData />
+          <NewPayment />
         )}
       </div>
     </div>

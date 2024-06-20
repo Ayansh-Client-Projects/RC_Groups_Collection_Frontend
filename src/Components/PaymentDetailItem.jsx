@@ -113,7 +113,7 @@ function Table() {
   };
 
   return (
-    <div>
+    <div style={{ background: colors.background }}>
       <div
         style={{
           display: "flex",
@@ -126,16 +126,17 @@ function Table() {
         }}
       >
         <div
+          className="filter"
           style={{
             display: "flex",
             alignItems: "center",
             width: "90vw",
-            background: colors.background,
+            background: "white",
             marginTop: "2vh",
-            borderRadius: "5px",
+            borderTopLeftRadius: "10px",
+            borderTopRightRadius: "10px",
           }}
         >
-          {/* <HiFilter title="Filter" style={{color:"black" ,height:"22px",width:"30px",marginTop:"23px"}} /> */}
           <FormControl variant="standard" sx={{ m: 1, minWidth: "300px" }}>
             <InputLabel id="demo-simple-select-standard-label">
               Filter By Dealer
@@ -157,7 +158,15 @@ function Table() {
           </FormControl>
         </div>
         <Box
-          sx={{ height: "75vh", width: "90vw", background: colors.background }}
+          sx={{
+            height: "70vh",
+            width: "90vw",
+            background: "white",
+            borderBottomRightRadius: "15px",
+            borderBottomLeftRadius: "15px",
+            borderTopLeftRadius: "0px",
+            borderTopRightRadius: "0px",
+          }}
         >
           <DataGrid
             rows={rows}

@@ -1,3 +1,12 @@
+{
+	"mobileNumber": "6291924402",
+	"password": "abhishek@123"
+}
+
+
+
+
+
 axios.post('https://api.example.com/data', {
   name: 'John Doe',
   email: 'john.doe@example.com'
@@ -10,10 +19,6 @@ axios.post('https://api.example.com/data', {
   });
 
 
-{
-	"mobileNumber": "6291924402",
-	"password": "abhishek@123"
-}
 
   "Code": 417,
             "Message": "Wrong otp is entered by salesman with SalesmanId 66670c1914d76275d8861cbc for 35c9fa6d-ffe7-4dae-9eb2-1af0217434f1"

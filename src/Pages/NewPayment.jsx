@@ -19,7 +19,7 @@ import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import Validation from "../Services/Validation";
 import colors from "../Utility/colors.js";
-function newPayment() {
+function NewPayment() {
   const [retailer, setRetailer] = React.useState("");
   const [retailers, setRetailers] = React.useState([]);
   const [payment, setPayment] = React.useState("");
@@ -168,14 +168,14 @@ function newPayment() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
-        background:colors.background,  
+        background: colors.background,
       }}
     >
       <div
         className="Container"
         style={{
-          // background:colors.background,          
-          // background:"white",          
+          // background:colors.background,
+          // background:"white",
           // border: Mq.sm ? "0px" : "2px solid white",
           // boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
           // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
@@ -286,9 +286,10 @@ function newPayment() {
           className="Row3"
           style={{
             display: "flex",
-            width: Mq.sm ? "80vw" : "100vw",
-            justifyContent: "center",
-            alignItems: "center",
+            width: Mq.sm ? "80vw" : "45vw",
+            // justifyContent: "center",
+            // alignItems: "center",
+            // background:"black",
             flexDirection: Mq.sm ? "column" : "row",
           }}
         >
@@ -301,6 +302,7 @@ function newPayment() {
                 value={payment}
                 style={{
                   width: Mq.sm ? "80vw" : "20vw",
+
                   marginRight: Mq.sm ? "0" : "0",
                 }}
                 label="Name"
@@ -401,22 +403,26 @@ function newPayment() {
         ) : (
           <></>
         )}
-
-        <Button
-          variant="contained"
-          color="info"
-          style={{
-            width: Mq.sm ? "40vw" : "20vw",
-            marginTop: Mq.sm ? "2vh" : "5vh",
-            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
-            background:colors.primary,  
-          }}
-          onClick={() => {
-            userDataValidation();
-          }}
+        <div className="buttonRow" 
+        style={{display: "flex",
+          width: Mq.sm ? "80vw" : "45vw",}}
         >
-          Send OTP
-        </Button>
+          <Button
+            variant="contained"
+            color="info"
+            style={{
+              width: Mq.sm ? "40vw" : "20vw",
+              marginTop: Mq.sm ? "2vh" : "5vh",
+              boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+              background: colors.primary,
+            }}
+            onClick={() => {
+              userDataValidation();
+            }}
+          >
+            Send OTP
+          </Button>
+        </div>
       </div>
       <Snackbar
         anchorOrigin={{
@@ -434,4 +440,4 @@ function newPayment() {
   );
 }
 
-export default newPayment;
+export default NewPayment;
