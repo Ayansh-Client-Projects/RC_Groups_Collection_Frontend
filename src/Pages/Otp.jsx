@@ -106,7 +106,7 @@ function Otp() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
-        background :"#F5F5F5"
+        background:colors.background,
       }}
     >
       <div
@@ -118,11 +118,11 @@ function Otp() {
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
-          backgroundColor: colors.navy,
+          backgroundColor: colors.primary,
          
         }}
       >
-        <Button
+        {/* <Button
           variant="contained"
           color="inherit"
           sx={{
@@ -137,7 +137,7 @@ function Otp() {
           }}
         >
           Logout
-        </Button>
+        </Button> */}
       </div>
 
       <div
@@ -146,9 +146,7 @@ function Otp() {
           // background:"black",
           border: Mq.sm ? "0px" : "2px solid #D8D8D8",
           boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
-          // backgroundColor: "#6E55C5",
-          // background: "#E0E0E0",
-          background: "white",
+          background:colors.secondaryBackground,
 
           // backgroundColor: "#2DA8F2",
           marginTop: "10vh",
@@ -171,8 +169,7 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            backgroundColor: colors.navy,
-
+            background:colors.primary,
             borderTopLeftRadius: "10px",
             borderTopRightRadius: "10px",
           }}
@@ -184,8 +181,7 @@ function Otp() {
               justifyContent: "center",
               width: Mq.sm ? "80vw" : "55vw",
               textAlign: "center",
-              backgroundColor: colors.navy,
-
+             
               marginTop: "10px",
               color: "white",
               fontWeight: "800",
@@ -207,10 +203,7 @@ function Otp() {
               flexDirection: "column",
               // color: "white",
               color: "black",
-              // backgroundColor:"#6E55C5"
-              // backgroundColor:"#2DA8F2"
-              // backgroundColor: "#E0E0E0",
-              // backgroundColor: "#2DA8F2",
+              background:colors.secondaryBackground,
               backgroundColor: "white",
             }}
           >
@@ -256,8 +249,8 @@ function Otp() {
               width: "130px",
               marginLeft: Mq.sm ? "0px" : "50px",
               color: "white",
-            
-          backgroundColor: colors.navy,
+              background:colors.primary,
+         
              
             }}
              variant="contained"
@@ -304,7 +297,7 @@ function Otp() {
                 marginTop: Mq.sm ? "3vh" : "0vh",
                 color: "white",
                 boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
-                backgroundColor: colors.navy,
+                background:colors.primary,
 
               }}
             >

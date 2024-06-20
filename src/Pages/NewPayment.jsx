@@ -19,7 +19,7 @@ import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import Validation from "../Services/Validation";
 import colors from "../Utility/colors.js";
-function UserData() {
+function newPayment() {
   const [retailer, setRetailer] = React.useState("");
   const [retailers, setRetailers] = React.useState([]);
   const [payment, setPayment] = React.useState("");
@@ -434,4 +434,4 @@ function UserData() {
   );
 }
 
-export default UserData;
+export default newPayment;

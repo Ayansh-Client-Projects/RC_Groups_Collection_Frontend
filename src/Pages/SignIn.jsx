@@ -9,6 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import axios from "axios";
 import ApiServices from "../Services/Api.js";
 import StoreApi from "../Services/LocalStorage.js";
+import colors from "../Utility/colors.js";
 function SignIn() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
@@ -78,7 +79,7 @@ function SignIn() {
       <div
         className="Container"
         style={{
-          // background:"black",
+        //  background:colors.
           height: "40vh",
           width: "50vw",
           display: "flex",

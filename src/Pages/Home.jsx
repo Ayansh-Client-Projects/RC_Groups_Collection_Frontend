@@ -13,8 +13,9 @@ import { TbLogout2 } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import PaymentDetailItem from "../Components/PaymentDetailItem.jsx";
 import LocalStorage from "../Services/LocalStorage.js";
+import colors from "../Utility/colors.js";
 import UserData from "./UserData";
-import colors from "../Utility/colors.js"
+// import newPayment from "./NewPayment.jsx";
 
 function Home() {
   const Mq = {
@@ -30,7 +31,16 @@ function Home() {
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box
+      sx={{
+        width: 250,
+        height: "100vh",
+        // background:colors.secondaryBackground,  
+        background:colors.secondary,  
+      }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
       <List>
         <ListItem disablePadding>
           <ListItemButton
@@ -39,10 +49,15 @@ function Home() {
             }}
           >
             <GiMoneyStack
-              style={{ height: "30px", width: "30px", marginRight: "20px" }}
+              style={{
+                height: "30px",
+                width: "30px",
+                marginRight: "20px",
+                color: "white",
+              }}
               title="New Payment"
             />
-            <ListItemText primary="New Payment" />
+            <ListItemText style={{ color: "white" }} primary="New Payment" />
           </ListItemButton>
         </ListItem>
       </List>
@@ -55,12 +70,17 @@ function Home() {
             }}
           >
             <GiReceiveMoney
-              style={{ height: "30px", width: "30px", marginRight: "20px" }}
+              style={{
+                height: "30px",
+                width: "30px",
+                marginRight: "20px",
+                color: "white",
+              }}
               title="Payment History"
             />
             <ListItemText
               primary="Payment History"
-              style={{ marginTop: "15px" }}
+              style={{ marginTop: "15px", color: "white" }}
             />
           </ListItemButton>
         </ListItem>
@@ -78,14 +98,18 @@ function Home() {
                 height: "25px",
                 width: "25px",
                 marginRight: "20px",
+                color: "white",
               }}
               title="LogOut"
             />
-            <ListItemText primary="LogOut" style={{ marginLeft: "7px" }} />
+            <ListItemText
+              primary="LogOut"
+              style={{ marginLeft: "7px", color: "white" }}
+            />
           </ListItemButton>
         </ListItem>
       </List>
-      <Divider />
+      <Divider sx={{ color: "white" }} />
     </Box>
   );
 
@@ -103,13 +127,13 @@ function Home() {
   }
 
   return (
-    <div style={{ height: "100vh", width: "100vw", backgroundColor: "white" }}>
+    <div style={{ height: "100vh", width: "100vw",background:colors.secondaryBackground }}>
       <div
         className="navbar"
         style={{
-          height: "7.5vh",
+          height: "8vh",
           width: "100vw",
-          backgroundColor: colors.navy,
+          backgroundColor: colors.primary,
           display: "flex",
           alignItems: "center",
         }}
@@ -119,9 +143,9 @@ function Home() {
             height: "35px",
             width: "35px",
             margin: "2vw",
-            cursor : "pointer",
+            cursor: "pointer",
           }}
-          onMouseMove={toggleDrawer(true)}
+          // onMouseMove={toggleDrawer(true)}
           onClick={toggleDrawer(true)}
         />
         <span
@@ -148,10 +172,13 @@ function Home() {
       <div className="form">
         {appIndex == 0 ? (
           <UserData />
+          // <newPayment />
+         
         ) : appIndex == 1 ? (
           <PaymentDetailItem />
         ) : (
           <UserData />
+          // <newPayment />
         )}
       </div>
     </div>
