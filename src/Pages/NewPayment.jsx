@@ -169,7 +169,7 @@ function NewPayment() {
         // justifyContent: "center",
         flexDirection: "column",
         background: colors.background,
-        overflowY:"auto",
+        overflowY: "auto",
       }}
     >
       <div
@@ -189,7 +189,7 @@ function NewPayment() {
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
-          
+
           // justifyContent: "center",
         }}
       >
@@ -223,6 +223,8 @@ function NewPayment() {
                   width: Mq.sm ? "80vw" : "20vw",
                   marginRight: Mq.sm ? "0" : "5vw",
                   marginBottom: Mq.sm ? "2vh" : "",
+                  background: colors.secondaryBackground,
+                  //  textAnchor:"start"
                 }}
                 label="Choose Retailer"
                 onChange={handleChange}
@@ -252,7 +254,10 @@ function NewPayment() {
               <DemoContainer components={["DatePicker"]}>
                 <DemoItem label="">
                   <DatePicker
-                    sx={{ width: Mq.sm ? "80vw" : "20vw" }}
+                    sx={{
+                      width: Mq.sm ? "80vw" : "20vw",
+                      background: colors.secondaryBackground,
+                    }}
                     components={{ openPickerIcon: BsCalendar2Date }}
                     onChange={(e) => {
                       setInvDate(e.format("YYYY-MM-DD"));
@@ -274,7 +279,7 @@ function NewPayment() {
             marginTop: "0vh",
             marginBottom: Mq.sm ? "2vh" : "5vh",
             marginTop: Mq.sm ? "0vh" : "5vh",
-            flexDirection:Mq.sm?"column":"row"
+            flexDirection: Mq.sm ? "column" : "row",
           }}
         >
           <div>
@@ -283,7 +288,6 @@ function NewPayment() {
                 color: "black",
                 fontWeight: "400",
                 marginBottom: "15px",
-              
               }}
             >
               * Invoice Number
@@ -292,12 +296,15 @@ function NewPayment() {
               id="outlined-basic"
               label="Invoice"
               placeholder="ex:INV-1234"
-              variant="outlined"
+              // variant="filled"
               style={{
+                // background:"#F0F0F3",
+                background: colors.secondaryBackground,
+                // borderRadius:"15px",
+                border: "none",
                 marginTop: "0vh",
-                marginRight: Mq.sm?"0vw":"5vw",
-                width: Mq.sm ? "80vw" : "20vw" ,
-                
+                marginRight: Mq.sm ? "0vw" : "5vw",
+                width: Mq.sm ? "80vw" : "20vw",
               }}
               onChange={(e) => {
                 setinvoiceNumber(e.target.value);
@@ -310,7 +317,7 @@ function NewPayment() {
                 color: "black",
                 fontWeight: "400",
                 marginBottom: "15px",
-                marginTop: Mq.sm ? "15px":"0px",
+                marginTop: Mq.sm ? "15px" : "0px",
               }}
             >
               * Total Amount
@@ -321,10 +328,10 @@ function NewPayment() {
               label="Amount"
               placeholder="Enter Total Amount"
               variant="outlined"
-              style={{ 
+              style={{
                 // marginRight: Mq.sm?"0vw":"5vw",
-                width: Mq.sm ? "80vw" : "20vw" ,
-              
+                width: Mq.sm ? "80vw" : "20vw",
+                background: colors.secondaryBackground,
               }}
               onChange={(e) => {
                 setamount(e.target.value);
@@ -363,7 +370,7 @@ function NewPayment() {
                 value={payment}
                 style={{
                   width: Mq.sm ? "80vw" : "20vw",
-
+                  background: colors.secondaryBackground,
                   marginRight: Mq.sm ? "0" : "0",
                 }}
                 label="Name"
@@ -381,11 +388,10 @@ function NewPayment() {
                 style={{
                   color: "black",
                   fontWeight: "400",
-                  marginBottom: Mq.sm ? "5px" :"15px",
+                  marginBottom: Mq.sm ? "5px" : "15px",
                   width: Mq.sm ? "80vw" : "20vw",
                   marginLeft: Mq.sm ? "0vw" : "5vw",
-                  marginTop: Mq.sm ? "15px":"0px",
-                 
+                  marginTop: Mq.sm ? "15px" : "0px",
                 }}
               >
                 * UPI Address
@@ -394,7 +400,7 @@ function NewPayment() {
               <TextField
                 id="outlined-basic"
                 label="UPI Address"
-                placeholder="ex:T240531*********5536"
+                // placeholder=""
                 variant="outlined"
                 style={{
                   width: Mq.sm ? "80vw" : "20vw",
@@ -402,6 +408,7 @@ function NewPayment() {
                   marginBottom: Mq.sm ? "2vh" : "0vh",
                   marginLeft: Mq.sm ? "0vw" : "5vw",
                   height: Mq.sm ? "7.5vh" : "",
+                  background: colors.secondaryBackground,
                 }}
                 onChange={(e) => {
                   setUpiId(e.target.value);
@@ -409,36 +416,35 @@ function NewPayment() {
               />
             </div>
           ) : payment.toLowerCase() == "cheque" ? (
-           <div>
-            <p
+            <div>
+              <p
                 style={{
                   color: "black",
                   fontWeight: "400",
-                  marginBottom: Mq.sm ? "0px":"15px",
-                  marginTop: Mq.sm ? "15px":"0px",
+                  marginBottom: Mq.sm ? "0px" : "15px",
+                  marginTop: Mq.sm ? "15px" : "0px",
                   width: Mq.sm ? "80vw" : "20vw",
                   marginLeft: Mq.sm ? "0vw" : "5vw",
                 }}
               >
                 * Cheque Number
               </p>
-              
-                
-            <TextField
-              id="outlined-basic"
-              label="Cheque Number"
-              placeholder="Enter Cheque Number"
-              variant="outlined"
-              style={{
-                width: Mq.sm ? "80vw" : "20vw",
-                marginTop: Mq.sm ? "2vh" : "0",
-                marginLeft: Mq.sm ? "0vw" : "5vw",
-              }}
-              onChange={(e) => {
-                setcheqno(e.target.value);
-              }}
-            />
-            
+
+              <TextField
+                id="outlined-basic"
+                label="Cheque Number"
+                placeholder="Enter Cheque Number"
+                variant="outlined"
+                style={{
+                  width: Mq.sm ? "80vw" : "20vw",
+                  marginTop: Mq.sm ? "2vh" : "0",
+                  marginLeft: Mq.sm ? "0vw" : "5vw",
+                  background: colors.secondaryBackground,
+                }}
+                onChange={(e) => {
+                  setcheqno(e.target.value);
+                }}
+              />
             </div>
           ) : (
             <></>
@@ -453,48 +459,46 @@ function NewPayment() {
               width: Mq.sm ? "80vw" : "100vw",
               justifyContent: "center",
               alignItems: "center",
-
               marginTop: Mq.sm ? "1.8vh" : "5vh",
-
               flexDirection: Mq.sm ? "column" : "row",
             }}
           >
             <div>
-            <p
+              <p
                 style={{
                   color: "black",
                   fontWeight: "400",
-                  marginBottom:"15px",
+                  marginBottom: "15px",
                   // marginTop: Mq.sm ? "15px":"0px",
                   width: Mq.sm ? "80vw" : "20vw",
-               
                 }}
               >
                 * Bank Name
               </p>
-            <TextField
-              id="outlined-basic"
-              label="Bank"
-              placeholder="Enter Bank Name"
-              variant="outlined"
-              style={{
-                width: Mq.sm ? "80vw" : "20vw",
-                marginTop: Mq.sm ? "0vh" : "0",
-                marginRight: Mq.sm ? "0" : "5vw",
-              }}
-              onChange={(e) => {
-                setBank(e.target.value);
-              }}
-            />
-</div>
+              <TextField
+                id="outlined-basic"
+                label="Bank"
+                placeholder="Enter Bank Name"
+                variant="outlined"
+                style={{
+                  width: Mq.sm ? "80vw" : "20vw",
+                  marginTop: Mq.sm ? "0vh" : "0",
+                  marginRight: Mq.sm ? "0" : "5vw",
+                  background: colors.secondaryBackground,
+                }}
+                onChange={(e) => {
+                  setBank(e.target.value);
+                }}
+              />
+            </div>
             <div className="CheqDate" style={{ marginTop: "0vh" }}>
-            <p
+              <p
                 style={{
                   color: "black",
                   fontWeight: "400",
                   // marginBottom: "15px",
-                  marginBottom: Mq.sm ? "5px":"5px",
-                  marginTop: Mq.sm ? "15px":"0px",
+                  marginBottom: Mq.sm ? "5px" : "5px",
+                  marginTop: Mq.sm ? "15px" : "0px",
                   // marginLeft: Mq.sm ? "0vw" : "5vw",
                 }}
               >
@@ -507,6 +511,7 @@ function NewPayment() {
                       sx={{
                         width: Mq.sm ? "80vw" : "20vw",
                         marginTop: Mq.sm ? "0vh" : "0",
+                        background: colors.secondaryBackground,
                       }}
                       format="DD-MM-YYYY"
                       onChange={(e) => {
@@ -524,7 +529,12 @@ function NewPayment() {
         )}
         <div
           className="buttonRow"
-          style={{ display: "flex", width: Mq.sm ? "80vw" : "45vw" ,paddingBottom:"5vh",paddingTop:"3vh"}}
+          style={{
+            display: "flex",
+            width: Mq.sm ? "80vw" : "45vw",
+            paddingBottom: "5vh",
+            paddingTop: "3vh",
+          }}
         >
           <Button
             variant="contained"

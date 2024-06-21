@@ -11,11 +11,10 @@ import { GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 import { IoMdMenu } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-import PaymentDetailItem from "../Components/PaymentDetailItem.jsx";
 import LocalStorage from "../Services/LocalStorage.js";
 import colors from "../Utility/colors.js";
-// import UserData from "./UserData";
 import NewPayment from "./NewPayment.jsx";
+import PaymentHistory from "./PaymentHistory.jsx";
 
 function Home() {
   const Mq = {
@@ -178,12 +177,11 @@ function Home() {
 
       <div className="payment">
         {appIndex == 0 ? (
-          // <UserData />
           <NewPayment />
         ) : appIndex == 1 ? (
-          <PaymentDetailItem />
+          <PaymentHistory />
         ) : (
-          // <UserData />
+       
           <NewPayment />
         )}
       </div>

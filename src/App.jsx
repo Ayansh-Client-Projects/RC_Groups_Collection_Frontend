@@ -5,7 +5,8 @@ import OTP from "./Pages/Otp.jsx";
 import UserData from "./Pages/UserData.jsx";
 import Error404 from "./Pages/Error404.jsx";
 import { Route, Routes } from "react-router-dom";
-// import NewPayment from "./Pages/NewPayment.jsx";
+import NewPayment from "./Pages/NewPayment.jsx";
+import PaymentHistory from "./Pages/PaymentHistory.jsx";
 import "./index.css";
 import "./App.css";
 
@@ -17,15 +18,15 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={isLoggedIn == true ? <UserData /> : <SignIn />}
+          element={isLoggedIn == true ? <NewPayment /> : <SignIn />}
           // element={isLoggedIn == true ? <NewPayment /> : <SignIn />}
         ></Route>
         <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/home" element={<Home />}>
-        
+          <Route path="newpayment" element={<NewPayment />}></Route>
+          <Route path="paymenthistory" element={<PaymentHistory />}></Route>     
         </Route>
-        <Route path="/form" element={<UserData />}></Route>
-        {/* <Route path="/newpayment" element={<NewPayment />}></Route> */}
+        
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/otp" element={<OTP />}></Route>
         <Route path="/*" element={<Error404 />} />

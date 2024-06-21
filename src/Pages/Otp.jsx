@@ -10,6 +10,7 @@ import LocalStorage from "../Services/LocalStorage.js";
 import axios from "axios";
 import ApiServices from "../Services/Api.js";
 import colors from "../Utility/colors.js";
+import { IoMdArrowRoundBack } from "react-icons/io";
 function Otp() {
   const [otp, setOtp] = useState("");
   const [phoneNum, setphoneNum] = useState();
@@ -70,9 +71,9 @@ function Otp() {
       });
   }
 
-  function logOut() {
-    navigate("/");
-    LocalStorage.removeToken();
+  function back() {
+    navigate("/home");
+    // LocalStorage.removeToken();
   }
 
   async function handleApiError(response) {
@@ -117,38 +118,24 @@ function Otp() {
           marginTop: "0vh",
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-end",
+          justifyContent: "flex-start",
           backgroundColor: colors.primary,
          
         }}
       >
-        {/* <Button
-          variant="contained"
-          color="inherit"
-          sx={{
-            marginTop: "0vh",
-            marginRight: "3vw",
-            color: "black",
-            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 2px",
-            // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
-          }}
-          onClick={(e) => {
-            logOut(e.target.value);
-          }}
-        >
-          Logout
-        </Button> */}
+        
+        <IoMdArrowRoundBack style={{height:"25px",width:"30px",marginLeft:"10px"}}   onClick={(e) => {
+            back(e.target.value);
+          }}  />
       </div>
 
       <div
         className="Container"
         style={{
           // background:"black",
-          border: Mq.sm ? "0px" : "2px solid #D8D8D8",
-          boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
+          // border: Mq.sm ? "0px" : "2px solid #D8D8D8",
+          // boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
           background:colors.secondaryBackground,
-
-          // backgroundColor: "#2DA8F2",
           marginTop: "10vh",
           borderRadius: "10px",
           height: Mq.sm ? "60vh" : "50vh",
@@ -203,8 +190,10 @@ function Otp() {
               flexDirection: "column",
               // color: "white",
               color: "black",
-              background:colors.secondaryBackground,
-              backgroundColor: "white",
+          background:colors.secondaryBackground,
+            
+              
+             
             }}
           >
             <p style={{ margin: "15px" }}>

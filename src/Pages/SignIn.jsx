@@ -65,7 +65,7 @@ function SignIn() {
       style={{
         height: "100vh",
         width: "100vw",
-        background: "white",
+        background:colors.secondaryBackground,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -74,12 +74,18 @@ function SignIn() {
     >
       <img
         src={SigninLogo}
-        style={{ height: "50%", width: Mq.sm ? "70%" : "50%" }}
+        style={{ height: Mq.sm?"50%":"60%", width: Mq.sm ? "70%" : "40%" }}
       />
+      <div style={{ height: "100vh",
+          width: "50vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent:"center",
+          flexDirection: "column",
+          }}>
       <div
         className="Container"
         style={{
-        //  background:colors.
           height: "40vh",
           width: "50vw",
           display: "flex",
@@ -93,7 +99,7 @@ function SignIn() {
           label="User"
           placeholder="Enter your mobile number"
           variant="outlined"
-          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          style={{ width: Mq.sm ? "70vw" : "30vw",background:colors.background }}
           onChange={(e) => {
             setPhoneNum(e.target.value);
           }}
@@ -105,7 +111,7 @@ function SignIn() {
           type="password"
           placeholder="Enter your password"
           label="Password"
-          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          style={{ width: Mq.sm ? "70vw" : "30vw" ,background:colors.background }}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
@@ -113,7 +119,7 @@ function SignIn() {
 
         <Button
           variant="contained"
-          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          style={{ width: Mq.sm ? "70vw" : "30vw", background:colors.primary }}
           onClick={() => {
             signInUser();
           }}
@@ -141,6 +147,9 @@ function SignIn() {
           </p> */}
         </div>
       </div>
+
+      </div>
+    
 
       <Snackbar
         anchorOrigin={{
