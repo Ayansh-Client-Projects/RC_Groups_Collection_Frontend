@@ -129,8 +129,8 @@ function Home() {
       style={{
         height: "100vh",
         width: "100vw",
-        overflowY:"auto",
-        overflowX:"hidden",
+        overflowY: "auto",
+        overflowX: "hidden",
         background: colors.secondaryBackground,
       }}
     >
@@ -164,9 +164,7 @@ function Home() {
             justifyContent: "center",
             // background:"black"
           }}
-        >
-          RC Group Collection
-        </span>
+        ></span>
       </div>
 
       <div className="Drawer">
@@ -181,7 +179,6 @@ function Home() {
         ) : appIndex == 1 ? (
           <PaymentHistory />
         ) : (
-       
           <NewPayment />
         )}
       </div>
