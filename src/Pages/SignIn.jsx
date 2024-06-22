@@ -94,16 +94,37 @@ function SignIn() {
           justifyContent: "space-around",
         }}
       >
+       <div>
+       <p
+              style={{
+                color:"black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              }}
+            >
+              * User Mobile Number
+            </p>
         <TextField
           id="outlined-basic"
-          label="User"
+          label="Mobile Number "
           placeholder="Enter your mobile number"
           variant="outlined"
-          style={{ width: Mq.sm ? "70vw" : "30vw",background:colors.background }}
+          style={{ width: Mq.sm ? "70vw" : "30vw",background:colors.signin  }}
           onChange={(e) => {
             setPhoneNum(e.target.value);
           }}
         />
+       </div>
+       <div>
+       <p
+              style={{
+                color:"black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              }}
+            >
+              * Password
+            </p>
         <TextField
           id="password"
           hintText="Password"
@@ -111,11 +132,13 @@ function SignIn() {
           type="password"
           placeholder="Enter your password"
           label="Password"
-          style={{ width: Mq.sm ? "70vw" : "30vw" ,background:colors.background }}
+          style={{ width: Mq.sm ? "70vw" : "30vw" ,background:colors.signin }}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         ></TextField>
+       </div>
+        
 
         <Button
           variant="contained"

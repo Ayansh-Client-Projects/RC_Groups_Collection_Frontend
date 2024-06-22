@@ -203,7 +203,7 @@ function NewPayment(props) {
                 id="demo-simple-select"
                 value={retailer}
                 style={{
-                  width: Mq.sm ? "80vw" : "20vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                   marginRight: Mq.sm ? "0" : "5vw",
                   marginBottom: Mq.sm ? "2vh" : "",
                   background: colors.secondaryBackground,
@@ -238,7 +238,7 @@ function NewPayment(props) {
                 <DemoItem label="">
                   <DatePicker
                     sx={{
-                      width: Mq.sm ? "80vw" : "20vw",
+                      width: Mq.sm ? "80vw" : "30vw",
                       background: colors.secondaryBackground,
                     }}
                     components={{ openPickerIcon: BsCalendar2Date }}
@@ -287,7 +287,8 @@ function NewPayment(props) {
                 border: "none",
                 marginTop: "0vh",
                 marginRight: Mq.sm ? "0vw" : "5vw",
-                width: Mq.sm ? "80vw" : "20vw",
+                width: Mq.sm ? "80vw" : "30vw",
+
               }}
               onChange={(e) => {
                 setinvoiceNumber(e.target.value);
@@ -313,7 +314,7 @@ function NewPayment(props) {
               variant="outlined"
               style={{
                 // marginRight: Mq.sm?"0vw":"5vw",
-                width: Mq.sm ? "80vw" : "20vw",
+                width: Mq.sm ? "80vw" : "30vw",
                 background: colors.secondaryBackground,
               }}
               onChange={(e) => {
@@ -327,10 +328,11 @@ function NewPayment(props) {
           className="Row3"
           style={{
             display: "flex",
-            width: Mq.sm ? "80vw" : "45vw",
-            // justifyContent: "center",
+            width: Mq.sm ? "80vw" : "65vw",
+            // // justifyContent: "center",
             // alignItems: "center",
             // background:"black",
+            
             flexDirection: Mq.sm ? "column" : "row",
           }}
         >
@@ -352,9 +354,9 @@ function NewPayment(props) {
                 id="demo-simple-select"
                 value={payment}
                 style={{
-                  width: Mq.sm ? "80vw" : "20vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                   background: colors.secondaryBackground,
-                  marginRight: Mq.sm ? "0" : "0",
+                  
                 }}
                 label="Name"
                 onChange={paymentMode}
@@ -366,14 +368,13 @@ function NewPayment(props) {
             </FormControl>
           </Box>
           {payment.toLowerCase() == "online" ? (
-            <div>
+            <div style={{ marginLeft: Mq.sm ? "0vw" : "5vw"}}>
               <p
                 style={{
                   color: "black",
                   fontWeight: "400",
                   marginBottom: Mq.sm ? "5px" : "15px",
-                  width: Mq.sm ? "80vw" : "20vw",
-                  marginLeft: Mq.sm ? "0vw" : "5vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                   marginTop: Mq.sm ? "15px" : "0px",
                 }}
               >
@@ -386,11 +387,10 @@ function NewPayment(props) {
                 // placeholder=""
                 variant="outlined"
                 style={{
-                  width: Mq.sm ? "80vw" : "20vw",
+                width: Mq.sm ? "80vw" : "30vw",
                   marginTop: Mq.sm ? "2vh" : "0",
                   marginBottom: Mq.sm ? "2vh" : "0vh",
-                  marginLeft: Mq.sm ? "0vw" : "5vw",
-                  height: Mq.sm ? "7.5vh" : "",
+                  // marginLeft: Mq.sm ? "0vw" : "5vw ,
                   background: colors.secondaryBackground,
                 }}
                 onChange={(e) => {
@@ -419,7 +419,7 @@ function NewPayment(props) {
                 placeholder="Enter Cheque Number"
                 variant="outlined"
                 style={{
-                  width: Mq.sm ? "80vw" : "20vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                   marginTop: Mq.sm ? "2vh" : "0",
                   marginLeft: Mq.sm ? "0vw" : "5vw",
                   background: colors.secondaryBackground,
@@ -453,7 +453,7 @@ function NewPayment(props) {
                   fontWeight: "400",
                   marginBottom: "15px",
                   // marginTop: Mq.sm ? "15px":"0px",
-                  width: Mq.sm ? "80vw" : "20vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                 }}
               >
                 * Bank Name
@@ -464,7 +464,7 @@ function NewPayment(props) {
                 placeholder="Enter Bank Name"
                 variant="outlined"
                 style={{
-                  width: Mq.sm ? "80vw" : "20vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                   marginTop: Mq.sm ? "0vh" : "0",
                   marginRight: Mq.sm ? "0" : "5vw",
                   background: colors.secondaryBackground,
@@ -492,7 +492,7 @@ function NewPayment(props) {
                   <DemoItem label="">
                     <DatePicker
                       sx={{
-                        width: Mq.sm ? "80vw" : "20vw",
+                        width: Mq.sm ? "80vw" : "30vw",
                         marginTop: Mq.sm ? "0vh" : "0",
                         background: colors.secondaryBackground,
                       }}
@@ -514,7 +514,7 @@ function NewPayment(props) {
           className="buttonRow"
           style={{
             display: "flex",
-            width: Mq.sm ? "80vw" : "45vw",
+            width: Mq.sm ? "80vw" : "65vw",
             paddingBottom: "5vh",
             paddingTop: "3vh",
           }}
