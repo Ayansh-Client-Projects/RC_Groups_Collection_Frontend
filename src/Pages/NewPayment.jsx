@@ -175,21 +175,20 @@ function NewPayment() {
       <div
         className="Container"
         style={{
-          // background:colors.background,
-          // background:"white",
-          // border: Mq.sm ? "0px" : "2px solid white",
-          // boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
-          // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
           borderRadius: "10px",
           height: Mq.sm ? "85vh" : "70vh",
-          // paddingTop: "5vh",
           marginTop: Mq.sm ? "3vh" : "5vh",
-          // paddingBottom: "5vh",
           width: Mq.sm ? "90vw" : "60vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
-
+          // paddingBottom: "5vh",
+          // paddingTop: "5vh",
+          // background:colors.background,
+          // background:"white",
+          // border: Mq.sm ? "0px" : "2px solid white",
+          // boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
+          // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px", 
           // justifyContent: "center",
         }}
       >
