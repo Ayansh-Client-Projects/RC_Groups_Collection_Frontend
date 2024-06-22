@@ -75,8 +75,8 @@ class Validation {
   }
 
   static validateInvoiceNumber(invoiceNumber) {
-    const invoiceNumberRegex = /^[a-zA-Z0-9-_]{5,15}$/;
-    if (invoiceNumberRegex.test(invoiceNumber)) {
+    
+    if (invoiceNumber!="" && invoiceNumber.length>=4) {
       return {
         valid: true,
         message: "Invoice number is valid.",
@@ -85,7 +85,7 @@ class Validation {
       return {
         valid: false,
         message:
-          "Invoice number must be 5-15 characters long and can only contain letters, numbers, dashes, and underscores. EX: INV-12345 ",
+          "Invoice number must like INV-12345 ",
       };
     }
   }
@@ -175,8 +175,8 @@ class Validation {
   }
 
   static validateUpiId(UpiId) {
-    const UpiIdRegex = /^[a-zA-Z0-9-_]{5,50}$/;
-    if (UpiIdRegex.test(UpiId)) {
+    
+    if (UpiId != "" && UpiId.length>=9 ) {
       return {
         valid: true,
         message: "UpiId is valid.",
@@ -204,8 +204,7 @@ class Validation {
     }
   }
   static validateBankName(BankName) {
-    const BankNameRegex = /^[a-zA-Z0-9-_]{3,15}$/;
-    if (BankNameRegex.test(BankName)) {
+    if (BankName != "" && BankName.length>0 ) {
       return {
         valid: true,
         message: "BankName is valid",
