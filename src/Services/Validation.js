@@ -316,8 +316,8 @@ class Validation {
     }
 }
 static validateOTPVerificationStatus(otpStatus) {
-  const validStatuses = ["verified", "unverified"];
-  if (validStatuses.includes(otpStatus)) {
+  const validStatuses = ["true", "false"];
+  if (validStatuses.includes(otpStatus.toString())) {
       return {
           valid: true,
           message: "OTP verification status is valid.",
@@ -344,11 +344,11 @@ static validateOTPVerificationStatus(otpStatus) {
     }
     let result3 = this.validateDate(toDate);
     if (result3.valid == false) {
-      return result2;
+      return result3;
     }
     let result4 = this.validateDate(fromDate);
     if (result4.valid == false) {
-      return result2;
+      return result4;
     }
 
     return {

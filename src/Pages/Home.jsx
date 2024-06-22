@@ -6,17 +6,46 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import * as React from "react";
+import React, { useEffect } from "react";
 import { GiMoneyStack, GiReceiveMoney } from "react-icons/gi";
 import { IoMdMenu } from "react-icons/io";
 import { TbLogout2 } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import colors from "../Utility/colors.js";
 import NewPayment from "./NewPayment.jsx";
 import PaymentHistory from "./PaymentHistory.jsx";
+import axios from "axios";
 
 function Home() {
+  const [retailers, setRetailers] = React.useState([]);
+
+  useEffect(() => {
+    let token = LocalStorage.getToken();
+    axios
+      .get(ApiServices.ADD_DEALER_TO_SALESAMN, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        let allDealers = response.data.PayLoad.dealers;
+        setRetailers(allDealers);
+      })
+      .catch((error) => {
+        handleApiError(error.response);
+      });
+  }, []);
+  async function handleApiError(response) {
+    if (response.status == 500) {
+      let errdata = response.data.Errors[0].Code;
+      if (errdata == 403) {
+        navigate("/");
+      } 
+    }
+  }
+
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
     lg: useMediaQuery("(min-width:1001px)"),
@@ -175,9 +204,9 @@ function Home() {
 
       <div className="payment">
         {appIndex == 0 ? (
-          <NewPayment />
+          <NewPayment  retailers={retailers}/>
         ) : appIndex == 1 ? (
-          <PaymentHistory />
+          <PaymentHistory retailers={retailers} />
         ) : (
           <NewPayment />
         )}

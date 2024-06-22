@@ -12,16 +12,15 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsCalendar2Date } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import Validation from "../Services/Validation";
 import colors from "../Utility/colors.js";
-function NewPayment() {
+function NewPayment(props) {
   const [retailer, setRetailer] = React.useState("");
-  const [retailers, setRetailers] = React.useState([]);
   const [payment, setPayment] = React.useState("");
   const [invoiceNumber, setinvoiceNumber] = useState("");
   const [amount, setamount] = useState("");
@@ -33,22 +32,7 @@ function NewPayment() {
   const [cheqdate, setCheqDate] = useState("");
   const [invdate, setInvDate] = useState("");
 
-  useEffect(() => {
-    let token = LocalStorage.getToken();
-    axios
-      .get(ApiServices.ADD_DEALER_TO_SALESAMN, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        let allDealers = response.data.PayLoad.dealers;
-        setRetailers(allDealers);
-      })
-      .catch((error) => {
-        handleApiError(error.response);
-      });
-  }, []);
+ let retailers = props.retailers
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const Mq = {
