@@ -1,4 +1,5 @@
 import { useMediaQuery } from "@mui/material";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
@@ -45,6 +46,8 @@ function Filter() {
         background: colors.secondaryBackground,
         // position: "absolute",
         // top: "15vh",
+        overflowY:"auto",
+        overflowX:"hidden"
       }}
     >
       <div
@@ -255,19 +258,38 @@ function Filter() {
           />
           <span style={{ fontWeight: "500" }}>Filter By Invoice Date </span>
         </div>
-        {dateFilter==true ?(
-        <div className="InvoiceDate" style={{display:"flex",flexDirection:"column",width:"20vw"}}>
-          {/* todate */}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker sx={{marginBottom:"2vh"}}/>
-          </LocalizationProvider>
-          {/* from date */}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker />
-          </LocalizationProvider>
-        </div>
-    ):<></>}
+        {dateFilter == true ? (
+          <div
+            className="InvoiceDate"
+            style={{ display: "flex", flexDirection: "column", width: "20vw" }}
+          >
+            {/* todate */}
+            <span style={{ fontWeight: "400", marginBottom: "10px" }}>
+              * To-Date
+            </span>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker sx={{ marginBottom: "2vh" }} />
+            </LocalizationProvider>
+            {/* from date */}
+            <span style={{ fontWeight: "400", marginBottom: "10px" }}>
+              * From-Date
+            </span>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker />
+            </LocalizationProvider>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
+      /* <div>
+<Button
+  variant="contained"
+  style={{marginLeft: "2vw",marginBottom:"2vh" }}
+>
+  Apply Filter
+</Button>
+</div> 
     </div>
   );
 }
@@ -280,17 +302,3 @@ export default Filter;
 //     },
 //   }}
 
-{
-  /* <Checkbox defaultChecked color="success" />; */
-}
-
-{
-  /* <div>
-<Button
-  variant="contained"
-  style={{ marginBottom: "20px", marginLeft: "60px" }}
->
-  Apply Filter
-</Button>
-</div> */
-}

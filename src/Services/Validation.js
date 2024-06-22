@@ -300,5 +300,62 @@ class Validation {
       message: "Valid Information",
     };
   }
+
+  static validatePaymentStatus(paymentStatus) {
+    const validStatuses = ["sent", "pending", "failed"];
+    if (validStatuses.includes(paymentStatus)) {
+        return {
+            valid: true,
+            message: "Payment status is valid.",
+        };
+    } else {
+        return {
+            valid: false,
+            message: `Payment status must be one of the following: ${validStatuses.join(", ")}.`,
+        };
+    }
+}
+static validateOTPVerificationStatus(otpStatus) {
+  const validStatuses = ["verified", "unverified"];
+  if (validStatuses.includes(otpStatus)) {
+      return {
+          valid: true,
+          message: "OTP verification status is valid.",
+      };
+  } else {
+      return {
+          valid: false,
+          message: `OTP verification status must be one of the following: ${validStatuses.join(", ")}.`,
+      };
+  }
+}
+
+
+
+  static validateFilter(status,otpVerification,toDate,fromDate){
+
+    let result1 = this.validatePaymentStatus(status);
+    if (result1.valid == false) {
+      return result1;
+    }
+    let result2 = this.validateOTPVerificationStatus(otpVerification);
+    if (result2.valid == false) {
+      return result2;
+    }
+    let result3 = this.validateDate(toDate);
+    if (result3.valid == false) {
+      return result2;
+    }
+    let result4 = this.validateDate(fromDate);
+    if (result4.valid == false) {
+      return result2;
+    }
+
+    return {
+      valid: true,
+      message: "Valid Information",
+    };
+    
+  }
 }
 export default Validation;
