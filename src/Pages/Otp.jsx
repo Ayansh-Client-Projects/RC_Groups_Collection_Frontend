@@ -9,6 +9,8 @@ import { useSearchParams } from "react-router-dom";
 import LocalStorage from "../Services/LocalStorage.js";
 import axios from "axios";
 import ApiServices from "../Services/Api.js";
+import colors from "../Utility/colors.js";
+import { IoMdArrowRoundBack } from "react-icons/io";
 function Otp() {
   const [otp, setOtp] = useState("");
   const [phoneNum, setphoneNum] = useState();
@@ -68,9 +70,9 @@ function Otp() {
       });
   }
 
-  function logOut() {
-    navigate("/");
-    LocalStorage.removeToken();
+  function back() {
+    navigate("/home");
+    // LocalStorage.removeToken();
   }
 
   async function handleApiError(response) {
@@ -104,6 +106,7 @@ function Otp() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
+        background:colors.background,
       }}
     >
       <div
@@ -114,35 +117,24 @@ function Otp() {
           marginTop: "0vh",
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-end",
-          backgroundColor: "#6E55C5",
+          justifyContent: "flex-start",
+          backgroundColor: colors.primary,
+         
         }}
       >
-        <Button
-          variant="contained"
-          color="inherit"
-          sx={{
-            marginTop: "0vh",
-            marginRight: "3vw",
-            color: "black",
-            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
-            // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
-          }}
-          onClick={(e) => {
-            logOut(e.target.value);
-          }}
-        >
-          Logout
-        </Button>
+        
+        <IoMdArrowRoundBack style={{height:"25px",width:"30px",marginLeft:"10px"}}   onClick={(e) => {
+            back(e.target.value);
+          }}  />
       </div>
 
       <div
         className="Container"
         style={{
           // background:"black",
-          border: Mq.sm ? "0px" : "2px solid #D8D8D8",
-          boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
-          backgroundColor: "#6E55C5",
+          // border: Mq.sm ? "0px" : "2px solid #D8D8D8",
+          // boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
+          background:colors.secondaryBackground,
           marginTop: "10vh",
           borderRadius: "10px",
           height: Mq.sm ? "60vh" : "50vh",
@@ -163,7 +155,7 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            background: "#E0E0E0",
+            background:colors.primary,
             borderTopLeftRadius: "10px",
             borderTopRightRadius: "10px",
           }}
@@ -174,13 +166,12 @@ function Otp() {
               // alignItems: "center",
               justifyContent: "center",
               width: Mq.sm ? "80vw" : "55vw",
-              textAlign:"center",
-              // background:"pink",
-              marginTop:"10px",
-              // color: "white",
+              textAlign: "center",
+             
+              marginTop: "10px",
+              color: "white",
               fontWeight: "800",
               fontSize: "18px",
-            
             }}
           >
             Mobile Phone Verification
@@ -196,13 +187,17 @@ function Otp() {
               justifyContent: "center",
               width: Mq.sm ? "90vw" : "55vw",
               flexDirection: "column",
-              color: "white",
-              backgroundColor:"#6E55C5"
+              // color: "white",
+              color: "black",
+          background:colors.secondaryBackground,
+            
+              
+             
             }}
           >
-            <p style={{  margin:"15px",}}>
+            <p style={{ margin: "15px" }}>
               Enter the code we just sent on your Mobile{" "}
-              <span style={{ color: "white" }}>+91{phoneNum}</span>
+              <span style={{ color: "black", }}>+91{phoneNum}</span>
             </p>{" "}
           </p>
         </div>
@@ -241,11 +236,13 @@ function Otp() {
               marginTop: Mq.sm ? "5vh" : "0vh",
               width: "130px",
               marginLeft: Mq.sm ? "0px" : "50px",
-              color: "black",
-              boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+              color: "white",
+              background:colors.primary,
+         
+             
             }}
-            variant="contained"
-            color="inherit"
+             variant="contained"
+              color="primary"
             onClick={() => {
               verification();
             }}
@@ -261,6 +258,7 @@ function Otp() {
             justifyContent: "center",
             flexDirection: "column",
             marginTop: "5vh",
+     
 
             // paddingBottom: "30px",
             // background: "black",
@@ -276,17 +274,19 @@ function Otp() {
               // height:Mq.sm? "10vh":"50vh"
             }}
           >
-            <h4 style={{ color: "white", marginRight: Mq.sm ? "0px" : "40px" }}>
+            <h4 style={{ color: "black", marginRight: Mq.sm ? "0px" : "40px" }}>
               Don't receive the code ?
             </h4>
             <Button
               variant="contained"
-              color="inherit"
+              color="primary"
               sx={{
                 width: "130px",
                 marginTop: Mq.sm ? "3vh" : "0vh",
-                color: "black",
+                color: "white",
                 boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+                background:colors.primary,
+
               }}
             >
               Resend

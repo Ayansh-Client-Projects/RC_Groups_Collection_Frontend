@@ -1,177 +1,604 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { useMediaQuery } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { DataGrid } from "@mui/x-data-grid";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import axios from "axios";
+import { default as React, useEffect, useState } from "react";
+import ApiServices from "../Services/Api.js";
+import LocalStorage from "../Services/LocalStorage.js";
+import Validation from "../Services/Validation";
+import colors from "../Utility/colors";
 
-const drawerWidth = 240;
+function PaymentHistory(props) {
+  const Mq = {
+    sm: useMediaQuery("(max-width:768px)"),
+    lg: useMediaQuery("(min-width:770px)"),
+  };
+  
+  async function getAllTransactions(params) {
+    let token = LocalStorage.getToken();
+    try {
+      let getallTransaction_url = ApiServices.GETALLTRANSACTIONS;
+      const response = await axios.get(
+        getallTransaction_url,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+           params: params 
+        },
+       
+      );
 
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
+      if (response.status == 200) {
+        let data = response.data;
+        let payload = data.PayLoad;
+        let transactions = payload.transactions;
+        let tableRow = [];
+        transactions.map((value, index) => {
+          tableRow.push({
+            id: index + 1,
+            dealerName: value.dealerId.partyName,
+            invoice: value.invoice,
+            invoiceDate: value.invoiceDate,
+            mode: value.mode,
+            status: value.status,
+            otpVerified:
+              value.otpVerified == true ? "Verified" : "Unverified",
+            amount: value.amount,
+          });
+        });
+        setRows(tableRow);
+        // console.log(transactions);
+      }
+    } catch (error) {
+      console.log("Something went wrong");
+    }
+  }
+  useEffect(() => {
+    getAllTransactions({});
+  }, []);
 
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    {
+      field: "dealerName",
+      headerName: "Dealer ",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "invoice",
+      headerName: "Invoice Number",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "invoiceDate",
+      headerName: "Invoice Date",
+      width: 150,
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
+      editable: false,
+    },
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+    {
+      field: "mode",
+      headerName: "Payment Mode",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
+      width: 160,
+      // valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+    },
+    {
+      field: "status",
+      headerName: "Payment Status",
+      // description: "This column has a value getter and is not sortable.",
+      // sortable: false,
+      width: 160,
+      // valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
+    },
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  }),
-);
+    {
+      field: "otpVerified",
+      headerName: "OTP Verified",
+      // type: "boolean",
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      type: "number",
+      width: 150,
+      editable: false,
+    },
+  ];
+  const [rows, setRows] = useState([]);
 
-export default function PaymentHistory() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  // const [filter, setFilter] = React.useState("");
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  // const handleChange = (event) => {
+  //   // setFilter(event.target.value);
+
+  // };
+  const [openFilter, setOpenFilter] = React.useState(false);
+
+  const handleClickOpenFilter = () => {
+    console.log(openFilter);
+    setOpenFilter(true);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const handleCloseFilter = () => {
+    setOpenFilter(false);
   };
+
+  const [dealer, setDealer] = React.useState("");
+  const [paymentStatus, setPaymentStatus] = React.useState("");
+  const [otpVerified, setOtpVerified] = React.useState("");
+  const [todate, setToDate] = useState("");
+  const [fromdate, setFromDate] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [isDateFilter, setisDateFilter] = useState(false);
+
+  const handleDealer = (event) => {
+    setDealer(event.target.value);
+  };
+
+  const handlePaymentStatus = (event) => {
+    setPaymentStatus(event.target.value);
+  };
+  const handleOtpVerified = (event) => {
+    setOtpVerified(event.target.value);
+  };
+
+ 
+ function applyFilter() {
+    
+    let newParams= {}
+    if(isChecked==true && dealer!=""){
+      newParams.dealerId = dealer
+    }
+    else {
+      setIsChecked(false)
+    }
+    if(isSent==true){
+      let result1 = Validation.validatePaymentStatus(paymentStatus);
+    if (result1.valid == true) {
+      
+      newParams.status = paymentStatus
+    }
+    else {
+      setIsSent(false)
+    }
+    }
+    if(isVerified==true){
+      let result2 = Validation.validateOTPVerificationStatus(otpVerified);
+      if (result2.valid == true) {
+
+        newParams.otpVerified = otpVerified
+      }
+      else {
+        setIsVerified(false)
+      }
+    }
+    if(isDateFilter==true){
+      let result3 = Validation.validateDate(todate);
+      if (result3.valid == true) {newParams.toDate = todate}
+      let result4 = Validation.validateDate(fromdate);
+      if (result4.valid == true) {newParams.fromDate = fromdate}  
+
+      if (result3.valid == false && result4.valid == false) {
+        setisDateFilter(false)
+      }
+    }
+
+  if(newParams!={})
+    {getAllTransactions(newParams)}
+    handleCloseFilter()
+  }
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="#6E55C5"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
+    <>
+      <div style={{ background: colors.background }}>
+        <div
+          style={{
+            display: "flex",
+            width: "100vw",
+            // alignItems: "center",
+            justifyContent: "center",
+            height: "90vh",
+            flexDirection: "column",
+            marginLeft: "5vw",
+          }}
+        >
+          <div
+            className="filter"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "90vw",
+              background: "white",
+              marginTop: "2vh",
+              borderTopLeftRadius: "10px",
+              borderTopRightRadius: "10px",
+              justifyContent:Mq.sm ? "flex-start":"flex-end"
             }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Payment History
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+            <Button
+              variant="contained"
+              style={{
+                marginLeft: Mq.sm ?"2vw":"0vw",
+                marginRight: Mq.sm ?"0vw":"2vw",
+                marginBottom: "2vh",
+                marginTop: "2vh",
+                background :colors.primary ,
+                
+              }}
+              // onClick={handleClickOpenFilter}
+              onClick={() => {
+                handleClickOpenFilter();
+              }}
+            >
+              Apply Filter
+            </Button>
+          </div>
+          <Box
+            sx={{
+              height: "70vh",
+              width: "90vw",
+              background: "white",
+              borderBottomRightRadius: "15px",
+              borderBottomLeftRadius: "15px",
+              borderTopLeftRadius: "0px",
+              borderTopRightRadius: "0px",
+            }}
+          >
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              // slots={{toolbar:GridToolbar}}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 9,
+                  },
+                },
+              }}
+              pageSizeOptions={[9]}
+              disableRowSelectionOnClick
+            />
+          </Box>
+          ;
+        </div>
+      </div>
+      <React.Fragment>
+        <Dialog
+          open={openFilter}
+          keepMounted
+          onClose={handleCloseFilter}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle sx={{ background: colors.background }}>
+            {"Filter"}
+          </DialogTitle>
+          <DialogContent>
+            <div
+              className="Filter"
+              style={{
+                flexDirection: "column",
+                display: "flex",
+                // height: "100vh",
+                // width: "100vw",
+                // background: colors.secondaryBackground,
+                // position: "absolute",
+                // top: "15vh",
+                overflowY: "auto",
+                overflowX: "hidden",
+              }}
+            >
+              <div
+                className="row1"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  // height: "25vh",
+                  // width: "60vw",
+                  // background: "black",
+                  flexDirection: "column",
+                  color: "black",
+                  marginLeft: "2vw",
+                  marginBottom: "20px",
+                  marginTop: "20px",
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+                <div
+                  className="header"
+                  style={{ display: "flex", marginBottom: "5vh" }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-       
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 , background:"white"}}>
-        <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-      
-      </Box>
-    </Box>
+                  <Checkbox
+                    color="success"
+                    style={{
+                      height: "17px",
+                      width: "17px",
+                      marginRight: "10px",
+                    }}
+                    checked={isChecked}
+                    onChange={(e) => setIsChecked(e.target.checked)}
+                  />
+                  <span style={{ fontWeight: "500" }}>
+                    Filter By Dealer Name{" "}
+                  </span>
+                </div>
+                {isChecked == true ? (
+                  <div className="DealerName" >
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label" >
+                          Dealer Name
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={dealer}
+                          style={{
+                            width: Mq.sm ? "80vw" : "20vw",
+                            marginRight: Mq.sm ? "0" : "5vw",
+                            marginBottom: Mq.sm ? "2vh" : "",
+                            background: colors.secondaryBackground,
+                            //  textAnchor:"start"
+                            width: Mq.sm ? "65vw" : "20vw",
+                          }}
+                          label="Choose Dealer"
+                          onChange={handleDealer}
+                        >
+                          {props.retailers.map((value) => (
+                            <MenuItem value={value.dealerId}>
+                              {value.dealerName}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+              {/* row 2  */}
+              <div
+                className="row2"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  // height: "20vh",
+                  // width: "20vw",
+                  // background: "black",
+                  marginBottom: "20px",
+                  flexDirection: "column",
+                  color: "black",
+                  marginLeft: "2vw",
+                }}
+              >
+                <div
+                  className="header2"
+                  style={{ display: "flex", marginBottom: "5vh" }}
+                >
+                  <Checkbox
+                    color="success"
+                    style={{
+                      height: "17px",
+                      width: "17px",
+                      marginRight: "10px",
+                    }}
+                    checked={isSent}
+                    onChange={(e) => setIsSent(e.target.checked)}
+                  />
+                  <span style={{ fontWeight: "500" }}>
+                    Filter By Payment Status{" "}
+                  </span>
+                </div>
+                {isSent == true ? (
+                  <div className="Payment Status">
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Payment Status
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={paymentStatus}
+                          style={{
+                            width: Mq.sm ? "80vw" : "20vw",
+                            marginRight: Mq.sm ? "0" : "5vw",
+                            marginBottom: Mq.sm ? "2vh" : "",
+                            background: colors.secondaryBackground,
+                            //  textAnchor:"start"
+                            width: Mq.sm ? "65vw" : "20vw",
+                          }}
+                          label="Choose Payment Status"
+                          onChange={handlePaymentStatus}
+                        >
+                          <MenuItem value={"sent"}>SENT</MenuItem>
+                          <MenuItem value={"pending"}>PENDING</MenuItem>
+                          <MenuItem value={"failed"}>FAILED</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+              {/* row3 */}
+              <div
+                className="row3"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  // height: "20vh",
+                  // width: "20vw",
+                  // background: "black",
+                  marginBottom: "20px",
+                  flexDirection: "column",
+                  color: "black",
+                  marginLeft: "2vw",
+                }}
+              >
+                <div
+                  className="header3"
+                  style={{ display: "flex", marginBottom: "5vh" }}
+                >
+                  <Checkbox
+                    color="success"
+                    style={{
+                      height: "17px",
+                      width: "17px",
+                      marginRight: "10px",
+                      
+                    }}
+                    checked={isVerified}
+                    onChange={(e) => setIsVerified(e.target.checked)}
+                  />
+                  <span style={{ fontWeight: "500" }}>
+                    Filter By Otp Verification Status{" "}
+                  </span>
+                </div>
+                {isVerified == true ? (
+                  <div className="Otp Verified">
+                    <Box sx={{   width: Mq.sm ? "65vw" : "20vw", }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Otp Verification Status
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={otpVerified}
+                          style={{
+                            width: Mq.sm ? "65vw" : "20vw",
+                            marginRight: Mq.sm ? "0" : "5vw",
+                            marginBottom: Mq.sm ? "2vh" : "",
+                            background: colors.secondaryBackground,
+                            //  textAnchor:"start"
+                            
+                          }}
+                          label="Choose Otp Verification Status"
+                          onChange={handleOtpVerified}
+                        >
+                          {/* {retailers.map((value) => (
+                  <MenuItem value={value.dealerId}>{value.dealerName}</MenuItem>
+                ))} */}
+                          <MenuItem value={"true"}>VERIFIED</MenuItem>
+                          <MenuItem value={"false"}>UNVERIFIED</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div
+                className="row4"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  // height: "20vh",
+                  // width: "20vw",
+                  // background: "black",
+                  marginBottom: "20px",
+                  flexDirection: "column",
+                  color: "black",
+                  marginLeft: "2vw",
+                }}
+              >
+                <div
+                  className="header4"
+                  style={{ display: "flex", marginBottom: "5vh" }}
+                >
+                  <Checkbox
+                    color="success"
+                    style={{
+                      height: "17px",
+                      width: "17px",
+                      marginRight: "10px",
+                    }}
+                    checked={isDateFilter}
+                    onChange={(e) => setisDateFilter(e.target.checked)}
+                  />
+                  <span style={{ fontWeight: "500" }}>
+                    Filter By Invoice Date{" "}
+                  </span>
+                </div>
+                {isDateFilter == true ? (
+                  <div
+                    className="InvoiceDate"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "20vw",
+                    }}
+                  >
+                    {/* todate */}
+                    <span style={{ fontWeight: "400", marginBottom: "10px" }}>
+                      * To-Date
+                    </span>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        onChange={(e) => {
+                          setToDate(e.format("YYYY-MM-DD"));
+                        }}
+                        sx={{
+                          marginBottom: "2vh",
+                          background: colors.secondaryBackground,
+                            width: Mq.sm ? "65vw" : "20vw",
+                          
+                        }}
+                      />
+                    </LocalizationProvider>
+                    {/* from date */}
+                    <span style={{ fontWeight: "400", marginBottom: "10px",width:"65vw" }}>
+                      * From-Date
+                    </span>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        onChange={(e) => {
+                          setFromDate(e.format("YYYY-MM-DD"));
+                        }}
+                        sx={{ background: colors.secondaryBackground , width: Mq.sm ? "65vw" : "20vw",}}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>{" "}
+              <div></div>
+            </div>
+          </DialogContent>
+          <DialogActions sx={{ background: colors.background }}>
+            <Button onClick={handleCloseFilter}>Cancel</Button>
+            <Button onClick={applyFilter}>APPLY</Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
+    </>
   );
 }
+
+export default PaymentHistory;

@@ -75,8 +75,8 @@ class Validation {
   }
 
   static validateInvoiceNumber(invoiceNumber) {
-    const invoiceNumberRegex = /^[a-zA-Z0-9-_]{5,15}$/;
-    if (invoiceNumberRegex.test(invoiceNumber)) {
+    
+    if (invoiceNumber!="" && invoiceNumber.length>=4) {
       return {
         valid: true,
         message: "Invoice number is valid.",
@@ -85,7 +85,7 @@ class Validation {
       return {
         valid: false,
         message:
-          "Invoice number must be 5-15 characters long and can only contain letters, numbers, dashes, and underscores. EX: INV-12345 ",
+          "Invoice number must like INV-12345 ",
       };
     }
   }
@@ -175,8 +175,8 @@ class Validation {
   }
 
   static validateUpiId(UpiId) {
-    const UpiIdRegex = /^[a-zA-Z0-9-_]{5,50}$/;
-    if (UpiIdRegex.test(UpiId)) {
+    
+    if (UpiId != "" && UpiId.length>=9 ) {
       return {
         valid: true,
         message: "UpiId is valid.",
@@ -204,8 +204,7 @@ class Validation {
     }
   }
   static validateBankName(BankName) {
-    const BankNameRegex = /^[a-zA-Z0-9-_]{3,15}$/;
-    if (BankNameRegex.test(BankName)) {
+    if (BankName != "" && BankName.length>0 ) {
       return {
         valid: true,
         message: "BankName is valid",
@@ -299,6 +298,63 @@ class Validation {
       valid: true,
       message: "Valid Information",
     };
+  }
+
+  static validatePaymentStatus(paymentStatus) {
+    const validStatuses = ["sent", "pending", "failed"];
+    if (validStatuses.includes(paymentStatus)) {
+        return {
+            valid: true,
+            message: "Payment status is valid.",
+        };
+    } else {
+        return {
+            valid: false,
+            message: `Payment status must be one of the following: ${validStatuses.join(", ")}.`,
+        };
+    }
+}
+static validateOTPVerificationStatus(otpStatus) {
+  const validStatuses = ["true", "false"];
+  if (validStatuses.includes(otpStatus.toString())) {
+      return {
+          valid: true,
+          message: "OTP verification status is valid.",
+      };
+  } else {
+      return {
+          valid: false,
+          message: `OTP verification status must be one of the following: ${validStatuses.join(", ")}.`,
+      };
+  }
+}
+
+
+
+  static validateFilter(status,otpVerification,toDate,fromDate){
+
+    let result1 = this.validatePaymentStatus(status);
+    if (result1.valid == false) {
+      return result1;
+    }
+    let result2 = this.validateOTPVerificationStatus(otpVerification);
+    if (result2.valid == false) {
+      return result2;
+    }
+    let result3 = this.validateDate(toDate);
+    if (result3.valid == false) {
+      return result3;
+    }
+    let result4 = this.validateDate(fromDate);
+    if (result4.valid == false) {
+      return result4;
+    }
+
+    return {
+      valid: true,
+      message: "Valid Information",
+    };
+    
   }
 }
 export default Validation;

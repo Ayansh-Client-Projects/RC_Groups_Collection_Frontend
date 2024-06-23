@@ -9,6 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import axios from "axios";
 import ApiServices from "../Services/Api.js";
 import StoreApi from "../Services/LocalStorage.js";
+import colors from "../Utility/colors.js";
 function SignIn() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
@@ -30,7 +31,7 @@ function SignIn() {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     } else {
-      // navigate("/otp");
+     
       signInUserApiCall();
     }
   }
@@ -46,7 +47,7 @@ function SignIn() {
           let data = response.data["PayLoad"];
           StoreApi.setUserData(data);
           localStorage.setItem("userPhoneNum", phoneNum);
-          navigate("/form");
+          navigate("/home");
         } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
@@ -64,7 +65,7 @@ function SignIn() {
       style={{
         height: "100vh",
         width: "100vw",
-        background: "white",
+        background:colors.secondaryBackground,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -73,12 +74,18 @@ function SignIn() {
     >
       <img
         src={SigninLogo}
-        style={{ height: "50%", width: Mq.sm ? "70%" : "50%" }}
+        style={{ height: Mq.sm?"50%":"60%", width: Mq.sm ? "70%" : "40%" }}
       />
+      <div style={{ height: "100vh",
+          width: "50vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent:"center",
+          flexDirection: "column",
+          }}>
       <div
         className="Container"
         style={{
-          // background:"black",
           height: "40vh",
           width: "50vw",
           display: "flex",
@@ -87,16 +94,37 @@ function SignIn() {
           justifyContent: "space-around",
         }}
       >
+       <div>
+       <p
+              style={{
+                color:"black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              }}
+            >
+              * User Mobile Number
+            </p>
         <TextField
           id="outlined-basic"
-          label="User"
+          label="Mobile Number "
           placeholder="Enter your mobile number"
           variant="outlined"
-          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          style={{ width: Mq.sm ? "70vw" : "30vw",background:colors.signin  }}
           onChange={(e) => {
             setPhoneNum(e.target.value);
           }}
         />
+       </div>
+       <div>
+       <p
+              style={{
+                color:"black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              }}
+            >
+              * Password
+            </p>
         <TextField
           id="password"
           hintText="Password"
@@ -104,15 +132,17 @@ function SignIn() {
           type="password"
           placeholder="Enter your password"
           label="Password"
-          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          style={{ width: Mq.sm ? "70vw" : "30vw" ,background:colors.signin }}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         ></TextField>
+       </div>
+        
 
         <Button
           variant="contained"
-          style={{ width: Mq.sm ? "70vw" : "30vw" }}
+          style={{ width: Mq.sm ? "70vw" : "30vw", background:colors.primary }}
           onClick={() => {
             signInUser();
           }}
@@ -140,6 +170,9 @@ function SignIn() {
           </p> */}
         </div>
       </div>
+
+      </div>
+    
 
       <Snackbar
         anchorOrigin={{

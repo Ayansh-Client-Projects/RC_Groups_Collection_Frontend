@@ -12,16 +12,15 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsCalendar2Date } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import Validation from "../Services/Validation";
 import colors from "../Utility/colors.js";
-function UserData() {
+function NewPayment(props) {
   const [retailer, setRetailer] = React.useState("");
-  const [retailers, setRetailers] = React.useState([]);
   const [payment, setPayment] = React.useState("");
   const [invoiceNumber, setinvoiceNumber] = useState("");
   const [amount, setamount] = useState("");
@@ -33,22 +32,7 @@ function UserData() {
   const [cheqdate, setCheqDate] = useState("");
   const [invdate, setInvDate] = useState("");
 
-  useEffect(() => {
-    let token = LocalStorage.getToken();
-    axios
-      .get(ApiServices.ADD_DEALER_TO_SALESAMN, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        let allDealers = response.data.PayLoad.dealers;
-        setRetailers(allDealers);
-      })
-      .catch((error) => {
-        handleApiError(error.response);
-      });
-  }, []);
+ let retailers = props.retailers
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const Mq = {
@@ -115,6 +99,7 @@ function UserData() {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     };
@@ -167,26 +152,27 @@ function UserData() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
-        background:colors.background,  
+        background: colors.background,
+        overflowY: "auto",
       }}
     >
       <div
         className="Container"
         style={{
-          // background:colors.background,          
-          // background:"white",          
-          // border: Mq.sm ? "0px" : "2px solid white",
-          // boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
-          // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
           borderRadius: "10px",
           height: Mq.sm ? "85vh" : "70vh",
-          paddingTop: "5vh",
           marginTop: Mq.sm ? "3vh" : "5vh",
-          paddingBottom: "5vh",
           width: Mq.sm ? "90vw" : "60vw",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
+          // paddingBottom: "5vh",
+          // paddingTop: "5vh",
+          // background:colors.background,
+          // background:"white",
+          // border: Mq.sm ? "0px" : "2px solid white",
+          // boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
+          // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px", 
           // justifyContent: "center",
         }}
       >
@@ -201,6 +187,15 @@ function UserData() {
           }}
         >
           <Box sx={{ minWidth: 120 }}>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "10px",
+              }}
+            >
+              * Retailer Name
+            </p>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Retailer</InputLabel>
               <Select
@@ -208,11 +203,13 @@ function UserData() {
                 id="demo-simple-select"
                 value={retailer}
                 style={{
-                  width: Mq.sm ? "80vw" : "20vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                   marginRight: Mq.sm ? "0" : "5vw",
                   marginBottom: Mq.sm ? "2vh" : "",
+                  background: colors.secondaryBackground,
+                  //  textAnchor:"start"
                 }}
-                label="Name"
+                label="Choose Retailer"
                 onChange={handleChange}
               >
                 {retailers.map((value) => (
@@ -226,11 +223,24 @@ function UserData() {
             className="InvDate"
             style={{ marginBottom: Mq.sm ? "2vh" : "0vh" }}
           >
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "5 px",
+              }}
+            >
+              * Invoice Date
+            </p>
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DemoItem label="">
                   <DatePicker
-                    sx={{ width: Mq.sm ? "80vw" : "20vw" }}
+                    sx={{
+                      width: Mq.sm ? "80vw" : "30vw",
+                      background: colors.secondaryBackground,
+                    }}
                     components={{ openPickerIcon: BsCalendar2Date }}
                     onChange={(e) => {
                       setInvDate(e.format("YYYY-MM-DD"));
@@ -252,46 +262,91 @@ function UserData() {
             marginTop: "0vh",
             marginBottom: Mq.sm ? "2vh" : "5vh",
             marginTop: Mq.sm ? "0vh" : "5vh",
+            flexDirection: Mq.sm ? "column" : "row",
           }}
         >
-          <TextField
-            id="outlined-basic"
-            label="Invoice"
-            placeholder="ex:INV-1234"
-            variant="outlined"
-            style={{
-              width: Mq.sm ? "70vw" : "20vw",
-              marginRight: "5vw",
-              marginTop: "0vh",
-            }}
-            onChange={(e) => {
-              setinvoiceNumber(e.target.value);
-            }}
-          />
+          <div>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              }}
+            >
+              * Invoice Number
+            </p>
+            <TextField
+              id="outlined-basic"
+              label="Invoice"
+              placeholder="ex:INV-1234"
+              // variant="filled"
+              style={{
+                // background:"#F0F0F3",
+                background: colors.secondaryBackground,
+                // borderRadius:"15px",
+                border: "none",
+                marginTop: "0vh",
+                marginRight: Mq.sm ? "0vw" : "5vw",
+                width: Mq.sm ? "80vw" : "30vw",
 
-          <TextField
-            id="outlined-basic"
-            label="Amount"
-            placeholder="Enter Total Amount"
-            variant="outlined"
-            style={{ width: Mq.sm ? "70vw" : "20vw" }}
-            onChange={(e) => {
-              setamount(e.target.value);
-            }}
-          />
+              }}
+              onChange={(e) => {
+                setinvoiceNumber(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "15px",
+                marginTop: Mq.sm ? "15px" : "0px",
+              }}
+            >
+              * Total Amount
+            </p>
+
+            <TextField
+              id="outlined-basic"
+              label="Amount"
+              placeholder="Enter Total Amount"
+              variant="outlined"
+              style={{
+                // marginRight: Mq.sm?"0vw":"5vw",
+                width: Mq.sm ? "80vw" : "30vw",
+                background: colors.secondaryBackground,
+              }}
+              onChange={(e) => {
+                setamount(e.target.value);
+              }}
+            />
+          </div>
         </div>
 
         <div
           className="Row3"
           style={{
             display: "flex",
-            width: Mq.sm ? "80vw" : "100vw",
-            justifyContent: "center",
-            alignItems: "center",
+            width: Mq.sm ? "80vw" : "65vw",
+            // // justifyContent: "center",
+            // alignItems: "center",
+            // background:"black",
+            
             flexDirection: Mq.sm ? "column" : "row",
           }}
         >
           <Box sx={{ minWidth: 120 }}>
+            <p
+              style={{
+                color: "black",
+                fontWeight: "400",
+                marginBottom: "15px",
+              }}
+            >
+              * Payment Mode
+            </p>
+
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Payment</InputLabel>
               <Select
@@ -299,8 +354,9 @@ function UserData() {
                 id="demo-simple-select"
                 value={payment}
                 style={{
-                  width: Mq.sm ? "80vw" : "20vw",
-                  marginRight: Mq.sm ? "0" : "0",
+                  width: Mq.sm ? "80vw" : "30vw",
+                  background: colors.secondaryBackground,
+                  
                 }}
                 label="Name"
                 onChange={paymentMode}
@@ -312,37 +368,67 @@ function UserData() {
             </FormControl>
           </Box>
           {payment.toLowerCase() == "online" ? (
-            <TextField
-              id="outlined-basic"
-              label="UPI Address"
-              placeholder="ex:T240531*********5536"
-              variant="outlined"
-              style={{
-                width: Mq.sm ? "80vw" : "20vw",
-                marginTop: Mq.sm ? "2vh" : "0",
-                marginBottom: Mq.sm ? "2vh" : "0vh",
-                marginLeft: Mq.sm ? "0vw" : "5vw",
-                height: Mq.sm ? "7.5vh" : "",
-              }}
-              onChange={(e) => {
-                setUpiId(e.target.value);
-              }}
-            />
+            <div style={{ marginLeft: Mq.sm ? "0vw" : "5vw"}}>
+              <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  marginBottom: Mq.sm ? "5px" : "15px",
+                  width: Mq.sm ? "80vw" : "30vw",
+                  marginTop: Mq.sm ? "15px" : "0px",
+                }}
+              >
+                * UPI Address
+              </p>
+
+              <TextField
+                id="outlined-basic"
+                label="UPI Address"
+                // placeholder=""
+                variant="outlined"
+                style={{
+                width: Mq.sm ? "80vw" : "30vw",
+                  marginTop: Mq.sm ? "2vh" : "0",
+                  marginBottom: Mq.sm ? "2vh" : "0vh",
+                  // marginLeft: Mq.sm ? "0vw" : "5vw ,
+                  background: colors.secondaryBackground,
+                }}
+                onChange={(e) => {
+                  setUpiId(e.target.value);
+                }}
+              />
+            </div>
           ) : payment.toLowerCase() == "cheque" ? (
-            <TextField
-              id="outlined-basic"
-              label="Cheque No"
-              placeholder="Enter Cheque Number"
-              variant="outlined"
-              style={{
-                width: Mq.sm ? "80vw" : "20vw",
-                marginTop: Mq.sm ? "2vh" : "0",
-                marginLeft: Mq.sm ? "0vw" : "5vw",
-              }}
-              onChange={(e) => {
-                setcheqno(e.target.value);
-              }}
-            />
+            <div>
+              <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  marginBottom: Mq.sm ? "0px" : "15px",
+                  marginTop: Mq.sm ? "15px" : "0px",
+                  width: Mq.sm ? "80vw" : "20vw",
+                  marginLeft: Mq.sm ? "0vw" : "5vw",
+                }}
+              >
+                * Cheque Number
+              </p>
+
+              <TextField
+                id="outlined-basic"
+                label="Cheque Number"
+                placeholder="Enter Cheque Number"
+                variant="outlined"
+                style={{
+                  width: Mq.sm ? "80vw" : "30vw",
+                  marginTop: Mq.sm ? "2vh" : "0",
+                  marginLeft: Mq.sm ? "0vw" : "5vw",
+                  background: colors.secondaryBackground,
+                }}
+                onChange={(e) => {
+                  setcheqno(e.target.value);
+                }}
+              />
+            </div>
           ) : (
             <></>
           )}
@@ -356,35 +442,59 @@ function UserData() {
               width: Mq.sm ? "80vw" : "100vw",
               justifyContent: "center",
               alignItems: "center",
-
               marginTop: Mq.sm ? "1.8vh" : "5vh",
-
               flexDirection: Mq.sm ? "column" : "row",
             }}
           >
-            <TextField
-              id="outlined-basic"
-              label="Bank"
-              placeholder="Enter Bank Name"
-              variant="outlined"
-              style={{
-                width: Mq.sm ? "80vw" : "20vw",
-                marginTop: Mq.sm ? "0vh" : "0",
-                marginRight: Mq.sm ? "0" : "5vw",
-              }}
-              onChange={(e) => {
-                setBank(e.target.value);
-              }}
-            />
-
+            <div>
+              <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  marginBottom: "15px",
+                  // marginTop: Mq.sm ? "15px":"0px",
+                  width: Mq.sm ? "80vw" : "30vw",
+                }}
+              >
+                * Bank Name
+              </p>
+              <TextField
+                id="outlined-basic"
+                label="Bank"
+                placeholder="Enter Bank Name"
+                variant="outlined"
+                style={{
+                  width: Mq.sm ? "80vw" : "30vw",
+                  marginTop: Mq.sm ? "0vh" : "0",
+                  marginRight: Mq.sm ? "0" : "5vw",
+                  background: colors.secondaryBackground,
+                }}
+                onChange={(e) => {
+                  setBank(e.target.value);
+                }}
+              />
+            </div>
             <div className="CheqDate" style={{ marginTop: "0vh" }}>
+              <p
+                style={{
+                  color: "black",
+                  fontWeight: "400",
+                  // marginBottom: "15px",
+                  marginBottom: Mq.sm ? "5px" : "5px",
+                  marginTop: Mq.sm ? "15px" : "0px",
+                  // marginLeft: Mq.sm ? "0vw" : "5vw",
+                }}
+              >
+                * Cheque Isuued
+              </p>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker"]}>
                   <DemoItem label="">
                     <DatePicker
                       sx={{
-                        width: Mq.sm ? "80vw" : "20vw",
+                        width: Mq.sm ? "80vw" : "30vw",
                         marginTop: Mq.sm ? "0vh" : "0",
+                        background: colors.secondaryBackground,
                       }}
                       format="DD-MM-YYYY"
                       onChange={(e) => {
@@ -400,22 +510,31 @@ function UserData() {
         ) : (
           <></>
         )}
-
-        <Button
-          variant="contained"
-          color="info"
+        <div
+          className="buttonRow"
           style={{
-            width: Mq.sm ? "40vw" : "20vw",
-            marginTop: Mq.sm ? "2vh" : "5vh",
-            boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
-            background:colors.primary,  
-          }}
-          onClick={() => {
-            userDataValidation();
+            display: "flex",
+            width: Mq.sm ? "80vw" : "65vw",
+            paddingBottom: "5vh",
+            paddingTop: "3vh",
           }}
         >
-          Send OTP
-        </Button>
+          <Button
+            variant="contained"
+            color="info"
+            style={{
+              width: Mq.sm ? "40vw" : "20vw",
+              marginTop: Mq.sm ? "2vh" : "5vh",
+              boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
+              background: colors.primary,
+            }}
+            onClick={() => {
+              userDataValidation();
+            }}
+          >
+            Send OTP
+          </Button>
+        </div>
       </div>
       <Snackbar
         anchorOrigin={{
@@ -433,4 +552,4 @@ function UserData() {
   );
 }
 
-export default UserData;
+export default NewPayment;
