@@ -48,7 +48,6 @@ function Otp() {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
         "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
       },
