@@ -99,7 +99,6 @@ function NewPayment(props) {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
     };
