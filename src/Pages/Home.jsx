@@ -15,8 +15,8 @@ import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import colors from "../Utility/colors.js";
 import NewPayment from "./NewPayment.jsx";
-import PaymentHistory from "./Pages/PaymentHistory.jsx";
 import axios from "axios";
+import PaymentHistory from "./paymentHistory.jsx";
 
 function Home() {
   const [retailers, setRetailers] = React.useState([]);
