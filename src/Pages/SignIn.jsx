@@ -12,8 +12,8 @@ import StoreApi from "../Services/LocalStorage.js";
 import colors from "../Utility/colors.js";
 function SignIn() {
   const Mq = {
-    sm: useMediaQuery("(max-width:600px)"),
-    lg: useMediaQuery("(min-width:1001px)"),
+    sm: useMediaQuery ("(max-width:600px)"),
+    lg: useMediaQuery ("(min-width:1001px)"),
   };
   const navigate = useNavigate();
   // function navigateToSignUp() {
@@ -59,6 +59,7 @@ function SignIn() {
         setOpenSnackbar(true);
       });
   }
+ 
 
   return (
     <div
@@ -113,6 +114,7 @@ function SignIn() {
           onChange={(e) => {
             setPhoneNum(e.target.value);
           }}
+          
         />
        </div>
        <div>
