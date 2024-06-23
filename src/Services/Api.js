@@ -1,5 +1,8 @@
 class ApiServices {
-  static BASE_URL = "http://localhost:4042";
+  
+  // static BASE_URL = "http://localhost:4042";
+  static BASE_URL = "https://uk7lfdwcuj.execute-api.ap-south-1.amazonaws.com/dev";
+
 
   static LOGIN_URL = `${ApiServices.BASE_URL}/rc-group/salesman/login`;
   static SEND_MSG = `${ApiServices.BASE_URL}/rc-group/salesman/sendMessage`;
