@@ -6,7 +6,7 @@ import Filter from "./Pages/Filter.jsx";
 import Error404 from "./Pages/Error404.jsx";
 import { Route, Routes } from "react-router-dom";
 import NewPayment from "./Pages/NewPayment.jsx";
-import PaymentHistory from "./Pages/PaymentHistory.jsx";
+import PaymentHistory from "./Pages/paymentHistory.jsx";
 import "./index.css";
 import "./App.css";
 

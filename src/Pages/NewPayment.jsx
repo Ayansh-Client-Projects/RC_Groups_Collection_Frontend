@@ -258,7 +258,7 @@ function NewPayment(props) {
             width: Mq.sm ? "80vw" : "60vw",
             justifyContent: "center",
             alignItems: "center",
-            marginTop: "0vh",
+            // marginTop: "0vh",
             marginBottom: Mq.sm ? "2vh" : "5vh",
             marginTop: Mq.sm ? "0vh" : "5vh",
             flexDirection: Mq.sm ? "column" : "row",

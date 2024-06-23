@@ -355,7 +355,7 @@ function PaymentHistory(props) {
                           id="demo-simple-select"
                           value={dealer}
                           style={{
-                            width: Mq.sm ? "80vw" : "20vw",
+                            // width: Mq.sm ? "80vw" : "20vw",
                             marginRight: Mq.sm ? "0" : "5vw",
                             marginBottom: Mq.sm ? "2vh" : "",
                             background: colors.secondaryBackground,
@@ -423,7 +423,7 @@ function PaymentHistory(props) {
                           id="demo-simple-select"
                           value={paymentStatus}
                           style={{
-                            width: Mq.sm ? "80vw" : "20vw",
+                            // width: Mq.sm ? "80vw" : "20vw",
                             marginRight: Mq.sm ? "0" : "5vw",
                             marginBottom: Mq.sm ? "2vh" : "",
                             background: colors.secondaryBackground,
