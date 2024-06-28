@@ -1,19 +1,19 @@
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import SigninLogo from "../assets/Signinlogo.svg";
 import { useMediaQuery } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import Validation from "../Services/Validation";
-import { useState } from "react";
+import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
+import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ApiServices from "../Services/Api.js";
 import StoreApi from "../Services/LocalStorage.js";
+import Validation from "../Services/Validation";
 import colors from "../Utility/colors.js";
+import SigninLogo from "../assets/bg.png";
 function SignIn() {
   const Mq = {
-    sm: useMediaQuery ("(max-width:600px)"),
-    lg: useMediaQuery ("(min-width:1001px)"),
+    sm: useMediaQuery("(max-width:600px)"),
+    lg: useMediaQuery("(min-width:1001px)"),
   };
   const navigate = useNavigate();
   // function navigateToSignUp() {
@@ -31,14 +31,13 @@ function SignIn() {
       setErrorMsg(result.message);
       setOpenSnackbar(true);
     } else {
-     
       signInUserApiCall();
     }
   }
 
   function signInUserApiCall() {
     axios
-      .post( ApiServices.LOGIN_URL,{
+      .post(ApiServices.LOGIN_URL, {
         mobileNumber: phoneNum,
         password: password,
       })
@@ -59,44 +58,52 @@ function SignIn() {
         setOpenSnackbar(true);
       });
   }
- 
 
   return (
     <div
       style={{
         height: "100vh",
         width: "100vw",
-        background:colors.secondaryBackground,
+        background: colors.secondaryBackground,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: Mq.sm ? "column" : "row",
       }}
     >
-      <img
+      {/* <img
         src={SigninLogo}
-        style={{ height: Mq.sm?"50%":"60%", width: Mq.sm ? "70%" : "40%" }}
-      />
-      <div style={{ height: "100vh",
-          width: "50vw",
-          display: "flex",
-          alignItems: "center",
-          justifyContent:"center",
-          flexDirection: "column",
-          }}>
+        // style={{ height: Mq.sm?"50%":"60%", width: Mq.sm ? "70%" : "40%" }}
+        style={{ height: Mq.sm?"50%":"90%", width: Mq.sm ? "70%" : "26%",borderRadius:"12px" }}
+      /> */}
       <div
-        className="Container"
         style={{
-          height: "40vh",
-          width: "50vw",
+          height: Mq.sm ? "100%" : "90%",
+          width: Mq.sm ? "100%" : "26%",
+          borderRadius: "12px",
           display: "flex",
           alignItems: "center",
+          justifyContent: "center",
           flexDirection: "column",
-          justifyContent: "space-around",
+          backgroundImage:`url(${SigninLogo})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       >
-       <div>
-       {/* <p
+        <div
+          className="Container"
+          style={{
+            height: "40vh",
+            width: "50vw",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            justifyContent: "space-around",
+          }}
+        >
+          <div>
+            {/* <p
               style={{
                 color:"black",
                 fontWeight: "400",
@@ -105,20 +112,27 @@ function SignIn() {
             >
               * User Mobile Number
             </p> */}
-        <TextField
-          id="outlined-basic"
-          label="Mobile Number "
-          placeholder="Enter your mobile number"
-          variant="outlined"
-          style={{ width: Mq.sm ? "70vw" : "30vw",background:colors.signin  }}
-          onChange={(e) => {
-            setPhoneNum(e.target.value);
-          }}
-          
-        />
-       </div>
-       <div>
-       {/* <p
+            <TextField
+              id="outlined-basic"
+              label="Mobile Number "
+              placeholder="Enter your mobile number"
+              variant="standard"
+              InputLabelProps={{
+                style: { color: colors.primary },
+              }}
+              
+              sx={{
+                width: Mq.sm ? "70vw" : "20vw",
+                // background: colors.signin,
+                
+              }}
+              onChange={(e) => {
+                setPhoneNum(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            {/* <p
               style={{
                 color:"black",
                 fontWeight: "400",
@@ -127,39 +141,45 @@ function SignIn() {
             >
               * Password
             </p> */}
-        <TextField
-          id="password"
-          hintText="Password"
-          floatingLabelText="Password"
-          type="password"
-          placeholder="Enter your password"
-          label="Password"
-          style={{ width: Mq.sm ? "70vw" : "30vw" ,background:colors.signin }}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        ></TextField>
-       </div>
-        
+            <TextField
+             variant="standard"
+              id="password"
+              hintText="Password"
+              floatingLabelText="Password"
+              type="password"
+              placeholder="Enter your password"
+              label="Password"
+              style={{
+                width: Mq.sm ? "70vw" : "20vw",
+                // background: colors.signin,
+              }}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            ></TextField>
+          </div>
 
-        <Button
-          variant="contained"
-          style={{ width: Mq.sm ? "70vw" : "30vw", background:colors.primary }}
-          onClick={() => {
-            signInUser();
-          }}
-        >
-          Sign in
-        </Button>
-        <div
-          style={{
-            display: "flex",
-            width: Mq.sm ? "80vw" : "",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* <p style={{ color: "black" }}>
+          <Button
+            variant="contained"
+            style={{
+              width: Mq.sm ? "70vw" : "20vw",
+              background: colors.primary,
+            }}
+            onClick={() => {
+              signInUser();
+            }}
+          >
+            Sign in
+          </Button>
+          <div
+            style={{
+              display: "flex",
+              width: Mq.sm ? "80vw" : "",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {/* <p style={{ color: "black" }}>
             Don't have an account ?{" "}
             <span
               style={{ color: "blue", fontWeight: "600" }}
@@ -170,11 +190,9 @@ function SignIn() {
               Signup
             </span>
           </p> */}
+          </div>
         </div>
       </div>
-
-      </div>
-    
 
       <Snackbar
         anchorOrigin={{
