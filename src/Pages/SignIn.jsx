@@ -96,7 +96,7 @@ function SignIn() {
         }}
       >
        <div>
-       <p
+       {/* <p
               style={{
                 color:"black",
                 fontWeight: "400",
@@ -104,7 +104,7 @@ function SignIn() {
               }}
             >
               * User Mobile Number
-            </p>
+            </p> */}
         <TextField
           id="outlined-basic"
           label="Mobile Number "
@@ -118,7 +118,7 @@ function SignIn() {
         />
        </div>
        <div>
-       <p
+       {/* <p
               style={{
                 color:"black",
                 fontWeight: "400",
@@ -126,7 +126,7 @@ function SignIn() {
               }}
             >
               * Password
-            </p>
+            </p> */}
         <TextField
           id="password"
           hintText="Password"

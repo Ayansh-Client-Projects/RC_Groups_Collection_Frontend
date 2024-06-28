@@ -205,7 +205,7 @@ function NewPayment(props) {
                   width: Mq.sm ? "80vw" : "30vw",
                   marginRight: Mq.sm ? "0" : "5vw",
                   marginBottom: Mq.sm ? "2vh" : "",
-                  background: colors.secondaryBackground,
+                  background: colors.signin,
                   //  textAnchor:"start"
                 }}
                 label="Choose Retailer"
@@ -238,7 +238,7 @@ function NewPayment(props) {
                   <DatePicker
                     sx={{
                       width: Mq.sm ? "80vw" : "30vw",
-                      background: colors.secondaryBackground,
+                      background: colors.signin,
                     }}
                     components={{ openPickerIcon: BsCalendar2Date }}
                     onChange={(e) => {
@@ -281,7 +281,7 @@ function NewPayment(props) {
               // variant="filled"
               style={{
                 // background:"#F0F0F3",
-                background: colors.secondaryBackground,
+               background: colors.signin,
                 // borderRadius:"15px",
                 border: "none",
                 marginTop: "0vh",
@@ -314,7 +314,7 @@ function NewPayment(props) {
               style={{
                 // marginRight: Mq.sm?"0vw":"5vw",
                 width: Mq.sm ? "80vw" : "30vw",
-                background: colors.secondaryBackground,
+                background: colors.signin,
               }}
               onChange={(e) => {
                 setamount(e.target.value);
@@ -354,7 +354,7 @@ function NewPayment(props) {
                 value={payment}
                 style={{
                   width: Mq.sm ? "80vw" : "30vw",
-                  background: colors.secondaryBackground,
+                  background: colors.signin,
                   
                 }}
                 label="Name"
@@ -390,7 +390,7 @@ function NewPayment(props) {
                   marginTop: Mq.sm ? "2vh" : "0",
                   marginBottom: Mq.sm ? "2vh" : "0vh",
                   // marginLeft: Mq.sm ? "0vw" : "5vw ,
-                  background: colors.secondaryBackground,
+                  background: colors.signin,
                 }}
                 onChange={(e) => {
                   setUpiId(e.target.value);
@@ -421,7 +421,7 @@ function NewPayment(props) {
                   width: Mq.sm ? "80vw" : "30vw",
                   marginTop: Mq.sm ? "2vh" : "0",
                   marginLeft: Mq.sm ? "0vw" : "5vw",
-                  background: colors.secondaryBackground,
+                  background: colors.signin,
                 }}
                 onChange={(e) => {
                   setcheqno(e.target.value);
@@ -466,7 +466,7 @@ function NewPayment(props) {
                   width: Mq.sm ? "80vw" : "30vw",
                   marginTop: Mq.sm ? "0vh" : "0",
                   marginRight: Mq.sm ? "0" : "5vw",
-                  background: colors.secondaryBackground,
+                  background: colors.signin,
                 }}
                 onChange={(e) => {
                   setBank(e.target.value);
@@ -493,7 +493,7 @@ function NewPayment(props) {
                       sx={{
                         width: Mq.sm ? "80vw" : "30vw",
                         marginTop: Mq.sm ? "0vh" : "0",
-                        background: colors.secondaryBackground,
+                        background: colors.signin,
                       }}
                       format="DD-MM-YYYY"
                       onChange={(e) => {

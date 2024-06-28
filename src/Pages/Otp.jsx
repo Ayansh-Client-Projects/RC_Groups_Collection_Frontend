@@ -274,7 +274,7 @@ function Otp() {
               // height:Mq.sm? "10vh":"50vh"
             }}
           >
-            <h4 style={{ color: "black", marginRight: Mq.sm ? "0px" : "40px" }}>
+            <h4 style={{ color: "black", marginRight: Mq.sm ? "0px" : "29px" }}>
               Don't receive the code ?
             </h4>
             <Button
@@ -284,7 +284,6 @@ function Otp() {
                 width: "130px",
                 marginTop: Mq.sm ? "3vh" : "0vh",
                 color: "white",
-                boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
                 background:colors.primary,
 
               }}
