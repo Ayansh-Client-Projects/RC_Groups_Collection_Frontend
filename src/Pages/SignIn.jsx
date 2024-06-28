@@ -13,7 +13,7 @@ import SigninLogo from "../assets/bg.png";
 function SignIn() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
-    lg: useMediaQuery("(min-width:1001px)"),
+    lg: useMediaQuery("(min-width:1000px)"),
   };
   const navigate = useNavigate();
   // function navigateToSignUp() {
@@ -64,7 +64,7 @@ function SignIn() {
       style={{
         height: "100vh",
         width: "100vw",
-        background: colors.secondaryBackground,
+        background: colors.background,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -79,8 +79,9 @@ function SignIn() {
       <div
         style={{
           height: Mq.sm ? "100%" : "90%",
-          width: Mq.sm ? "100%" : "26%",
+          width: Mq.sm ? "100%" : Mq.lg ? "30vw": "50%" ,
           borderRadius: "12px",
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 10px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
