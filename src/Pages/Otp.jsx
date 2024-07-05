@@ -49,7 +49,6 @@ function Otp() {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-        "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
       },
     };
     axios
@@ -59,6 +58,7 @@ function Otp() {
           let data = response.data.PayLoad["message"];
           setErrorMsg(data);
           setOpenSnackbar(true);
+          navigate("/home/paymenthistory");
         } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
@@ -96,6 +96,54 @@ function Otp() {
     }
   }
 
+  const [timeLeft, setTimeLeft] = useState(120);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setIsButtonDisabled(false);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const handleResendOtp = () => {
+    // Logic for resending OTP
+    const transactionId = searchParams.get("transactionId");
+    let data = {
+      smsTxnId: transactionId,
+    };
+    let token = LocalStorage.getToken();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .post(ApiServices.RESEND_OTP, data, config)
+      .then((response) => {
+        if (response.status == 200) {
+          let data = response.data.PayLoad["message"];
+          setErrorMsg(data);
+          setOpenSnackbar(true);
+          navigate("/home/paymenthistory");
+        } else {
+          setErrorMsg("Something Went Wrong");
+          setOpenSnackbar(true);
+        }
+      })
+
+      .catch((error) => {
+        handleApiError(error.response);
+      });
+  };
+
   return (
     <div
       style={{
@@ -106,7 +154,7 @@ function Otp() {
         alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
-        background:colors.background,
+        background: colors.background,
       }}
     >
       <div
@@ -119,13 +167,14 @@ function Otp() {
           alignItems: "center",
           justifyContent: "flex-start",
           backgroundColor: colors.primary,
-         
         }}
       >
-        
-        <IoMdArrowRoundBack style={{height:"25px",width:"30px",marginLeft:"10px"}}   onClick={(e) => {
+        <IoMdArrowRoundBack
+          style={{ height: "25px", width: "30px", marginLeft: "10px" }}
+          onClick={(e) => {
             back(e.target.value);
-          }}  />
+          }}
+        />
       </div>
 
       <div
@@ -134,7 +183,7 @@ function Otp() {
           // background:"black",
           // border: Mq.sm ? "0px" : "2px solid #D8D8D8",
           // boxShadow: "rgba(0, 0, 0, 2) 0px 2px 5px",
-          background:colors.secondaryBackground,
+          background: colors.secondaryBackground,
           marginTop: "10vh",
           borderRadius: "10px",
           height: Mq.sm ? "60vh" : "50vh",
@@ -155,7 +204,7 @@ function Otp() {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            background:colors.primary,
+            background: colors.primary,
             borderTopLeftRadius: "10px",
             borderTopRightRadius: "10px",
           }}
@@ -167,7 +216,7 @@ function Otp() {
               justifyContent: "center",
               width: Mq.sm ? "80vw" : "55vw",
               textAlign: "center",
-             
+
               marginTop: "10px",
               color: "white",
               fontWeight: "800",
@@ -189,15 +238,13 @@ function Otp() {
               flexDirection: "column",
               // color: "white",
               color: "black",
-          background:colors.secondaryBackground,
-            
-              
-             
+              background: colors.secondaryBackground,
             }}
           >
             <p style={{ margin: "15px" }}>
               Enter the code we just sent on your Mobile{" "}
-              <span style={{ color: "black", }}>+91{phoneNum}</span>
+              <span style={{ color: "black" }}>+91{phoneNum}</span>. The code is
+              only valid for 10 mins.
             </p>{" "}
           </p>
         </div>
@@ -227,7 +274,7 @@ function Otp() {
             }}
             value={otp}
             onChange={setOtp}
-            numInputs={4}
+            numInputs={6}
             renderSeparator={<span>-</span>}
             renderInput={(props) => <input {...props} />}
           />
@@ -237,12 +284,10 @@ function Otp() {
               width: "130px",
               marginLeft: Mq.sm ? "0px" : "50px",
               color: "white",
-              background:colors.primary,
-         
-             
+              background: colors.primary,
             }}
-             variant="contained"
-              color="primary"
+            variant="contained"
+            color="primary"
             onClick={() => {
               verification();
             }}
@@ -258,8 +303,6 @@ function Otp() {
             justifyContent: "center",
             flexDirection: "column",
             marginTop: "5vh",
-     
-
             // paddingBottom: "30px",
             // background: "black",
           }}
@@ -280,16 +323,17 @@ function Otp() {
             <Button
               variant="contained"
               color="primary"
+              onClick={handleResendOtp}
+              disabled={isButtonDisabled}
               sx={{
                 width: "130px",
                 marginTop: Mq.sm ? "3vh" : "0vh",
                 color: "white",
                 boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3.5px",
-                background:colors.primary,
-
+                background: colors.primary,
               }}
             >
-              Resend
+              {isButtonDisabled ? `Resend OTP in ${timeLeft}s` : "Resend OTP"}
             </Button>
           </div>
         </div>

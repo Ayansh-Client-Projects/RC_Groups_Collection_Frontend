@@ -45,18 +45,18 @@ function PaymentHistory(props) {
       if (response.status == 200) {
         let data = response.data;
         let payload = data.PayLoad;
-        let transactions = payload.transactions;
+        let transactions = payload.allTransactions;
         let tableRow = [];
         transactions.map((value, index) => {
           tableRow.push({
             id: index + 1,
-            dealerName: value.dealerId.partyName,
-            invoice: value.invoice,
+            dealerName: value.dealerName,
+            invoice: value.invoiceNumber,
             invoiceDate: value.invoiceDate,
             mode: value.mode,
             status: value.status,
             otpVerified:
-              value.otpVerified == true ? "Verified" : "Unverified",
+              value.verified == true ? "Verified" : "Unverified",
             amount: value.amount,
           });
         });
@@ -123,7 +123,7 @@ function PaymentHistory(props) {
       type: "number",
       width: 150,
       editable: false,
-    },
+    }
   ];
   const [rows, setRows] = useState([]);
 
@@ -433,7 +433,7 @@ function PaymentHistory(props) {
                           label="Choose Payment Status"
                           onChange={handlePaymentStatus}
                         >
-                          <MenuItem value={"sent"}>SENT</MenuItem>
+                          <MenuItem value={"completed"}>COMPLETED</MenuItem>
                           <MenuItem value={"pending"}>PENDING</MenuItem>
                           <MenuItem value={"failed"}>FAILED</MenuItem>
                         </Select>

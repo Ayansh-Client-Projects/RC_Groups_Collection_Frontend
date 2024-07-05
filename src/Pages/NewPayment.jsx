@@ -106,7 +106,7 @@ function NewPayment(props) {
       .post(ApiServices.SEND_MSG, data, config)
       .then(async (response) => {
         if (response.status == 200) {
-          let transactionId = response.data.PayLoad.transactionId;
+          let transactionId = response.data.PayLoad.smsId;
           navigate(`/otp?transactionId=${transactionId}`);
         } else {
           setErrorMsg("Something Went Wrong");

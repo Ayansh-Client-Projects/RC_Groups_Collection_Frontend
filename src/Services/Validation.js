@@ -106,7 +106,7 @@ class Validation {
   }
 
   static validateOTP(otp) {
-    const otpRegex = /^\d{4}$/;
+    const otpRegex = /^\d{6}$/;
     if (otpRegex.test(otp)) {
       return {
         valid: true,
@@ -115,7 +115,7 @@ class Validation {
     } else {
       return {
         valid: false,
-        message: "OTP must be exactly 4 digits.",
+        message: "OTP must be exactly 6 digits.",
       };
     }
   }
