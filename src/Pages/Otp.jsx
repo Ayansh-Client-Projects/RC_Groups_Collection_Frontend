@@ -16,6 +16,9 @@ function Otp() {
   const [phoneNum, setphoneNum] = useState();
   const [errorMsg, setErrorMsg] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [isResendButtonDisabled, setIsResendButtonDisabled] = useState(true);
+  const [isVerifyButtonDisabled, setIsVerifyButtonDisabled] = useState(false);
   // const [successMsg, setSuccessMsg] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const Mq = {
@@ -44,6 +47,7 @@ function Otp() {
       otp: otp,
       transactionId: transactionId,
     };
+    setIsVerifyButtonDisabled(true);
     let token = LocalStorage.getToken();
     const config = {
       headers: {
@@ -67,6 +71,8 @@ function Otp() {
 
       .catch((error) => {
         handleApiError(error.response);
+      }).finally(() => {
+        setIsVerifyButtonDisabled(false);
       });
   }
 
@@ -96,12 +102,9 @@ function Otp() {
     }
   }
 
-  const [timeLeft, setTimeLeft] = useState(120);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
   useEffect(() => {
     if (timeLeft === 0) {
-      setIsButtonDisabled(false);
+      setIsResendButtonDisabled(false);
       return;
     }
 
@@ -291,6 +294,7 @@ function Otp() {
             onClick={() => {
               verification();
             }}
+            disabled={isVerifyButtonDisabled || otp.length < 6}
           >
             Verify OTP
           </Button>
@@ -324,7 +328,7 @@ function Otp() {
               variant="contained"
               color="primary"
               onClick={handleResendOtp}
-              disabled={isButtonDisabled}
+              disabled={isResendButtonDisabled}
               sx={{
                 width: "130px",
                 marginTop: Mq.sm ? "3vh" : "0vh",
@@ -333,7 +337,7 @@ function Otp() {
                 background: colors.primary,
               }}
             >
-              {isButtonDisabled ? `Resend OTP in ${timeLeft}s` : "Resend OTP"}
+              {isResendButtonDisabled ? `Resend OTP in ${timeLeft}s` : "Resend OTP"}
             </Button>
           </div>
         </div>

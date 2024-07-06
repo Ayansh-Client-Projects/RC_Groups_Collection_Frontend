@@ -49,7 +49,7 @@ function PaymentHistory(props) {
         let tableRow = [];
         transactions.map((value, index) => {
           tableRow.push({
-            id: index + 1,
+            id: value.transactionId,
             dealerName: value.dealerName,
             invoice: value.invoiceNumber,
             invoiceDate: value.invoiceDate,
