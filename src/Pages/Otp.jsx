@@ -11,14 +11,15 @@ import axios from "axios";
 import ApiServices from "../Services/Api.js";
 import colors from "../Utility/colors.js";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { useLoading } from "../Utility/customHooks.jsx";
 function Otp() {
   const [otp, setOtp] = useState("");
   const [phoneNum, setphoneNum] = useState();
   const [errorMsg, setErrorMsg] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(60);
   const [isResendButtonDisabled, setIsResendButtonDisabled] = useState(true);
-  const [isVerifyButtonDisabled, setIsVerifyButtonDisabled] = useState(false);
+  const { setLoading } = useLoading();
   // const [successMsg, setSuccessMsg] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const Mq = {
@@ -47,7 +48,6 @@ function Otp() {
       otp: otp,
       transactionId: transactionId,
     };
-    setIsVerifyButtonDisabled(true);
     let token = LocalStorage.getToken();
     const config = {
       headers: {
@@ -55,6 +55,7 @@ function Otp() {
         "Content-Type": "application/json",
       },
     };
+    setLoading(true);
     axios
       .post(ApiServices.VRF_OTP, data, config)
       .then((response) => {
@@ -71,8 +72,9 @@ function Otp() {
 
       .catch((error) => {
         handleApiError(error.response);
-      }).finally(() => {
-        setIsVerifyButtonDisabled(false);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -128,6 +130,7 @@ function Otp() {
         "Content-Type": "application/json",
       },
     };
+    setLoading(true);
     axios
       .post(ApiServices.RESEND_OTP, data, config)
       .then((response) => {
@@ -144,6 +147,9 @@ function Otp() {
 
       .catch((error) => {
         handleApiError(error.response);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -294,7 +300,7 @@ function Otp() {
             onClick={() => {
               verification();
             }}
-            disabled={isVerifyButtonDisabled || otp.length < 6}
+            disabled={otp.length < 6}
           >
             Verify OTP
           </Button>
@@ -337,7 +343,9 @@ function Otp() {
                 background: colors.primary,
               }}
             >
-              {isResendButtonDisabled ? `Resend OTP in ${timeLeft}s` : "Resend OTP"}
+              {isResendButtonDisabled
+                ? `Resend OTP in ${timeLeft}s`
+                : "Resend OTP"}
             </Button>
           </div>
         </div>

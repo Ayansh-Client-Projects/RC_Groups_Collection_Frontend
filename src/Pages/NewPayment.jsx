@@ -19,6 +19,7 @@ import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import Validation from "../Services/Validation";
 import colors from "../Utility/colors.js";
+import { useLoading } from "../Utility/customHooks.jsx";
 function NewPayment(props) {
   const [retailer, setRetailer] = React.useState("");
   const [payment, setPayment] = React.useState("");
@@ -31,8 +32,9 @@ function NewPayment(props) {
   const [bankname, setBank] = useState("");
   const [cheqdate, setCheqDate] = useState("");
   const [invdate, setInvDate] = useState("");
+  const {setLoading} = useLoading();
 
- let retailers = props.retailers
+  let retailers = props.retailers;
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const Mq = {
@@ -93,6 +95,7 @@ function NewPayment(props) {
     return data;
   }
   function sendMessageApiCall() {
+    setLoading(true);
     let data = getFinalUserData();
     console.log(data);
     let token = LocalStorage.getToken();
@@ -116,6 +119,9 @@ function NewPayment(props) {
 
       .catch((error) => {
         handleApiError(error.response);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -171,7 +177,7 @@ function NewPayment(props) {
           // background:"white",
           // border: Mq.sm ? "0px" : "2px solid white",
           // boxShadow: "rgba(0, 0, 0, 2) 0px 0px 3px",
-          // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px", 
+          // boxShadow: "rgba(3, 102, 214, 0.3) 0px 0px 0px 5px",
           // justifyContent: "center",
         }}
       >
@@ -212,7 +218,7 @@ function NewPayment(props) {
                 onChange={handleChange}
               >
                 {retailers.map((value) => (
-                  <MenuItem value={value.dealerId}>{value.dealerName}</MenuItem>
+                  <MenuItem value={value.dealerId} key={value.dealerId}>{value.dealerName}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -287,7 +293,6 @@ function NewPayment(props) {
                 marginTop: "0vh",
                 marginRight: Mq.sm ? "0vw" : "5vw",
                 width: Mq.sm ? "80vw" : "30vw",
-
               }}
               onChange={(e) => {
                 setinvoiceNumber(e.target.value);
@@ -331,7 +336,7 @@ function NewPayment(props) {
             // // justifyContent: "center",
             // alignItems: "center",
             // background:"black",
-            
+
             flexDirection: Mq.sm ? "column" : "row",
           }}
         >
@@ -355,7 +360,6 @@ function NewPayment(props) {
                 style={{
                   width: Mq.sm ? "80vw" : "30vw",
                   background: colors.secondaryBackground,
-                  
                 }}
                 label="Name"
                 onChange={paymentMode}
@@ -367,7 +371,7 @@ function NewPayment(props) {
             </FormControl>
           </Box>
           {payment.toLowerCase() == "online" ? (
-            <div style={{ marginLeft: Mq.sm ? "0vw" : "5vw"}}>
+            <div style={{ marginLeft: Mq.sm ? "0vw" : "5vw" }}>
               <p
                 style={{
                   color: "black",
@@ -386,7 +390,7 @@ function NewPayment(props) {
                 // placeholder=""
                 variant="outlined"
                 style={{
-                width: Mq.sm ? "80vw" : "30vw",
+                  width: Mq.sm ? "80vw" : "30vw",
                   marginTop: Mq.sm ? "2vh" : "0",
                   marginBottom: Mq.sm ? "2vh" : "0vh",
                   // marginLeft: Mq.sm ? "0vw" : "5vw ,

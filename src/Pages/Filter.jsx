@@ -10,6 +10,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import React, { useState } from "react";
 import colors from "../Utility/colors.js";
+import { useLoading } from "../Utility/customHooks.jsx";
 function Filter() {
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
@@ -23,7 +24,6 @@ function Filter() {
   const [isSent, setIsSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [dateFilter, setdateFilter] = useState(false);
-
   const handleDealer = (event) => {
     setDealer(event.target.value);
   };

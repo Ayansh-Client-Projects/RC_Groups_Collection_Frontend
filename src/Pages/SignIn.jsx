@@ -10,6 +10,7 @@ import axios from "axios";
 import ApiServices from "../Services/Api.js";
 import StoreApi from "../Services/LocalStorage.js";
 import colors from "../Utility/colors.js";
+import { useLoading } from "../Utility/customHooks.jsx";
 function SignIn() {
   const Mq = {
     sm: useMediaQuery("(max-width:600px)"),
@@ -24,6 +25,7 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const { setLoading } = useLoading();
 
   function signInUser() {
     let result = Validation.signInValidation(phoneNum, password);
@@ -37,6 +39,7 @@ function SignIn() {
   }
 
   function signInUserApiCall() {
+    setLoading(true);
     axios
       .post( ApiServices.LOGIN_URL,{
         mobileNumber: phoneNum,
@@ -57,6 +60,8 @@ function SignIn() {
       .catch((error) => {
         setErrorMsg("Something Went Wrong");
         setOpenSnackbar(true);
+      }).finally(() => {
+        setLoading(false);
       });
   }
 

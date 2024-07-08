@@ -9,12 +9,20 @@ import NewPayment from "./Pages/NewPayment.jsx";
 import PaymentHistory from "./Pages/paymentHistory.jsx";
 import "./index.css";
 import "./App.css";
-
+import { useLoading } from "./Utility/customHooks.jsx";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 function App() {
   let isLoggedIn = false;
+  const { loading } = useLoading();
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Routes>
         <Route
           path="/"
@@ -23,9 +31,9 @@ function App() {
         <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/home" element={<Home />}>
           <Route path="newpayment" element={<NewPayment />}></Route>
-          <Route path="paymenthistory" element={<PaymentHistory />}></Route>     
+          <Route path="paymenthistory" element={<PaymentHistory />}></Route>
         </Route>
-        
+
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/filter" element={<Filter />}></Route>
         <Route path="/otp" element={<OTP />}></Route>

@@ -17,9 +17,11 @@ import colors from "../Utility/colors.js";
 import NewPayment from "./NewPayment.jsx";
 import axios from "axios";
 import PaymentHistory from "./paymentHistory.jsx";
+import { useLoading } from "../Utility/customHooks.jsx";
 
 function Home() {
   const [retailers, setRetailers] = React.useState([]);
+  const {setLoading} = useLoading();
 
   useEffect(() => {
     let token = LocalStorage.getToken();
@@ -148,9 +150,10 @@ function Home() {
   }
 
   function logOut() {
+    setLoading(true);
     navigate("/");
     LocalStorage.removeToken();
-    console.log("hi");
+    setLoading(false);
   }
 
   return (

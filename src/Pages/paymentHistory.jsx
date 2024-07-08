@@ -20,27 +20,26 @@ import ApiServices from "../Services/Api.js";
 import LocalStorage from "../Services/LocalStorage.js";
 import Validation from "../Services/Validation";
 import colors from "../Utility/colors";
+import { useLoading } from "../Utility/customHooks.jsx";
 
 function PaymentHistory(props) {
+  const { setLoading } = useLoading();
   const Mq = {
     sm: useMediaQuery("(max-width:768px)"),
     lg: useMediaQuery("(min-width:770px)"),
   };
-  
+
   async function getAllTransactions(params) {
     let token = LocalStorage.getToken();
     try {
       let getallTransaction_url = ApiServices.GETALLTRANSACTIONS;
-      const response = await axios.get(
-        getallTransaction_url,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-           params: params 
+      setLoading(true);
+      const response = await axios.get(getallTransaction_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-       
-      );
+        params: params,
+      });
 
       if (response.status == 200) {
         let data = response.data;
@@ -55,8 +54,7 @@ function PaymentHistory(props) {
             invoiceDate: value.invoiceDate,
             mode: value.mode,
             status: value.status,
-            otpVerified:
-              value.verified == true ? "Verified" : "Unverified",
+            otpVerified: value.verified == true ? "Verified" : "Unverified",
             amount: value.amount,
           });
         });
@@ -65,6 +63,8 @@ function PaymentHistory(props) {
       }
     } catch (error) {
       console.log("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   }
   useEffect(() => {
@@ -123,7 +123,7 @@ function PaymentHistory(props) {
       type: "number",
       width: 150,
       editable: false,
-    }
+    },
   ];
   const [rows, setRows] = useState([]);
 
@@ -165,50 +165,48 @@ function PaymentHistory(props) {
     setOtpVerified(event.target.value);
   };
 
- 
- function applyFilter() {
-    
-    let newParams= {}
-    if(isChecked==true && dealer!=""){
-      newParams.dealerId = dealer
+  function applyFilter() {
+    let newParams = {};
+    if (isChecked == true && dealer != "") {
+      newParams.dealerId = dealer;
+    } else {
+      setIsChecked(false);
     }
-    else {
-      setIsChecked(false)
-    }
-    if(isSent==true){
+    if (isSent == true) {
       let result1 = Validation.validatePaymentStatus(paymentStatus);
-    if (result1.valid == true) {
-      
-      newParams.status = paymentStatus
+      if (result1.valid == true) {
+        newParams.status = paymentStatus;
+      } else {
+        setIsSent(false);
+      }
     }
-    else {
-      setIsSent(false)
-    }
-    }
-    if(isVerified==true){
+    if (isVerified == true) {
       let result2 = Validation.validateOTPVerificationStatus(otpVerified);
       if (result2.valid == true) {
-
-        newParams.otpVerified = otpVerified
-      }
-      else {
-        setIsVerified(false)
+        newParams.otpVerified = otpVerified;
+      } else {
+        setIsVerified(false);
       }
     }
-    if(isDateFilter==true){
+    if (isDateFilter == true) {
       let result3 = Validation.validateDate(todate);
-      if (result3.valid == true) {newParams.toDate = todate}
+      if (result3.valid == true) {
+        newParams.toDate = todate;
+      }
       let result4 = Validation.validateDate(fromdate);
-      if (result4.valid == true) {newParams.fromDate = fromdate}  
+      if (result4.valid == true) {
+        newParams.fromDate = fromdate;
+      }
 
       if (result3.valid == false && result4.valid == false) {
-        setisDateFilter(false)
+        setisDateFilter(false);
       }
     }
 
-  if(newParams!={})
-    {getAllTransactions(newParams)}
-    handleCloseFilter()
+    if (newParams != {}) {
+      getAllTransactions(newParams);
+    }
+    handleCloseFilter();
   }
 
   return (
@@ -235,18 +233,17 @@ function PaymentHistory(props) {
               marginTop: "2vh",
               borderTopLeftRadius: "10px",
               borderTopRightRadius: "10px",
-              justifyContent:Mq.sm ? "flex-start":"flex-end"
+              justifyContent: Mq.sm ? "flex-start" : "flex-end",
             }}
           >
             <Button
               variant="contained"
               style={{
-                marginLeft: Mq.sm ?"2vw":"0vw",
-                marginRight: Mq.sm ?"0vw":"2vw",
+                marginLeft: Mq.sm ? "2vw" : "0vw",
+                marginRight: Mq.sm ? "0vw" : "2vw",
                 marginBottom: "2vh",
                 marginTop: "2vh",
-                background :colors.primary ,
-                
+                background: colors.primary,
               }}
               // onClick={handleClickOpenFilter}
               onClick={() => {
@@ -344,10 +341,10 @@ function PaymentHistory(props) {
                   </span>
                 </div>
                 {isChecked == true ? (
-                  <div className="DealerName" >
+                  <div className="DealerName">
                     <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label" >
+                        <InputLabel id="demo-simple-select-label">
                           Dealer Name
                         </InputLabel>
                         <Select
@@ -469,7 +466,6 @@ function PaymentHistory(props) {
                       height: "17px",
                       width: "17px",
                       marginRight: "10px",
-                      
                     }}
                     checked={isVerified}
                     onChange={(e) => setIsVerified(e.target.checked)}
@@ -480,7 +476,7 @@ function PaymentHistory(props) {
                 </div>
                 {isVerified == true ? (
                   <div className="Otp Verified">
-                    <Box sx={{   width: Mq.sm ? "65vw" : "20vw", }}>
+                    <Box sx={{ width: Mq.sm ? "65vw" : "20vw" }}>
                       <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">
                           Otp Verification Status
@@ -495,7 +491,6 @@ function PaymentHistory(props) {
                             marginBottom: Mq.sm ? "2vh" : "",
                             background: colors.secondaryBackground,
                             //  textAnchor:"start"
-                            
                           }}
                           label="Choose Otp Verification Status"
                           onChange={handleOtpVerified}
@@ -566,13 +561,18 @@ function PaymentHistory(props) {
                         sx={{
                           marginBottom: "2vh",
                           background: colors.secondaryBackground,
-                            width: Mq.sm ? "65vw" : "20vw",
-                          
+                          width: Mq.sm ? "65vw" : "20vw",
                         }}
                       />
                     </LocalizationProvider>
                     {/* from date */}
-                    <span style={{ fontWeight: "400", marginBottom: "10px",width:"65vw" }}>
+                    <span
+                      style={{
+                        fontWeight: "400",
+                        marginBottom: "10px",
+                        width: "65vw",
+                      }}
+                    >
                       * From-Date
                     </span>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -580,7 +580,10 @@ function PaymentHistory(props) {
                         onChange={(e) => {
                           setFromDate(e.format("YYYY-MM-DD"));
                         }}
-                        sx={{ background: colors.secondaryBackground , width: Mq.sm ? "65vw" : "20vw",}}
+                        sx={{
+                          background: colors.secondaryBackground,
+                          width: Mq.sm ? "65vw" : "20vw",
+                        }}
                       />
                     </LocalizationProvider>
                   </div>
