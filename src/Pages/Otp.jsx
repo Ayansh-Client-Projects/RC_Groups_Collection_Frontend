@@ -1,16 +1,15 @@
 import { useMediaQuery } from "@mui/material";
 import Button from "@mui/material/Button";
-import React, { useState, useEffect } from "react";
-import OtpInput from "react-otp-input";
-import Validation from "../Services/Validation";
 import Snackbar from "@mui/material/Snackbar";
-import { useNavigate } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
-import LocalStorage from "../Services/LocalStorage.js";
 import axios from "axios";
-import ApiServices from "../Services/Api.js";
-import colors from "../Utility/colors.js";
+import React, { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import OtpInput from "react-otp-input";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import ApiServices from "../Services/Api.js";
+import LocalStorage from "../Services/LocalStorage.js";
+import Validation from "../Services/Validation";
+import colors from "../Utility/colors.js";
 import { useLoading } from "../Utility/customHooks.jsx";
 function Otp() {
   const [otp, setOtp] = useState("");
@@ -29,9 +28,9 @@ function Otp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let data = LocalStorage.getMobileNumber();
+    let data = searchParams.get("phone");
     setphoneNum(data);
-  }, []);
+  }, [searchParams]);
   function verification() {
     let result = Validation.verifyOtp(otp);
     if (result.valid == false) {

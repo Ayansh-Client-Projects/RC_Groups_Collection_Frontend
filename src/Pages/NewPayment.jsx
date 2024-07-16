@@ -32,9 +32,19 @@ function NewPayment(props) {
   const [bankname, setBank] = useState("");
   const [cheqdate, setCheqDate] = useState("");
   const [invdate, setInvDate] = useState("");
-  const {setLoading} = useLoading();
+  const { setLoading } = useLoading();
 
   let retailers = props.retailers;
+
+  function getRetailersPhone(dealerId) {
+    let phone = "";
+    retailers.forEach((dealer) => {
+      if (dealer.dealerId == dealerId) {
+        phone = dealer.dealerMobileNumer;
+      }
+    });
+    return phone;
+  }
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const Mq = {
@@ -110,13 +120,13 @@ function NewPayment(props) {
       .then(async (response) => {
         if (response.status == 200) {
           let transactionId = response.data.PayLoad.smsId;
-          navigate(`/otp?transactionId=${transactionId}`);
+          let phone = getRetailersPhone(retailer);
+          navigate(`/otp?transactionId=${transactionId}&phone=${phone}`);
         } else {
           setErrorMsg("Something Went Wrong");
           setOpenSnackbar(true);
         }
       })
-
       .catch((error) => {
         handleApiError(error.response);
       })
@@ -218,7 +228,9 @@ function NewPayment(props) {
                 onChange={handleChange}
               >
                 {retailers.map((value) => (
-                  <MenuItem value={value.dealerId} key={value.dealerId}>{value.dealerName}</MenuItem>
+                  <MenuItem value={value.dealerId} key={value.dealerId}>
+                    {value.dealerName}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
